@@ -21,5 +21,7 @@ class UserMiddleware:
     def getAllGamesParticipating(cls, user): 
         return GamePlayer.objects.values('game', player=user)
     
-    
-    
+    # Returns the ranks, correspondent to the game of a user 
+    @classmethod
+    def getRankOfPlayer(cls, user): 
+        return GamePlayer.objects.values('game', 'rank', player=user)

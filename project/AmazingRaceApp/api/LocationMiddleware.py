@@ -1,4 +1,4 @@
-from ..models import Location
+from ..models import Location, LocationUser, LocationGame
 
 # API for the Location Database 
 class LocationMiddleware: 
@@ -28,3 +28,8 @@ class LocationMiddleware:
     @classmethod
     def getLatitude(cls, location): 
         return Location.objects.values('latitude', location=location)
+
+    @classmethod
+    def getUsersInLocation(cls, location): 
+        return LocationUser.objects.filter(location=location) 
+    
