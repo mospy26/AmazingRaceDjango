@@ -1,0 +1,74 @@
+[
+{
+    "model": "AmazingRaceApp.gameplayer",
+    "pk": 1,
+    "fields": {
+        "rank": 1,
+        "game": 1,
+        "player": 7
+    }
+},
+{
+    "model": "AmazingRaceApp.gameplayer",
+    "pk": 2,
+    "fields": {
+        "rank": 2,
+        "game": 1,
+        "player": 3
+    }
+},
+{
+    "model": "AmazingRaceApp.gameplayer",
+    "pk": 3,
+    "fields": {
+        "rank": 3,
+        "game": 1,
+        "player": 2
+    }
+},
+{
+    "model": "AmazingRaceApp.gameplayer",
+    "pk": 4,
+    "fields": {
+        "rank": 4,
+        "game": 1,
+        "player": 5
+    }
+},
+{
+    "model": "AmazingRaceApp.gameplayer",
+    "pk": 5,
+    "fields": {
+        "rank": 5,
+        "game": 1,
+        "player": 4
+    }
+},
+{
+    "model": "AmazingRaceApp.gameplayer",
+    "pk": 6,
+    "fields": {
+        "rank": 1,
+        "game": 3,
+        "player": 5
+    }
+},
+{
+    "model": "AmazingRaceApp.gameplayer",
+    "pk": 7,
+    "fields": {
+        "rank": 2,
+        "game": 3,
+        "player": 2
+    }
+},
+{
+    "model": "AmazingRaceApp.gameplayer",
+    "pk": 8,
+    "fields": {
+        "rank": 3,
+        "game": 3,
+        "player": 7
+    }
+}
+]
