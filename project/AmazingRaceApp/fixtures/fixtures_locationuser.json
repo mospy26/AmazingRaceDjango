@@ -1,0 +1,20 @@
+[
+{
+    "model": "AmazingRaceApp.locationuser",
+    "pk": 1,
+    "fields": {
+        "time_visited": "2019-10-02T07:59:03Z",
+        "user": 7,
+        "location": 1
+    }
+},
+{
+    "model": "AmazingRaceApp.locationuser",
+    "pk": 2,
+    "fields": {
+        "time_visited": "2019-10-02T07:59:25Z",
+        "user": 5,
+        "location": 5
+    }
+}
+]
