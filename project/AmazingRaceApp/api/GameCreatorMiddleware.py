@@ -3,7 +3,7 @@ from django.core.exceptions import ObjectDoesNotExist, EmptyResultSet
 
 import traceback
 
-from ..models import GameCreator
+from ..models import GameCreator, Game
 
 
 """ 
@@ -28,4 +28,6 @@ class GameCreatorMiddleware:
         self.current_game = current_game if current_game is None else GameCreator.objects.filter(creator=current_game)
 
     def get_created_games(self):
-        return GameCreator.objects.filter(creator=self.user)
+        game_creators = GameCreator.objects.filter(creator=self.user).values()
+        for games in game_creators:
+            yield Game.objects.get(pk=games['game_id'])
