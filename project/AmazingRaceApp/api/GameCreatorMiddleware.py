@@ -5,17 +5,15 @@ import traceback
 
 from ..models import GameCreator, Game
 
-
 """ 
 This is an API for the following tasks:
-    - for getting all Games and data of it that was created by a creator
-    -
+    - for getting all Games and data of it that was created by a creator    
 """
 
 
 class GameCreatorMiddleware:
 
-    def __init__(self, username, current_game=None):
+    def __init__(self, username):
 
         try:
             self.user = User.objects.get(username=username)
@@ -24,10 +22,26 @@ class GameCreatorMiddleware:
         except EmptyResultSet:
             print(traceback.print_exc())
 
-        self.games = GameCreator.objects.filter()
-        self.current_game = current_game if current_game is None else GameCreator.objects.filter(creator=current_game)
+        self.games = GameCreator.objects.filter(creator=self.user).values()
 
-    def get_created_games(self):
-        game_creators = GameCreator.objects.filter(creator=self.user).values()
-        for games in game_creators:
-            yield Game.objects.get(pk=games['game_id'])
+    """
+        Will return a generator of a list of games the current user has created.
+        
+        e.g. Getting the code of all games created by this user:
+            ```
+            g = GameCreatorMiddleWare(username=user)
+            for game in created_games():
+                print(g.code)
+            ```
+        Game contains:
+            - code
+            - archived (T/F)
+            - live (T/F)
+            - start_time
+            - end_time
+            - players
+    """
+
+    def created_games(self):
+        for game in self.games:
+            yield Game.objects.get(pk=game['game_id'])
