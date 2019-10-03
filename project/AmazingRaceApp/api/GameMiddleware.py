@@ -3,13 +3,14 @@ from django.db.models import Subquery
 
 from ..models import Location, Game, GamePlayer
 
+
 # API for the Game Database
 class GameMiddleware:
 
     def __init__(self, code):
         self.game = Game.objects.get(code=code)
-        self.locations = Location.objects.filter(game=self.game)
-        self.game_players = GamePlayer.objects.filter(game=self.game).order_by('rank')
+        self.locations = Location.objects.get(game=self.game)
+        self.game_players = GamePlayer.objects.filter(game=self.game).select_related('player').order_by('rank')
         self.users = User.objects.filter(id__in=Subquery(self.game_players.values('player')))
 
     def get_all_players(self):
@@ -22,5 +23,4 @@ class GameMiddleware:
     # rank is an integer
     def game_leaderboard(self):
         for player in self.game_players:
-            user = User.objects.get(pk=player.player.id)
-            yield (player.rank, user.first_name + " " + user.last_name)
+            yield (player.rank, player.player.first_name + " " + player.player.last_name)
