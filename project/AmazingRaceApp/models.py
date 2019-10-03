@@ -9,6 +9,7 @@ class ProfilePictures(models.Model):
 
 
 class Game(models.Model):
+    title = models.CharField(max_length=50)
     archived = models.BooleanField()
     code = models.TextField(max_length=100)
     live = models.BooleanField()
