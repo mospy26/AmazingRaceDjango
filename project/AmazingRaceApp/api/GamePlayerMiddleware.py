@@ -9,26 +9,7 @@ from ..models import ProfilePictures, GamePlayer, Game, Location, LocationUser, 
 # API for getting all locations in a game 
 class GamePlayerMiddleware: 
 
-    def __init__(self, username):         
-<<<<<<< HEAD
-        try: 
-            self.user = User.objects.get(username=username)
-        except ObjectDoesNotExist:
-            print(traceback.print_exc())
-        except EmptyResultSet: 
-            print(traceback.print_exc())
-
-        self.games = GamePlayer.objects.filter(players=username).values()
-        # TODO: # https://stackoverflow.com/questions/9498012/how-to-display-images-from-model-in-django
-        self.profile_picture = ProfilePictures.objects.filter(user=username).get()
-
-    def get_profile_picture(self): 
-        return self.profile_picture
-
-    # Returns all the games that the user is participating in 
-    def get_all_games_participating(self): 
-        games = GamePlayer.objects.filter(player=self.user).values('game')
-=======
+    def __init__(self, username):
         self.user = User.objects.get(username=username)
 
     # TODO
@@ -47,20 +28,12 @@ class GamePlayerMiddleware:
     '''
     def retrieve_clue(self):
         games = Game.objects.filter(live=True, players=self.user)
-        
->>>>>>> backend_api_brendon
+
         for game in games: 
             locations = Location.objects.filter(game=game)
             for location in locations:
                 yield game.code, location.name, location.clues
     
-<<<<<<< HEAD
-    # Returns the ranks, correspondent to the game of a user 
-    def get_rank_of_player(self): 
-        games_rank = GamePlayer.objects.filter(player=self.user).values('game', 'rank')
-        for game in games_rank: 
-            pass 
-=======
     '''
     Gets the cursor to the table which contains 
     all the locations have been visited by the user 
@@ -144,6 +117,4 @@ class GamePlayerMiddleware:
         for i in locations: 
             no_of_visited_locations += len(LocationUser.objects.filter(user=self.user, location=i))
 
-        return no_of_visited_locations, total_locations 
-        
->>>>>>> backend_api_brendon
+        return no_of_visited_locations, total_locations
