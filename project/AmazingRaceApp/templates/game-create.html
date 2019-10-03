@@ -96,7 +96,7 @@
           <div class = "row">
             <!-- Basic Card Example -->
             
-            <div class="col-xl-2 col-md-3">
+            <div class="col-xl-3 col-md-4">
 
               <!-- Add Location box -->
               <div class="mb-4">
@@ -148,7 +148,7 @@
               
             </div>
             
-            <div class="col-xl-10 col-md-9">
+            <div class="col-xl-9 col-md-8">
               <!-- Basic Card Example -->
               <div class="card shadow mb-4">
                 <div class="card-body">
@@ -158,52 +158,71 @@
             </div>
           </div>
           
-          <!-- Table for locations (hard coded template) -->
+          <!-- Table for locations -->
           
           <div class = "row">
             <div class = "col">
               <div class="card shadow mb-4">
                 <div class="card-header py-3">
+                
                   <h6 class="m-0 font-weight-bold text-primary">Game Locations</h6>
+                  
                 </div>
                 <div class="card-body">
                   <div class="table-responsive">
-                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    
+                    <div class="row">
+                      <div class = "col-auto mr-auto">
+                      <h5> Drag table rows to reorder the game locations</h5>
+                      </div>
+                      <div class = "col-auto">
+                      <a href="#" class="btn btn-success btn-icon-split">
+                        <span class="icon text-white-50">
+                          <i class="fas fa-check"></i>
+                        </span>
+                        <span class="text">Update Location Order</span>
+                      </a>
+                      </div>
+                    </div>
+                    
+                    
+                    
+                    <table class="mt-3 table table-bordered grid" id="gameLocations" width="100%" cellspacing="0">
                       <thead>
                       <tr>
-                        <th>Position Number</th>
+                        <th class="index">Position Number</th>
                         <th>Location Name</th>
                         <th>Location Code</th>
                       </tr>
                       </thead>
                       <tbody>
                       <tr>
-                        <td>1</td>
+                        <td class="index">1</td>
                         <td>University of Sydney - Quadrangle</td>
                         <td>128445</td>
                       </tr>
                       <tr>
-                        <td>2</td>
+                        <td class="index">2</td>
                         <td>Broadway Shopping Centre</td>
                         <td>154964</td>
                       </tr>
                       <tr>
-                        <td>3</td>
+                        <td class="index">3</td>
                         <td>World Square</td>
                         <td>178539</td>
                       </tr>
                       <tr>
-                        <td>4</td>
+                        <td class="index">4</td>
                         <td>Opera House</td>
                         <td>138593</td>
                       </tr>
                       <tr>
-                        <td>5</td>
+                        <td class="index">5</td>
                         <td>Regent Place</td>
                         <td>112493</td>
                       </tr>
                       <tr>
-                        <td>6</td>
+                        <td class="index">6</td>
                         <td>Darling Harbour Bridge</td>
                         <td>176849</td>
                       </tr>
@@ -264,6 +283,34 @@
   <!-- Bootstrap core JavaScript-->
   <script src="vendor/jquery/jquery.min.js"></script>
   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  
+  <!--   https://stackoverflow.com/questions/2072848/reorder-html-table-rows-using-drag-and-drop -->
+  <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+  <script type="text/javascript" src="//code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
+    
+  <script type="text/javascript">
+    $(window).load(function(){
+      var fixHelperModified = function(e, tr) {
+        var $originals = tr.children();
+        var $helper = tr.clone();
+        $helper.children().each(function(index) {
+          $(this).width($originals.eq(index).width())
+        });
+      return $helper;
+    },
+    updateIndex = function(e, ui) {
+      $('td.index', ui.item.parent()).each(function (i) {
+        $(this).html(i + 1);
+      });
+    };
+    
+    $("#gameLocations tbody").sortable({
+      helper: fixHelperModified,
+      stop: updateIndex
+      }).disableSelection();
+    });
+
+  </script>
 
   <!-- Core plugin JavaScript-->
   <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
