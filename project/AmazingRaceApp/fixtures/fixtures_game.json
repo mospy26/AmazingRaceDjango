@@ -3,6 +3,7 @@
     "model": "AmazingRaceApp.game",
     "pk": 1,
     "fields": {
+        "title": "The amazing game",
         "archived": false,
         "code": "NZSL-JWBK",
         "live": true,
@@ -21,6 +22,7 @@
     "model": "AmazingRaceApp.game",
     "pk": 2,
     "fields": {
+        "title": "Inevitable",
         "archived": true,
         "code": "LQGY-M42U",
         "live": false,
@@ -37,6 +39,7 @@
     "model": "AmazingRaceApp.game",
     "pk": 3,
     "fields": {
+        "title": "Deloitted",
         "archived": false,
         "code": "MKOO-IL76",
         "live": true,
@@ -53,6 +56,7 @@
     "model": "AmazingRaceApp.game",
     "pk": 4,
     "fields": {
+        "title": "Canva",
         "archived": false,
         "code": "DZ7V-AC8Z",
         "live": false,
@@ -69,6 +73,7 @@
     "model": "AmazingRaceApp.game",
     "pk": 5,
     "fields": {
+        "title": "USYD race",
         "archived": false,
         "code": "HNW3-46TI",
         "live": false,
