@@ -1,28 +1,26 @@
-from django.contrib.auth.models import User 
-from django.core.exceptions import ObjectDoesNotExist, EmptyResultSet
+from django.contrib.auth.models import User
+from django.db.models import Subquery
 
-import traceback
+from ..models import Location, Game, GamePlayer
 
-from ..models import Location, LocationUser, LocationGame, Game, GamePlayer
+# API for the Game Database
+class GameMiddleware:
 
-# API for the Location Database 
-class GameMiddleware: 
+    def __init__(self, code):
+        self.game = Game.objects.get(code=code)
+        self.locations = Location.objects.filter(game=self.game)
+        self.game_players = GamePlayer.objects.filter(game=self.game).order_by('rank')
+        self.users = User.objects.filter(id__in=Subquery(self.game_players.values('player')))
 
-    def __init__(self, game): 
-        try: 
-            self.locations = Location.objects.filter(game=game)
-        except ObjectDoesNotExist: 
-            print(traceback.print_exc())
-        except EmptyResultSet: 
-            print(traceback.print_exc())
-
-        self.game_name = game
-        self.locations = Location.object.filter(game=game).values()
-        self.game_name = Game.object.filter(game=game).values()
-    
     def get_all_players(self):
-        game_players = GamePlayer.object.filter(game=self.game_name).values()
+        for user in self.users:
+            yield user
 
-        for players in game_players: 
-            pass 
-
+    # returns tuple of rank and player name
+    # note that player refers to an object encapsulating all data about him/her.
+    # and game refers to an object encapsulating all data about the game (code, title etc.)
+    # rank is an integer
+    def game_leaderboard(self):
+        for player in self.game_players:
+            user = User.objects.get(pk=player.player.id)
+            yield (player.rank, user.first_name + " " + user.last_name)

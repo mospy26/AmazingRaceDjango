@@ -11,7 +11,7 @@ class ProfilePictures(models.Model):
 class Game(models.Model):
     title = models.CharField(max_length=50)
     archived = models.BooleanField()
-    code = models.TextField(max_length=100)
+    code = models.TextField(max_length=100, unique=True)
     live = models.BooleanField()
     start_time = models.DateTimeField()
     end_time = models.DateTimeField()

@@ -11,7 +11,7 @@ class GamePlayerMiddleware:
 
     def __init__(self, username):         
         try: 
-            self.user = User.objects.get(username=user)
+            self.user = User.objects.get(username=username)
         except ObjectDoesNotExist:
             print(traceback.print_exc())
         except EmptyResultSet: 
@@ -26,12 +26,12 @@ class GamePlayerMiddleware:
 
     # Returns all the games that the user is participating in 
     def get_all_games_participating(self): 
-        games = GamePlayer.objects.filter(player=user).values('game')
+        games = GamePlayer.objects.filter(player=self.user).values('game')
         for game in games: 
             yield Game.objects.get(pk=games['game_id'])
     
     # Returns the ranks, correspondent to the game of a user 
     def get_rank_of_player(self): 
-        games_rank = GamePlayer.objects.filter(player=user).values('game', 'rank')
+        games_rank = GamePlayer.objects.filter(player=self.user).values('game', 'rank')
         for game in games_rank: 
             pass 
