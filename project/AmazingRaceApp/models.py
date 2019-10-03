@@ -1,21 +1,26 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+
 class ProfilePictures(models.Model):
     picture = models.ImageField()
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
+
 class Game(models.Model):
+    title = models.CharField(max_length=50)
     archived = models.BooleanField()
     code = models.TextField(max_length=100)
     live = models.BooleanField()
     start_time = models.DateTimeField()
     end_time = models.DateTimeField()
-    players = models.ManyToManyField(User) 
+    players = models.ManyToManyField(User)
 
-class GameCreator(models.Model): 
+
+class GameCreator(models.Model):
     game = models.ForeignKey(Game, primary_key=True, on_delete=models.CASCADE)
     creator = models.ForeignKey(User, on_delete=models.CASCADE)
+
 
 class Location(models.Model):
     name = models.TextField()
@@ -25,20 +30,23 @@ class Location(models.Model):
     code = models.TextField(max_length=100)
     game = models.ForeignKey(Game, on_delete=models.CASCADE)
 
+
 class LocationUser(models.Model):
     time_visited = models.DateTimeField()
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     location = models.ForeignKey(Location, on_delete=models.CASCADE)
 
-class LocationGame(models.Model): 
+
+class LocationGame(models.Model):
     location_order = models.TextField(max_length=300)
     game = models.ForeignKey(Game, on_delete=models.CASCADE)
 
     class Meta:
         unique_together = ('location_order', 'game')
 
-class GamePlayer(models.Model): 
-    rank = models.BigIntegerField() 
+
+class GamePlayer(models.Model):
+    rank = models.BigIntegerField()
     game = models.ForeignKey(Game, on_delete=models.CASCADE)
     player = models.ForeignKey(User, on_delete=models.CASCADE)
 
