@@ -9,7 +9,7 @@ class GameMiddleware:
 
     def __init__(self, code):
         self.game = Game.objects.get(code=code)
-        self.locations = Location.objects.get(game=self.game)
+        self.locations = Location.objects.filter(game=self.game)
         self.game_players = GamePlayer.objects.filter(game=self.game).select_related('player').order_by('rank')
         self.users = User.objects.filter(id__in=Subquery(self.game_players.values('player')))
 

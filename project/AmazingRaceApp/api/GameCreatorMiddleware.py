@@ -3,7 +3,7 @@ from django.core.exceptions import ObjectDoesNotExist, EmptyResultSet
 
 import traceback
 
-from ..models import GameCreator, Game
+from ..models import GameCreator
 
 """ 
 This is an API for the following tasks:
@@ -22,7 +22,7 @@ class GameCreatorMiddleware:
         except EmptyResultSet:
             print(traceback.print_exc())
 
-        self.games = GameCreator.objects.filter(creator=self.user).values()
+        self.games = GameCreator.objects.filter(creator=self.user).select_related('game')
 
     """
         Will return a generator of a list of games the current user has created.
@@ -44,4 +44,4 @@ class GameCreatorMiddleware:
 
     def created_games(self):
         for game in self.games:
-            yield Game.objects.get(pk=game['game_id'])
+            yield game.game
