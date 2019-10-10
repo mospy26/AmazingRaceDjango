@@ -3,7 +3,7 @@ from django.core.exceptions import ObjectDoesNotExist, EmptyResultSet
 
 import traceback 
 
-from ..models import ProfilePictures, GamePlayer, Game, Location, LocationUser, LocationGame
+from ..models import ProfilePictures, GamePlayer, Game, Location, LocationUser
 
 
 # API for getting all locations in a game 

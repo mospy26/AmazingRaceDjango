@@ -8,7 +8,8 @@
         "longitude": "33\u00b051'27.6\"S",
         "latitude": "151\u00b012'51.3\"E",
         "code": "C4PL-31E2",
-        "game": 1
+        "game": 1,
+        "order": 1
     }
 },
 {
@@ -20,7 +21,8 @@
         "longitude": "33\u00b051'35.0\"S",
         "latitude": "151\u00b012'57.0\"E",
         "code": "9HKM-HO9Q",
-        "game": 1
+        "game": 1,
+        "order": 2
     }
 },
 {
@@ -32,7 +34,8 @@
         "longitude": "33\u00b053'09.1\"S",
         "latitude": "151\u00b011'21.8\"E",
         "code": "I2MJ-H1Q1",
-        "game": 2
+        "game": 2,
+        "order": 1
     }
 },
 {
@@ -44,7 +47,8 @@
         "longitude": "33\u00b053'53.4\"S",
         "latitude": "151\u00b010'45.4\"E",
         "code": "1XQG-PEYJ",
-        "game": 2
+        "game": 2,
+        "order": 2
     }
 },
 {
@@ -56,7 +60,8 @@
         "longitude": "33\u00b049'16.4\"S",
         "latitude": "151\u00b017'57.7\"E",
         "code": "HSOX-DSNS",
-        "game": 3
+        "game": 3,
+        "order": 1
     }
 },
 {
@@ -68,7 +73,8 @@
         "longitude": "33\u00b048'03.3\"S",
         "latitude": "151\u00b017'54.7\"E",
         "code": "EGSB-99EZ",
-        "game": 3
+        "game": 3,
+        "order": 2
     }
 },
 {
@@ -80,7 +86,8 @@
         "longitude": "33\u00b055'57.1\"S",
         "latitude": "151\u00b011'19.8\"E",
         "code": "RANS-DUG1",
-        "game": 4
+        "game": 4,
+        "order": 1
     }
 },
 {
@@ -92,7 +99,8 @@
         "longitude": "33\u00b057'21.3\"S",
         "latitude": "151\u00b012'04.3\"E",
         "code": "KN0P-JZ3T",
-        "game": 4
+        "game": 4,
+        "order": 2
     }
 },
 {
@@ -104,7 +112,8 @@
         "longitude": "33\u00b043'31.8\"S",
         "latitude": "150\u00b022'20.3\"E",
         "code": "QHNH-5F5J",
-        "game": 5
+        "game": 5,
+        "order": 1
     }
 },
 {
@@ -116,7 +125,8 @@
         "longitude": "33\u00b043'12.8\"S",
         "latitude": "150\u00b021'46.3\"E",
         "code": "8QUM-8Y13",
-        "game": 5
+        "game": 5,
+        "order": 2
     }
 }
 ]

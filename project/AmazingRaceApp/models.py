@@ -31,20 +31,13 @@ class Location(models.Model):
     latitude = models.TextField()
     code = models.TextField(max_length=100)
     game = models.ForeignKey(Game, on_delete=models.CASCADE)
+    order = models.IntegerField()
 
 
 class LocationUser(models.Model):
     time_visited = models.DateTimeField()
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     location = models.ForeignKey(Location, on_delete=models.CASCADE)
-
-
-class LocationGame(models.Model):
-    location_order = models.TextField(max_length=300)
-    game = models.ForeignKey(Game, on_delete=models.CASCADE)
-
-    class Meta:
-        unique_together = ('location_order', 'game')
 
 
 class GamePlayer(models.Model):
