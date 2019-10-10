@@ -1,11 +1,12 @@
 from django.contrib.auth.models import User
 from django.db.models import Subquery
+from django.utils.datetime_safe import datetime
 
 from ..models import Location, Game, GamePlayer
 
 
 # API for the Game Database
-class GameMiddleware:
+class _GameMiddleware:
 
     def __init__(self, code):
         self.game = Game.objects.get(code=code)
@@ -39,3 +40,10 @@ class GameMiddleware:
         game_locations = Location.objects.filter(game=self.game).order_by('order')
         for location in game_locations:
             yield location
+
+    @classmethod
+    def make_live(self, game: Game):
+        # defines what happens when a game is made live
+        game.live = True
+        game.start_time = datetime.now()
+        return gamec

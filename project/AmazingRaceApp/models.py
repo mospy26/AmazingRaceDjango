@@ -1,9 +1,13 @@
+import datetime
+
 from django.db import models
 from django.contrib.auth.models import User
 
 
 # https://stackoverflow.com/questions/9498012/how-to-display-images-from-model-in-django
 # REMEMBER TO MAKE MIGRATIONS and MIGRATE
+
+
 class ProfilePictures(models.Model):
     picture = models.ImageField(upload_to="profile_picture", blank=True)
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -17,6 +21,13 @@ class Game(models.Model):
     start_time = models.DateTimeField()
     end_time = models.DateTimeField()
     players = models.ManyToManyField(User)
+
+    def save(self, force_insert=False, force_update=False, using=None,
+             update_fields=None):
+
+        from AmazingRaceApp.api import GameCreatorMiddleware
+        self = GameCreatorMiddleware.GameCreatorMiddleware._refactor_game_data(self)
+        return super(Game, self).save()
 
 
 class GameCreator(models.Model):
