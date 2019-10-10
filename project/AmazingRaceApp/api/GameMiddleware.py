@@ -24,3 +24,18 @@ class GameMiddleware:
     def game_leaderboard(self):
         for player in self.game_players:
             yield (player.rank, player.player.first_name + " " + player.player.last_name)
+
+    """
+        Gives the entire location object, you will need to use attributes such as:
+            - name
+            - clues
+            - longitude
+            - latitude
+            - code
+            - game
+            - order
+    """
+    def ordered_locations(self):
+        game_locations = Location.objects.filter(game=self.game).order_by('order')
+        for location in game_locations:
+            yield location
