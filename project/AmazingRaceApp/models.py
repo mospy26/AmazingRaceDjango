@@ -1,5 +1,7 @@
-import datetime
+import random
+import string
 
+from django.utils.datetime_safe import datetime
 from django.db import models
 from django.contrib.auth.models import User
 
@@ -25,9 +27,41 @@ class Game(models.Model):
     def save(self, force_insert=False, force_update=False, using=None,
              update_fields=None):
 
-        from AmazingRaceApp.api import GameCreatorMiddleware
-        self = GameCreatorMiddleware.GameCreatorMiddleware._refactor_game_data(self)
+        self._refactor_input()
+        if self.code == "":
+            self._generate_code()
         return super(Game, self).save()
+
+    def _generate_code(self):
+        game_codes = Game.objects.values_list('code')
+        while True:
+            game_code = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(8))
+            game_code = game_code[:4] + "-" + game_code[4:]
+            for existing_code in game_codes:
+                if game_code == existing_code:
+                    break
+                self.code = game_code
+                return
+
+    def _refactor_input(self):
+        if self.end_time <= self.start_time:
+            # return some error message
+            # for now will reset both to a default value
+            self.end_time = datetime(2000, 1, 2)
+            self.start_time = datetime(2000, 1, 1)
+            self.live = False
+            self.archived = True
+
+        elif self.end_time is not None and self.end_time <= datetime.now() and (
+                self.live is True or self.archived is True):
+            self.live = False
+            self.archived = True
+
+        if self.start_time is None:
+            self.end_time = datetime(2000, 1, 2)
+            self.start_time = datetime(2000, 1, 1)
+            self.live = False
+            self.archived = True
 
 
 class GameCreator(models.Model):
@@ -43,6 +77,29 @@ class Location(models.Model):
     code = models.TextField(max_length=100)
     game = models.ForeignKey(Game, on_delete=models.CASCADE)
     order = models.IntegerField()
+
+    def save(self, force_insert=False, force_update=False, using=None,
+             update_fields=None):
+        if self.code == "":
+            self._generate_code()
+        return super(Location, self).save()
+
+    def _generate_code(self):
+        location_codes = Location.objects.filter(game=self.game).values_list('code')
+        while True:
+            location_code = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(8))
+            location_code = location_code[:4] + "-" + location_code[4:]
+            if len(location_codes) == 0:
+                self.code = location_code
+                return
+            for existing_code in location_codes:
+                if location_code == existing_code:
+                    break
+                self.code = location_code
+                return
+
+    def _generate_latitude_and_longitute(self):
+        pass
 
 
 class LocationUser(models.Model):

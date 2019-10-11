@@ -46,39 +46,7 @@ class GameCreatorMiddleware:
             - players
     """
 
+    # writing correct db query dont run query per user
     def created_games(self):
         for game in self.games:
             yield game.game
-
-    """
-    Will generate a code and prefil start and end times with default values and refactors live = False etc.
-    """
-
-    @classmethod
-    def _refactor_game_data(self, game: Game):
-
-        # Validation
-        if game.end_time <= game.start_time:
-            # return some error message
-            # for now will reset both to a default value
-            game.end_time = datetime(2000, 1, 2)
-            game.start_time = datetime(2000, 1, 1)
-            game.live = False
-            game.archived = True
-
-        elif game.end_time is not None and game.end_time <= datetime.now() and (game.live is True or game.archived is True):
-            game.live = False
-            game.archived = True
-
-        if game.start_time is None:
-            game.end_time = datetime(2000, 1, 2)
-            game.start_time = datetime(2000, 1, 1)
-            game.live = False
-            game.archived = True
-
-        game_code = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(8))
-        game_code = game_code[:4] + "-" + game_code[4:]
-
-        game.code = game_code
-
-        return game

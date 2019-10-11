@@ -46,4 +46,5 @@ class _GameMiddleware:
         # defines what happens when a game is made live
         game.live = True
         game.start_time = datetime.now()
-        return gamec
+        game.end_time = datetime.now()
+        return game
