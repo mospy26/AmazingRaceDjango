@@ -14,5 +14,5 @@ class Test(generic.TemplateView):
 
         g = GamePlayerMiddleware(username='echa')
         return render(self.request, self.template_name, context={
-            'name': g.user.first_name
+            'user': g.user
         })
