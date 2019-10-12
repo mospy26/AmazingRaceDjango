@@ -1,4 +1,5 @@
 /* required styles */
+#mapid { height: 180px; }
 
 .leaflet-pane,
 .leaflet-tile,
