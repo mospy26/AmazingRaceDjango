@@ -1,9 +1,13 @@
+import string
+
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist, EmptyResultSet
+from django.utils.datetime_safe import datetime
+import random
 
 import traceback
 
-from ..models import GameCreator, Game
+from ..models import Game, GameCreator
 
 """ 
 This is an API for the following tasks:
@@ -22,7 +26,7 @@ class GameCreatorMiddleware:
         except EmptyResultSet:
             print(traceback.print_exc())
 
-        self.games = GameCreator.objects.filter(creator=self.user).values()
+        self.games = GameCreator.objects.filter(creator=self.user).select_related('game')
 
     """
         Will return a generator of a list of games the current user has created.
@@ -42,6 +46,7 @@ class GameCreatorMiddleware:
             - players
     """
 
+    # writing correct db query dont run query per user
     def created_games(self):
         for game in self.games:
-            yield Game.objects.get(pk=game['game_id'])
+            yield game.game
