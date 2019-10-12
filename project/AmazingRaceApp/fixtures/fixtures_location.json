@@ -3,7 +3,7 @@
     "model": "AmazingRaceApp.location",
     "pk": 1,
     "fields": {
-        "name": "Opera House",
+        "name": "Sydney Opera House",
         "clues": "This is the most visited place in Vivid Sydney",
         "longitude": "33\u00b051'27.6\"S",
         "latitude": "151\u00b012'51.3\"E",
@@ -16,7 +16,7 @@
     "model": "AmazingRaceApp.location",
     "pk": 2,
     "fields": {
-        "name": "Royal Botanical Gardens",
+        "name": "Royal Botanical Gardens, Sydney",
         "clues": "This is a very large park which gets dark at night",
         "longitude": "33\u00b051'35.0\"S",
         "latitude": "151\u00b012'57.0\"E",
@@ -29,7 +29,7 @@
     "model": "AmazingRaceApp.location",
     "pk": 3,
     "fields": {
-        "name": "USYD",
+        "name": "The University Of Sydney, Sydney",
         "clues": "Largest Uni in Sydney",
         "longitude": "33\u00b053'09.1\"S",
         "latitude": "151\u00b011'21.8\"E",
@@ -42,7 +42,7 @@
     "model": "AmazingRaceApp.location",
     "pk": 4,
     "fields": {
-        "name": "Newtown Station",
+        "name": "Newtown Station, Sydney",
         "clues": "A public transport in a town that is new",
         "longitude": "33\u00b053'53.4\"S",
         "latitude": "151\u00b010'45.4\"E",
@@ -55,7 +55,7 @@
     "model": "AmazingRaceApp.location",
     "pk": 5,
     "fields": {
-        "name": "Manly Beach",
+        "name": "Manly Beach, Sydney",
         "clues": "One of the coolest beach in NSW",
         "longitude": "33\u00b049'16.4\"S",
         "latitude": "151\u00b017'57.7\"E",
@@ -68,7 +68,7 @@
     "model": "AmazingRaceApp.location",
     "pk": 6,
     "fields": {
-        "name": "Shelly beach",
+        "name": "Shelly beach, NSW",
         "clues": "A small beach near this one",
         "longitude": "33\u00b048'03.3\"S",
         "latitude": "151\u00b017'54.7\"E",
@@ -81,7 +81,7 @@
     "model": "AmazingRaceApp.location",
     "pk": 7,
     "fields": {
-        "name": "Sydney International Airport",
+        "name": "Sydney International Airport, Sydney",
         "clues": "Fast food joint near air-ports",
         "longitude": "33\u00b055'57.1\"S",
         "latitude": "151\u00b011'19.8\"E",
@@ -94,7 +94,7 @@
     "model": "AmazingRaceApp.location",
     "pk": 8,
     "fields": {
-        "name": "Sir Josephs Park",
+        "name": "Sir Josephs Park, Sydney",
         "clues": "A part near here",
         "longitude": "33\u00b057'21.3\"S",
         "latitude": "151\u00b012'04.3\"E",
@@ -107,7 +107,7 @@
     "model": "AmazingRaceApp.location",
     "pk": 9,
     "fields": {
-        "name": "Wentworth Falls",
+        "name": "Wentworth Falls, NSW",
         "clues": "Best falls near Katoomba",
         "longitude": "33\u00b043'31.8\"S",
         "latitude": "150\u00b022'20.3\"E",
@@ -120,7 +120,7 @@
     "model": "AmazingRaceApp.location",
     "pk": 10,
     "fields": {
-        "name": "Conservative Hub",
+        "name": "Conservative Hub, Sydney",
         "clues": "This place is very conservative",
         "longitude": "33\u00b043'12.8\"S",
         "latitude": "150\u00b021'46.3\"E",
