@@ -50,3 +50,6 @@ class GameCreatorMiddleware:
     def created_games(self):
         for game in self.games:
             yield game.game
+
+    def get_number_created_games(self):
+        return len(self.games)
