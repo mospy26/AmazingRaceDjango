@@ -21,6 +21,16 @@ class GamePlayerMiddleware:
     def get_profile_pictures(self):
         pass
 
+    def get_username(self):
+        return self.user.username
+
+    def get_email(self):
+        return self.user.email
+
+    def get_name(self):
+        return self.user.first_name + " " + self.user.last_name
+
+
     '''
     Returns all the clue for all the games that are currently live for the player 
 
