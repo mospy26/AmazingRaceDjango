@@ -46,6 +46,15 @@ class GameCreatorMiddleware:
             - players
     """
 
+    def get_username(self):
+        return self.user.username
+
+    def get_email(self):
+        return self.user.email
+
+    def get_name(self):
+        return self.user.first_name + " " + self.user.last_name
+
     # writing correct db query dont run query per user
     def created_games(self):
         for game in self.games:
