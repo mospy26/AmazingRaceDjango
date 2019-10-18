@@ -16,7 +16,7 @@
     "model": "AmazingRaceApp.location",
     "pk": 2,
     "fields": {
-        "name": "Royal Botanical Gardens, Sydney",
+        "name": "Royal Botanic Gardens, Sydney",
         "clues": "This is a very large park which gets dark at night",
         "longitude": "33\u00b051'35.0\"S",
         "latitude": "151\u00b012'57.0\"E",

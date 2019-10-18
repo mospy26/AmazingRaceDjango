@@ -9,7 +9,11 @@ from AmazingRaceApp.api.MapsMiddleware import MapsMiddleware
 from AmazingRaceApp.api.GamePlayerMiddleware import GamePlayerMiddleware
 
 g = MapsMiddleware()
-g.get_coordinate('Sydney')
-# variable = g.get_distance("Sydney Opera House", "The University Of Sydney")
-variable = g.get_coordinate("University Of Sydney")
-print(variable)
+g.get_coordinate('Central Park', 'Sydney', 'Australia')
+#variable = g.get_distance("Auburn Sydney", "Perth")
+# variable = g.get_coordinate("PNR, Sydney")
+#print(variable)
+
+p = g.get_list_of_long_lat("NZSL-JWBK")
+for ob in p:
+    print(ob)
