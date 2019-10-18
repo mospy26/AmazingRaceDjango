@@ -1,14 +1,19 @@
 # https://www.youtube.com/watch?v=0IjdfgmWzMk&t=4s
 
 from geopy.geocoders import Nominatim
+import geopy.geocoders
 from geopy import distance
+import certifi
+import ssl
 
 from ..models import ProfilePictures, GamePlayer, Game, Location, LocationUser
 
 class MapsMiddleware: 
 
-    def __init__(self): 
-        self.nominatim = Nominatim() 
+    def __init__(self):
+        ctx = ssl.create_default_context(cafile=certifi.where())
+        geopy.geocoders.options.default_ssl_context = ctx
+        self.nominatim = Nominatim(user_agent='myapplication', scheme='http')
 
     '''
     Returns the (latitude, longitude) tuples

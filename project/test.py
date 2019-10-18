@@ -9,6 +9,7 @@ from AmazingRaceApp.api.MapsMiddleware import MapsMiddleware
 from AmazingRaceApp.api.GamePlayerMiddleware import GamePlayerMiddleware
 
 g = MapsMiddleware()
-
-lol = g.get_distance("Sydney Opera House", "The University Of Sydney")
-print(lol)
+g.get_coordinate('Sydney')
+# variable = g.get_distance("Sydney Opera House", "The University Of Sydney")
+variable = g.get_coordinate("University Of Sydney")
+print(variable)
