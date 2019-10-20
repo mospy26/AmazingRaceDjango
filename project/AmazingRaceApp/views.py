@@ -8,12 +8,16 @@ from django.views import generic
 from AmazingRaceApp.api.GamePlayerMiddleware import GamePlayerMiddleware
 
 
-class Login(generic.TemplateView):
-    template_name = 'topbar.html'
+class LoginView(generic.TemplateView):
+    template_name = 'login.html'
+
+    def get(self, request, *args, **kwargs):
+        return render(request, self.template_name)
 
 
-class HomepageView(generic.TemplateView):
+class HomepageView(LoginRequiredMixin, generic.TemplateView):
     template_name = 'home.html'
+    login_url = '/login'
 
     player = None
 
