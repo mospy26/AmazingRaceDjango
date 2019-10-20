@@ -3,25 +3,18 @@ This file serves to debug the API classes/methods. Below is an example of
 how to write such code 
 '''
 
-# # To run, the command is "python manage.py shell < test.py"
-#
-# from AmazingRaceApp.api.MapsMiddleware import MapsMiddleware
-# from AmazingRaceApp.api.GamePlayerMiddleware import GamePlayerMiddleware
-#
-# g = MapsMiddleware()
-# g.get_coordinate('Central Park', 'Sydney', 'Australia')
-# #variable = g.get_distance("Auburn Sydney", "Perth")
-# # variable = g.get_coordinate("PNR, Sydney")
-# #print(variable)
-#
-# p = g.get_list_of_long_lat("NZSL-JWBK")
-# for ob in p:
-#     print(ob)
-from django.contrib.auth.models import User
+# To run, the command is "python manage.py shell < test.py"
 
+from AmazingRaceApp.api.MapsMiddleware import MapsMiddleware
 from AmazingRaceApp.api.GamePlayerMiddleware import GamePlayerMiddleware
-from AmazingRaceApp.models import Game
 
-player = GamePlayerMiddleware('echa')
-for rank in player.rank_in_most_recent_games(10):
-    print(rank[0])
+import os 
+
+# Example on how to use Update and Get Profile Pictures: 
+g = GamePlayerMiddleware("blam")
+
+# Must get the absolute path of the picture (Windows user be aware of your terminal like shown below)
+# Note the file is saved under Project/project/media/profile_picture
+g.update_profile_pictures("/mnt/c/Users/Markl/Desktop/picture.png")
+print(g.get_profile_picture())
+# g.delete_profile_picture()

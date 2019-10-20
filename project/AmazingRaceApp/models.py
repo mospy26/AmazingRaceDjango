@@ -6,15 +6,11 @@ from django.utils.datetime_safe import datetime
 from django.db import models
 from django.contrib.auth.models import User
 
-
-# https://stackoverflow.com/questions/9498012/how-to-display-images-from-model-in-django
 # REMEMBER TO MAKE MIGRATIONS and MIGRATE
-
 
 class ProfilePictures(models.Model):
     picture = models.ImageField(upload_to="profile_picture", blank=True)
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-
 
 class Game(models.Model):
     title = models.CharField(max_length=50)
