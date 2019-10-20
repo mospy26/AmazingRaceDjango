@@ -13,7 +13,8 @@ class GamePlayerMiddleware:
     def __init__(self, username):
         self.user = User.objects.get(username=username)
         self.games = Game.objects.filter(players=self.user)
-        self.profilePic = ProfilePictures.objects.get(user=self.user)
+        self.profilePic = None if not ProfilePictures.objects.filter(user=self.user).exists() else \
+            ProfilePictures.objects.get(user=self.user)
 
     '''
     Source: 
@@ -27,7 +28,10 @@ class GamePlayerMiddleware:
     @param: The Absolute path for the image
     @return: Nothing
     '''
+
     def update_profile_pictures(self, image_url):
+        if not self.profilePic:
+            return
         self.profilePic.picture.delete(save=True)
         django_file = File(open(image_url, "rb"))
         self.profilePic.picture.save(self.user.username + "-profile-pic" + ".jpeg", django_file, save=True)
@@ -48,13 +52,13 @@ class GamePlayerMiddleware:
     def get_name(self):
         return self.user.first_name + " " + self.user.last_name
 
-
     '''
     Returns all the clue for all the games that are currently live for the player 
 
     @param: None
     @return: Returns a 3 item tuple corresponding in order: Game Code, Location name, Location Clue
     '''
+
     def retrieve_clue(self):
         for game in self.games:
             if game.live is False:
