@@ -15,6 +15,15 @@ class Login(generic.TemplateView):
 class HomepageView(generic.TemplateView):
     template_name = 'home.html'
 
+    player = None
+
+    def get(self, request, *args, **kwargs):
+        self.player = GamePlayerMiddleware('echa')
+
+        return render(request, self.template_name, context={
+            'recent_game_ranks': self.player.rank_in_most_recent_games(10)
+        })
+
 
 class LeaderboardView(generic.TemplateView):
     template_name = 'Leaderboard.html'

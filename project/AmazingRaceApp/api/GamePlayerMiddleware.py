@@ -86,18 +86,20 @@ class GamePlayerMiddleware:
     def rank_in_most_recent_games(self, x):
         # Prioritize live_games first 
         live_games = Game.objects.filter(players=self.user, live=True).order_by('-start_time')[:x]
+
         # Take the latest start time if possible
         x = x - len(live_games)
         non_live_games = []
         if x > 0:
             non_live_games = Game.objects.filter(players=self.user, live=False).order_by('-end_time')[:x]
-        # Begin the games 
+
+        # Begin the games
         for games in live_games:
             for i in GamePlayer.objects.filter(game=games, player=self.user).values('rank'):
-                yield games.code, i['rank']
+                yield games.title, i['rank'], games.start_time.strftime('%d/%m/%Y')
         for games in non_live_games:
             for i in GamePlayer.objects.filter(game=games, player=self.user).values('rank'):
-                yield games.code, i['rank']
+                yield games.title, i['rank'], games.start_time
 
     '''
     Returns the number of games played for this user / number of locations in game

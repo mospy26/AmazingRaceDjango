@@ -116,11 +116,13 @@
                         </tr>
                       </thead>
                       <tbody>
+                      {% for game in recent_game_ranks %}
                         <tr>
-                          <td>Awesome Game</td>
-                          <td>10</td>
-                          <td>13/5/19</td>
+                          <td>{{ game.0 }}</td>
+                          <td>{{ game.1 }}</td>
+                          <td>{{ game.2 }}</td>
                         </tr>
+                      {% endfor %}
                       </tbody>
                     </table>
                   </div>

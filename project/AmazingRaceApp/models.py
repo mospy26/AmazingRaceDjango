@@ -1,6 +1,7 @@
 import random
 import string
 
+from django.utils import timezone
 from django.utils.datetime_safe import datetime
 from django.db import models
 from django.contrib.auth.models import User
@@ -44,6 +45,9 @@ class Game(models.Model):
                 return
 
     def _refactor_input(self):
+
+        print(self.end_time, timezone.now())
+
         if self.end_time <= self.start_time:
             # return some error message
             # for now will reset both to a default value
@@ -52,10 +56,14 @@ class Game(models.Model):
             self.live = False
             self.archived = True
 
-        elif self.end_time is not None and self.end_time <= datetime.now() and (
+        elif self.end_time is not None and self.end_time <= timezone.now() and (
                 self.live is True or self.archived is True):
             self.live = False
             self.archived = True
+
+        else:
+            self.live = True
+            self.archived = False
 
         if self.start_time is None:
             self.end_time = datetime(2000, 1, 2)
