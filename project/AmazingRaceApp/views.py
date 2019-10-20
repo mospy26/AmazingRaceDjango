@@ -36,9 +36,25 @@ class HomepageView(LoginRequiredMixin, generic.TemplateView):
         })
 
 
-class LeaderboardView(generic.TemplateView):
+class LeaderboardView(LoginRequiredMixin, generic.TemplateView):
     template_name = 'Leaderboard.html'
+    login_url = '/login'
 
 
-class ProfilepageView(generic.TemplateView):
+class ProfilepageView(LoginRequiredMixin, generic.TemplateView):
     template_name = 'profilepage.html'
+    login_url = '/login'
+
+
+class RegisterView(generic.TemplateView):
+    template_name = 'register.html'
+
+
+class GameCreatedListView(LoginRequiredMixin, generic.TemplateView):
+    template_name = 'game-list.html'
+    login_url = '/login'
+
+
+class GamePlayedListView(LoginRequiredMixin, generic.TemplateView):
+    template_name = 'game-list.html'
+    login_url = '/login'

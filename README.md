@@ -33,6 +33,10 @@ python3 project/manage.py migrate
 Then,
 
 ```Bash
-cd project/
-python3 manage.py loaddata fixtures_user fixtures_game fixtures_gamecreator fixtures_gameplayer fixtures_location fixtures_locationuser
+python3 project/manage.py loadjson
+```
+
+To dump all db data into json, run the following:
+```Bash
+python3 project/manage.py dumpjson
 ```
