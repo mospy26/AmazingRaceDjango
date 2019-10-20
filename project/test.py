@@ -7,13 +7,13 @@ how to write such code
 
 from AmazingRaceApp.api.MapsMiddleware import MapsMiddleware
 from AmazingRaceApp.api.GamePlayerMiddleware import GamePlayerMiddleware
+import os 
 
-g = MapsMiddleware()
-g.get_coordinate('Central Park', 'Sydney', 'Australia')
-#variable = g.get_distance("Auburn Sydney", "Perth")
-# variable = g.get_coordinate("PNR, Sydney")
-#print(variable)
+# Example on how to use Update and Get Profile Pictures: 
+g = GamePlayerMiddleware("blam")
 
-p = g.get_list_of_long_lat("NZSL-JWBK")
-for ob in p:
-    print(ob)
+# Must get the absolute path of the picture (Windows user be aware of your terminal like shown below)
+# Note the file is saved under Project/project/media/profile_picture
+g.update_profile_pictures("/mnt/c/Users/Markl/Desktop/picture.png")
+print(g.get_profile_picture())
+# g.delete_profile_picture()

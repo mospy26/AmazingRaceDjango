@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist, EmptyResultSet
+from django.core.files import File
 
 import traceback
 
@@ -12,14 +13,31 @@ class GamePlayerMiddleware:
     def __init__(self, username):
         self.user = User.objects.get(username=username)
         self.games = Game.objects.filter(players=self.user)
+        self.profilePic = ProfilePictures.objects.get(user=self.user)
 
-    # TODO
-    def update_profile_pictures(self):
-        pass
+    '''
+    Source: 
+    - https://www.revsys.com/tidbits/loading-django-files-from-code/
+    - https://www.youtube.com/watch?v=1jxVzOnIqyI
+    - https://stackoverflow.com/questions/9498012/how-to-display-images-from-model-in-django
 
-    # TODO
-    def get_profile_pictures(self):
-        pass
+    Updates the profile picture by first deleting the profile picture and then 
+    uploading the picture 
+
+    @param: The Absolute path for the image
+    @return: Nothing
+    '''
+    def update_profile_pictures(self, image_url):
+        self.profilePic.picture.delete(save=True)
+        django_file = File(open(image_url, "rb"))
+        self.profilePic.picture.save(self.user.username + "-profile-pic" + ".jpeg", django_file, save=True)
+
+    def delete_profile_picture(self):
+        self.profilePic.picture.delete(save=True)
+
+    # TODO: Check if this actually renders when called on the front end 
+    def get_profile_picture(self):
+        return self.profilePic.picture.url
 
     def get_username(self):
         return self.user.username
