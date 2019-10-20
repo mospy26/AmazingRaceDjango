@@ -35,29 +35,34 @@
               <div class="text-center">
                 <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
               </div>
-              <form class="user">
+{#                {% if form.errors|len == 0 %} <script> alert({{ form.errors }}); </script> {% endif %}#}
+              <form class="user" method="post" action="/register/">
+                  {% csrf_token %}
                 <div class="form-group row">
                   <div class="col-sm-6 mb-3 mb-sm-0">
-                    <input type="text" class="form-control form-control-user" id="firstName" placeholder="First Name">
+                    <input type="text" class="form-control form-control-user" name="first_name" placeholder="First Name">
                   </div>
                   <div class="col-sm-6">
-                    <input type="text" class="form-control form-control-user" id="lastName" placeholder="Last Name">
+                    <input type="text" class="form-control form-control-user" name="last_name" placeholder="Last Name">
                   </div>
                 </div>
                 <div class="form-group">
-                  <input type="text" class="form-control form-control-user" id="userName" placeholder="User Name">
+                  <input type="text" class="form-control form-control-user" name="username" placeholder="User Name">
                 </div>
                 <div class="form-group row">
                   <div class="col-sm-6 mb-3 mb-sm-0">
-                    <input type="password" class="form-control form-control-user" id="inputPassword" placeholder="Password">
+                    <input type="password" class="form-control form-control-user" name="password1" placeholder="Password">
                   </div>
                   <div class="col-sm-6">
-                    <input type="password" class="form-control form-control-user" id="repeatPassword" placeholder="Repeat Password">
+                    <input type="password" class="form-control form-control-user" name="password2" placeholder="Repeat Password">
                   </div>
+
                 </div>
-                <a href="login.html" class="btn btn-primary btn-user btn-block">
-                  Register Account
-                </a>
+                  <input class="btn btn-primary btn-user btn-block" type="submit" value="Register">
+{#                      <input type="hidden" name="next" value="{{ next }}">#}
+{#                <a href="login.html" class="btn btn-primary btn-user btn-block">#}
+{#                  Register Account#}
+{#                </a>#}
               </form>
               <hr>
               <div class="text-center">
