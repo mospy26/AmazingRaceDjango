@@ -21,3 +21,15 @@ class Test(LoginRequiredMixin, generic.TemplateView):
 
 class Login(generic.TemplateView):
     template_name = 'topbar.html'
+
+
+class HomepageView(generic.TemplateView):
+    template_name = 'home.html'
+
+
+class LeaderboardView(generic.TemplateView):
+    template_name = 'Leaderboard.html'
+
+
+class ProfilepageView(generic.TemplateView):
+    template_name = 'profilepage.html'
