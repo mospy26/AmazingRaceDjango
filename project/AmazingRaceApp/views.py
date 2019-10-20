@@ -1,5 +1,7 @@
+from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
 
 # Create your views here.
@@ -8,11 +10,16 @@ from django.views import generic
 from AmazingRaceApp.api.GamePlayerMiddleware import GamePlayerMiddleware
 
 
-class LoginView(generic.TemplateView):
+class LoginView(generic.FormView):
     template_name = 'login.html'
+    form = AuthenticationForm
 
     def get(self, request, *args, **kwargs):
-        return render(request, self.template_name)
+        return render(request, self.template_name, {'forms': self.form})
+
+    def post(self, request, *args, **kwargs):
+        print(request.POST)
+        return HttpResponseRedirect('/')
 
 
 class HomepageView(LoginRequiredMixin, generic.TemplateView):
@@ -22,7 +29,7 @@ class HomepageView(LoginRequiredMixin, generic.TemplateView):
     player = None
 
     def get(self, request, *args, **kwargs):
-        self.player = GamePlayerMiddleware('echa')
+        self.player = GamePlayerMiddleware(request.user.username)
 
         return render(request, self.template_name, context={
             'recent_game_ranks': self.player.rank_in_most_recent_games(10)
