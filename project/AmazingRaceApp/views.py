@@ -54,7 +54,25 @@ class GameCreatedListView(LoginRequiredMixin, generic.TemplateView):
     template_name = 'game-list.html'
     login_url = '/login'
 
+    player = None
+    def get(self, request, *args, **kwargs):
+        self.player = GamePlayerMiddleware(request.user.username)
+
+        return render(request, self.template_name, context={
+            'page_name' : 'Created',
+            'recent_game_ranks': self.player.list_played_games()
+        })
+
 
 class GamePlayedListView(LoginRequiredMixin, generic.TemplateView):
     template_name = 'game-list.html'
     login_url = '/login'
+
+    player = None
+    def get(self, request, *args, **kwargs):
+        self.player = GamePlayerMiddleware(request.user.username)
+
+        return render(request, self.template_name, context={
+            'page_name': 'Played',
+            'games': self.player.list_played_games()
+        })
