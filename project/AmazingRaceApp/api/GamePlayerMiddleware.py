@@ -52,6 +52,9 @@ class GamePlayerMiddleware:
     def get_name(self):
         return self.user.first_name + " " + self.user.last_name
 
+    def get_games_played(self):
+        return len(self.games);
+
     '''
     Returns all the clue for all the games that are currently live for the player 
 
