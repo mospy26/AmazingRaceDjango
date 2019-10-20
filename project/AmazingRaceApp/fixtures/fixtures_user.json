@@ -4,7 +4,7 @@
     "pk": 1,
     "fields": {
         "password": "pbkdf2_sha256$150000$WYlqC2wj4Va0$y6FkUW2eB4rsun70TDAmQrlvmONXDsq3UD7bPvs5OAA=",
-        "last_login": "2019-10-02T07:58:16.750Z",
+        "last_login": "2019-10-20T03:23:27.750Z",
         "is_superuser": true,
         "username": "admin",
         "first_name": "",
@@ -26,11 +26,11 @@
         "is_superuser": false,
         "username": "sukaiwen",
         "first_name": "Keven",
-        "last_name": "",
+        "last_name": "Su",
         "email": "",
         "is_staff": false,
         "is_active": true,
-        "date_joined": "2019-10-02T07:10:52.688Z",
+        "date_joined": "2019-10-02T07:10:52Z",
         "groups": [],
         "user_permissions": []
     }
@@ -44,11 +44,11 @@
         "is_superuser": false,
         "username": "coke",
         "first_name": "CocaCola",
-        "last_name": "",
+        "last_name": "ColdDrink",
         "email": "",
         "is_staff": false,
         "is_active": true,
-        "date_joined": "2019-10-02T07:10:52.703Z",
+        "date_joined": "2019-10-02T07:10:52Z",
         "groups": [],
         "user_permissions": []
     }
@@ -62,11 +62,11 @@
         "is_superuser": false,
         "username": "usyd",
         "first_name": "USYD",
-        "last_name": "",
+        "last_name": "University",
         "email": "",
         "is_staff": false,
         "is_active": true,
-        "date_joined": "2019-10-02T07:10:52.705Z",
+        "date_joined": "2019-10-02T07:10:52Z",
         "groups": [],
         "user_permissions": []
     }
@@ -80,11 +80,11 @@
         "is_superuser": false,
         "username": "echa",
         "first_name": "Edwin",
-        "last_name": "",
+        "last_name": "Chau",
         "email": "",
         "is_staff": false,
         "is_active": true,
-        "date_joined": "2019-10-02T07:10:52.708Z",
+        "date_joined": "2019-10-02T07:10:52Z",
         "groups": [],
         "user_permissions": []
     }
@@ -98,11 +98,11 @@
         "is_superuser": false,
         "username": "blam",
         "first_name": "Brenden",
-        "last_name": "",
+        "last_name": "Lam",
         "email": "",
         "is_staff": false,
         "is_active": true,
-        "date_joined": "2019-10-02T07:10:52.710Z",
+        "date_joined": "2019-10-02T07:10:52Z",
         "groups": [],
         "user_permissions": []
     }
@@ -116,11 +116,11 @@
         "is_superuser": false,
         "username": "mful",
         "first_name": "Mustafa",
-        "last_name": "",
+        "last_name": "Ful",
         "email": "",
         "is_staff": false,
         "is_active": true,
-        "date_joined": "2019-10-02T07:10:52.713Z",
+        "date_joined": "2019-10-02T07:10:52Z",
         "groups": [],
         "user_permissions": []
     }
