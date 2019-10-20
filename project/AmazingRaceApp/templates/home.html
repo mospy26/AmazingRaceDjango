@@ -19,7 +19,7 @@
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                      <a href="#"><div class="h5 mb-0 font-weight-bold text-primary">Create<br>New Game</div></a>
+                      <a href="#" data-toggle="modal" data-target="#NewGameModal"><div class="h5 mb-0 font-weight-bold text-primary">Create<br>New Game</div></a>
                     </div>
                     <div class="col-auto">
                       <i class="fas fa-play-circle fa-2x text-gray-300"></i>
@@ -136,6 +136,25 @@
 
         </div>
         <!-- /.container-fluid -->
+        
+        <!-- Logout Modal-->
+        <div class="modal fade" id="NewGameModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Create New Game</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">×</span>
+                </button>
+              </div>
+              <div class="modal-body">Form goes here!</div>
+              <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                <a class="btn btn-primary" href="#">Create</a>
+              </div>
+            </div>
+          </div>
+        </div>
 
       </div>
       <!-- End of Main Content -->
