@@ -92,7 +92,7 @@ class GamePlayerMiddleware:
     def list_played_games(self):
         games = Game.objects.filter(players=self.user)
         for game in games:
-            yield game.code
+            yield game
 
     '''
     Gets the cursor to the rank of the x recent games. The 
