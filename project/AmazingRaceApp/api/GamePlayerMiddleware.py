@@ -4,7 +4,7 @@ from django.core.files import File
 
 import traceback
 
-from ..models import ProfilePictures, GamePlayer, Game, Location, LocationUser
+from ..models import ProfilePictures, GamePlayer, Game, Location, LocationUser, GameCreator
 
 
 # API for getting all locations in a game 
@@ -90,9 +90,10 @@ class GamePlayerMiddleware:
     '''
 
     def list_played_games(self):
-        games = Game.objects.filter(players=self.user)
-        for game in games:
-            yield game
+        for game in self.games:
+            game_creator = GameCreator.objects.get(game=game)
+            rank = GamePlayer.objects.get(game=game, player=self.user)
+            yield game, game_creator.creator.username, rank.rank
 
     '''
     Gets the cursor to the rank of the x recent games. The 

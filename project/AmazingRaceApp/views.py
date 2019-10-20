@@ -1,4 +1,4 @@
-from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
@@ -8,18 +8,6 @@ from django.shortcuts import render
 from django.views import generic
 
 from AmazingRaceApp.api.GamePlayerMiddleware import GamePlayerMiddleware
-
-
-class LoginView(generic.FormView):
-    template_name = 'login.html'
-    form = AuthenticationForm
-
-    def get(self, request, *args, **kwargs):
-        return render(request, self.template_name, {'forms': self.form})
-
-    def post(self, request, *args, **kwargs):
-        print(request.POST)
-        return HttpResponseRedirect('/')
 
 
 class HomepageView(LoginRequiredMixin, generic.TemplateView):
@@ -48,6 +36,15 @@ class ProfilepageView(LoginRequiredMixin, generic.TemplateView):
 
 class RegisterView(generic.TemplateView):
     template_name = 'register.html'
+    form = UserCreationForm
+
+    def get(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            return HttpResponseRedirect('/')
+
+        return render(request, self.template_name, {
+            'form': self.form
+        })
 
 
 class GameCreatedListView(LoginRequiredMixin, generic.TemplateView):
