@@ -58,7 +58,6 @@ class ProfilepageView(LoginRequiredMixin, generic.TemplateView):
     def get(self, request, *args, **kwargs):
         self.player = GamePlayerMiddleware(request.user.username)
         self.creator = GameCreatorMiddleware(request.user.username)
-
         # self.creator = GameCreatorMiddleware("blam")
         # self.player = GamePlayerMiddleware("blam")
 

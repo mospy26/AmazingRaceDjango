@@ -3,7 +3,7 @@ from django.core.exceptions import ObjectDoesNotExist, EmptyResultSet
 from django.core.files import File
 
 import traceback
-
+import os
 from ..models import ProfilePictures, GamePlayer, Game, Location, LocationUser, GameCreator
 
 
@@ -41,8 +41,11 @@ class GamePlayerMiddleware:
     # TODO: Check if this actually renders when called on the front end 
     def get_profile_picture(self):
         profile_pic = self.profilePic.picture.url
-        if not profile_pic:
-            return None 
+        exists = os.path.exists("../" + profile_pic)
+        
+        if not profile_pic or not exists:
+            return "/media/profile_picture/default-picture.png" 
+        
         return profile_pic
 
     def get_username(self):
