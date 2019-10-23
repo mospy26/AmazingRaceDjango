@@ -150,36 +150,14 @@
                       </tr>
                       </thead>
                       <tbody>
+
+                      {% for location in locations_code %}
                       <tr>
-                        <td class="index">1</td>
-                        <td>University of Sydney - Quadrangle</td>
-                        <td>128445</td>
+                        <td class="index">{{ location.0 }}</td>
+                        <td>{{ location.1 }}</td>
+                        <td>{{ location.2 }}</td>
                       </tr>
-                      <tr>
-                        <td class="index">2</td>
-                        <td>Broadway Shopping Centre</td>
-                        <td>154964</td>
-                      </tr>
-                      <tr>
-                        <td class="index">3</td>
-                        <td>World Square</td>
-                        <td>178539</td>
-                      </tr>
-                      <tr>
-                        <td class="index">4</td>
-                        <td>Opera House</td>
-                        <td>138593</td>
-                      </tr>
-                      <tr>
-                        <td class="index">5</td>
-                        <td>Regent Place</td>
-                        <td>112493</td>
-                      </tr>
-                      <tr>
-                        <td class="index">6</td>
-                        <td>Darling Harbour Bridge</td>
-                        <td>176849</td>
-                      </tr>
+                      {% endfor %}
                       </tbody>
                     </table>
                   </div>
