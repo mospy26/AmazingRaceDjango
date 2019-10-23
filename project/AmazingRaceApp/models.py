@@ -16,11 +16,11 @@ class ProfilePictures(models.Model):
 
 class Game(models.Model):
     title = models.CharField(max_length=50)
-    archived = models.BooleanField()
+    archived = models.BooleanField(default=False)
     code = models.TextField(max_length=100, unique=True)
-    live = models.BooleanField()
-    start_time = models.DateTimeField()
-    end_time = models.DateTimeField()
+    live = models.BooleanField(default=False)
+    start_time = models.DateTimeField(null=True)
+    end_time = models.DateTimeField(null=True)
     players = models.ManyToManyField(User)
 
     def save(self, force_insert=False, force_update=False, using=None,
