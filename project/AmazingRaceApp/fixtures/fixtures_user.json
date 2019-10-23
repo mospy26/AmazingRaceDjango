@@ -124,5 +124,41 @@
         "groups": [],
         "user_permissions": []
     }
+},
+{
+    "model": "auth.user",
+    "pk": 10,
+    "fields": {
+        "password": "pbkdf2_sha256$150000$5EFR3Ymkd7KH$gkA2iB2gUsR7B4cdonl+DA+VVmBICiz0yqEYgwaLrY0=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "spol",
+        "first_name": "Sophia",
+        "last_name": "Pol",
+        "email": "",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2019-10-20T08:34:05.515Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "pk": 11,
+    "fields": {
+        "password": "pbkdf2_sha256$150000$0Z4ObE8G5iBm$BjxCHQZRUYJemHdKDGt48iZTpbNWflHDdKATWpBQmfg=",
+        "last_login": "2019-10-23T05:00:45.449Z",
+        "is_superuser": false,
+        "username": "spol123",
+        "first_name": "Sophia",
+        "last_name": "Polito",
+        "email": "",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2019-10-23T05:00:31.031Z",
+        "groups": [],
+        "user_permissions": []
+    }
 }
 ]
