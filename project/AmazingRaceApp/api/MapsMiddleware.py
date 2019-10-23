@@ -38,7 +38,7 @@ class MapsMiddleware:
     latitude and longitude
     '''
     
-    def _convert_to_decimal(degrees):
+    def _convert_to_decimal(self, degrees):
         total = 0
         degrees = degrees.split("˚")
         total = total + float(degrees[0])
@@ -55,8 +55,8 @@ class MapsMiddleware:
 
         for location in all_locations:
             latitude, longitude = self.get_coordinate(location.name)
-            latitude = _convert_to_decimal(latitude)
-            longitude = _convert_to_decimal(longitude)
+            latitude = self._convert_to_decimal(latitude)
+            longitude = self._convert_to_decimal(longitude)
             
             yield (location.name, latitude, longitude)
 

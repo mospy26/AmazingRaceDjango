@@ -26,7 +26,8 @@ class Game(models.Model):
     def save(self, force_insert=False, force_update=False, using=None,
              update_fields=None):
 
-        self._refactor_input()
+        if self.start_time and self.end_time:
+            self._refactor_input()
         if self.code == "":
             self._generate_code()
         return super(Game, self).save()
