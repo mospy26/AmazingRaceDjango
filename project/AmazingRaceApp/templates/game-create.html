@@ -88,13 +88,27 @@
                     <div id = "mapid">
                     </div>
                     <script>
-                      var mymap = L.map('mapid').setView([51.505, -0.09], 13);
+                      var mymap = L.map('mapid');
 
                       L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
                         attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                       }).addTo(mymap);
-
-
+                      
+                      var arrayOfLatLngs = [];
+                      
+                      {% for x in lat_long %}
+                      
+                        var temp = [];
+                        temp.push({{ x.0 }});
+                        temp.push({{ x.1 }});
+                        arrayOfLatLngs.push(temp);
+                        var marker = L.marker([{{ x.0 }}, {{ x.1 }}]).addTo(mymap);
+                        marker.bindPopup("{{ x.2 }}").openPopup();
+                        
+                      {% endfor %}
+                      
+                      var bounds = new L.LatLngBounds(arrayOfLatLngs);
+                      mymap.fitBounds(bounds);
 
                     </script>
                   </div>

@@ -59,9 +59,15 @@ class ProfilepageView(LoginRequiredMixin, generic.TemplateView):
         self.player = GamePlayerMiddleware(request.user.username)
         self.creator = GameCreatorMiddleware(request.user.username)
 
+        # self.creator = GameCreatorMiddleware("blam")
+        # self.player = GamePlayerMiddleware("blam")
+
         return render(request, self.template_name, context={
             'games_played': self.player.get_games_played(),
-            'games_created': self.creator.get_number_created_games()
+            'games_created': self.creator.get_number_created_games(),
+            'name': self.player.get_name(),
+            'username': self.player.get_username(),
+            'profile_picture': self.player.get_profile_picture()
         })
 
 
@@ -131,9 +137,11 @@ class GameCreationListView(LoginRequiredMixin, generic.TemplateView):
 
         #temp game
         self.game_creator = GameCreatorMiddleware(request.user.username)
+        self.lat_long = MapsMiddleware()
 
         return render(request, self.template_name, context={
-            'locations_code': self.game_creator.get_ordered_locations_of_game('LQGY-M42U')
+            'locations_code': self.game_creator.get_ordered_locations_of_game('LQGY-M42U'),
+            'lat_long': self.lat_long.get_list_of_long_lat('LQGY-M42U')
         })
 
 class LocationListView(LoginRequiredMixin, generic.TemplateView):
