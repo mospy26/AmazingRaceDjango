@@ -55,9 +55,9 @@ class RegisterView(generic.TemplateView):
             form.save()
             return HttpResponseRedirect('/login')
 
-        print(form.errors)
+        print(form['first_name'].errors)
         return render(request, self.template_name, {
-            'form': self.form
+            'form': form
         })
 
 
