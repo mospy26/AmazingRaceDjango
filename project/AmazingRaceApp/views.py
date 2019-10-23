@@ -8,13 +8,17 @@ from django.shortcuts import render
 from django.views import generic
 from AmazingRaceApp.api.GamePlayerMiddleware import GamePlayerMiddleware
 from AmazingRaceApp.api.GameCreatorMiddleware import GameCreatorMiddleware
+from AmazingRaceApp.api.GameMiddleware import _GameMiddleware
 from AmazingRaceApp.forms import RegisterForm
+from AmazingRaceApp.forms import RegisterForm, GameTitleForm
 from AmazingRaceApp.api.MapsMiddleware import MapsMiddleware
 
 
 class HomepageView(LoginRequiredMixin, generic.TemplateView):
     template_name = 'home.html'
     login_url = '/login'
+
+    form = GameTitleForm
 
     player = None
 
@@ -23,6 +27,19 @@ class HomepageView(LoginRequiredMixin, generic.TemplateView):
 
         return render(request, self.template_name, context={
             'recent_game_ranks': self.player.rank_in_most_recent_games(10)
+        })
+
+    def post(self, request, *args, **kwargs):
+        form = self.form(request.POST)
+
+        if form.is_valid():
+            form.save()
+
+            return HttpResponseRedirect("/game/create")
+
+        print(form.errors)
+        return render(request, self.template_name, {
+            'form': form
         })
 
 
@@ -84,7 +101,7 @@ class GameCreatedListView(LoginRequiredMixin, generic.TemplateView):
         self.player = GameCreatorMiddleware(request.user.username)
 
         return render(request, self.template_name, context={
-            'page_name' : 'Created',
+            'page_name': 'Created',
             'games': self.player.created_games()
         })
 
@@ -103,6 +120,7 @@ class GamePlayedListView(LoginRequiredMixin, generic.TemplateView):
             'games': self.player.list_played_games()
         })
 
+
 class GameCreationListView(LoginRequiredMixin, generic.TemplateView):
     template_name = 'game-create.html'
     login_url = '/login'
@@ -110,7 +128,22 @@ class GameCreationListView(LoginRequiredMixin, generic.TemplateView):
     locations = None
 
     def get(self, request, *args, **kwargs):
-        self.locations = MapsMiddleware()
+
+        #temp game
+        self.game_creator = GameCreatorMiddleware(request.user.username)
+
+        return render(request, self.template_name, context={
+            'locations_code': self.game_creator.get_ordered_locations_of_game('LQGY-M42U')
+        })
+
+class LocationListView(LoginRequiredMixin, generic.TemplateView):
+    template_name = 'game-create.html'
+    login_url = '/login'
+
+    locations = None
+
+    def get(self, request, *args, **kwargs):
+        self.locations = _GameMiddleware(request.user.username)
 
         return render(request, self.template_name, context={
             'locations_code': self.locations.get_all_name_code()

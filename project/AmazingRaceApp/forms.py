@@ -1,6 +1,12 @@
+import string
+import random
+
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django import forms
 from django.contrib.auth.models import User
+
+from AmazingRaceApp.api.GameCreatorMiddleware import GameCreatorMiddleware
+from AmazingRaceApp.models import Game
 
 
 class RegisterForm(UserCreationForm):
@@ -18,3 +24,17 @@ class RegisterForm(UserCreationForm):
         if commit:
             user.save()
         return user
+
+
+class GameTitleForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(GameTitleForm, self).__init__(*args, **kwargs)
+        self.fields['code'].required = False
+
+    class Meta:
+        model = Game
+
+        fields = [
+            'title',
+            'code'
+        ]
