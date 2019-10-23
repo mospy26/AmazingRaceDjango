@@ -38,8 +38,10 @@ class _GameMiddleware:
     """
     def ordered_locations(self):
         game_locations = Location.objects.filter(game=self.game).order_by('order')
+        i = 0
         for location in game_locations:
-            yield location
+            i += 1
+            yield i, location
 
     @classmethod
     def make_live(self, game: Game):

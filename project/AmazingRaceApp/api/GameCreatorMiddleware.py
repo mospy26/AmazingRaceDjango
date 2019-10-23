@@ -8,6 +8,7 @@ import random
 import traceback
 
 from ..models import Game, GameCreator
+from .GameMiddleware import _GameMiddleware
 
 """ 
 This is an API for the following tasks:
@@ -27,6 +28,7 @@ class GameCreatorMiddleware:
             print(traceback.print_exc())
 
         self.games = GameCreator.objects.filter(creator=self.user).select_related('game')
+        self.game_middleware = None
 
     """
         Will return a generator of a list of games the current user has created.
@@ -62,3 +64,7 @@ class GameCreatorMiddleware:
 
     def get_number_created_games(self):
         return len(self.games)
+
+    def get_ordered_locations_of_game(self, code):
+        self.game_middleware = _GameMiddleware(code)
+        return self.game_middleware.ordered_locations()

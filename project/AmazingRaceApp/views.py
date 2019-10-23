@@ -8,8 +8,8 @@ from django.shortcuts import render
 from django.views import generic
 from AmazingRaceApp.api.GamePlayerMiddleware import GamePlayerMiddleware
 from AmazingRaceApp.api.GameCreatorMiddleware import GameCreatorMiddleware
+from AmazingRaceApp.api.GameMiddleware import _GameMiddleware
 from AmazingRaceApp.forms import RegisterForm
-from AmazingRaceApp.api.MapsMiddleware import MapsMiddleware
 
 
 class HomepageView(LoginRequiredMixin, generic.TemplateView):
@@ -110,8 +110,23 @@ class GameCreationListView(LoginRequiredMixin, generic.TemplateView):
     locations = None
 
     def get(self, request, *args, **kwargs):
-        self.locations = MapsMiddleware()
+
+        #temp game
+        self.game_creator = GameCreatorMiddleware(request.user.username)
 
         return render(request, self.template_name, context={
-            'locations_code': self.locations.get_all_name_code()
+            'locations_code': self.game_creator.get_ordered_locations_of_game('LQGY-M42U')
+        })
+
+class LocationListView(LoginRequiredMixin, generic.TemplateView):
+    template_name = 'game-create.html'
+    login_url = '/login'
+
+    locations = None
+
+    def get(self, request, *args, **kwargs):
+        self.locations = _GameMiddleware(request.user.username)
+
+        return render(request, self.template_name, context={
+            'locations_code': self.locations.ordered_locations()
         })

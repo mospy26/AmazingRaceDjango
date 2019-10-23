@@ -44,11 +44,5 @@ class MapsMiddleware:
 
         for location in all_locations:
             latitude, longitude = self.get_coordinate(location.name)
-            yield (location.name, latitude, longitude)
 
-    def get_all_name_code(self):
-        location = Location.objects.all()
-        i = 0
-        for l in location:
-            i += 1
-            yield i, l.name, l.code
+            yield (location.name, latitude, longitude)
