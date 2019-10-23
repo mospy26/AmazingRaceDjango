@@ -30,9 +30,8 @@ class GamePlayerMiddleware:
     '''
 
     def update_profile_pictures(self, image_url):
-        if not self.profilePic:
-            return
-        self.profilePic.picture.delete(save=True)
+        if self.profilePic:
+            self.profilePic.picture.delete(save=True)
         django_file = File(open(image_url, "rb"))
         self.profilePic.picture.save(self.user.username + "-profile-pic" + ".jpeg", django_file, save=True)
 
@@ -41,7 +40,10 @@ class GamePlayerMiddleware:
 
     # TODO: Check if this actually renders when called on the front end 
     def get_profile_picture(self):
-        return self.profilePic.picture.url
+        profile_pic = self.profilePic.picture.url
+        if not profile_pic:
+            return None 
+        return profile_pic
 
     def get_username(self):
         return self.user.username

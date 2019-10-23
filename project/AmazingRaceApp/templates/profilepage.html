@@ -14,9 +14,9 @@
                 <div class="card-body">
                     <div class = "row">
                         <div class = "col">
-                            <h5>Name: {{ user.first_name }} {{ user.last_name }}</h5>
+                            <h5>Name: {{ name }}</h5>
                             <br>
-                            <h5>Username: {{ user.username }}</h5>
+                            <h5>Username: {{ username }}</h5>
                             <br>
                             <h5>Games Played: {{ games_played }}</h5>
                             <br>
@@ -24,7 +24,7 @@
                             <br>
                         </div>
                         <div class = "col">
-                            <image class = "rounded-circle" src = "{% static 'img/cryingcat.jpg' %}" alt = "profile" width = 200 height = 200></image>
+                            <image class = "rounded-circle" src = "{{ profile_picture }}" alt = "profile" width = 200 height = 200></image>
                         </div>
                     </div>
                 </div>
@@ -108,8 +108,11 @@
                                     Upload Profile Picture:
                                 </div>
                                 <div class = "col">
+                                    <form>
+                                        {{ picture_form }}
+                                    </form>
                                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                                        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Select Image From Desktop <i class="fas fa-edit fa-sm text-white-50"></i></a>
+                                        <a type="submit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Select Image From Desktop <i class="fas fa-edit fa-sm text-white-50"></i></a>
                                     </div>
                                 </div>
                             </div>
