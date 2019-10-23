@@ -6,8 +6,8 @@ from django.shortcuts import render
 
 # Create your views here.
 from django.views import generic
-
 from AmazingRaceApp.api.GamePlayerMiddleware import GamePlayerMiddleware
+from AmazingRaceApp.api.GameCreatorMiddleware import GameCreatorMiddleware
 from AmazingRaceApp.forms import RegisterForm
 
 
@@ -33,6 +33,15 @@ class LeaderboardView(LoginRequiredMixin, generic.TemplateView):
 class ProfilepageView(LoginRequiredMixin, generic.TemplateView):
     template_name = 'profilepage.html'
     login_url = '/login'
+
+    def get(self, request, *args, **kwargs):
+        self.player = GamePlayerMiddleware(request.user.username)
+        self.creator = GameCreatorMiddleware(request.user.username)
+
+        return render(request, self.template_name, context={
+            'games_played': self.player.get_games_played(),
+            'games_created': self.creator.get_number_created_games()
+        })
 
 
 class RegisterView(generic.TemplateView):
@@ -68,16 +77,16 @@ class GameCreatedListView(LoginRequiredMixin, generic.TemplateView):
     player = None
 
     def get(self, request, *args, **kwargs):
-        self.player = GamePlayerMiddleware(request.user.username)
+        self.player = GameCreatorMiddleware(request.user.username)
 
         return render(request, self.template_name, context={
-            'page_name': 'Created',
-            'recent_game_ranks': self.player.list_played_games()
+            'page_name' : 'Created',
+            'games': self.player.created_games()
         })
 
 
 class GamePlayedListView(LoginRequiredMixin, generic.TemplateView):
-    template_name = 'game-list.html'
+    template_name = 'locations.html'
     login_url = '/login'
 
     player = None
