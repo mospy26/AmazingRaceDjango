@@ -8,10 +8,13 @@ from django.shortcuts import render
 from django.views import generic
 from AmazingRaceApp.api.GamePlayerMiddleware import GamePlayerMiddleware
 from AmazingRaceApp.api.GameCreatorMiddleware import GameCreatorMiddleware
+<<<<<<< HEAD
 from AmazingRaceApp.api.GameMiddleware import _GameMiddleware
 from AmazingRaceApp.forms import RegisterForm
+=======
 from AmazingRaceApp.forms import RegisterForm, GameTitleForm
 from AmazingRaceApp.api.MapsMiddleware import MapsMiddleware
+>>>>>>> 397d8aeab7eb70686434996fc97fae5a34e18738
 
 
 class HomepageView(LoginRequiredMixin, generic.TemplateView):
