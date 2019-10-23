@@ -34,6 +34,9 @@ class ProfilepageView(LoginRequiredMixin, generic.TemplateView):
     template_name = 'profilepage.html'
     login_url = '/login'
 
+    player = None
+    creator = None
+
     def get(self, request, *args, **kwargs):
         self.player = GamePlayerMiddleware(request.user.username)
         self.creator = GameCreatorMiddleware(request.user.username)
@@ -86,7 +89,7 @@ class GameCreatedListView(LoginRequiredMixin, generic.TemplateView):
 
 
 class GamePlayedListView(LoginRequiredMixin, generic.TemplateView):
-    template_name = 'locations.html'
+    template_name = 'game-list.html'
     login_url = '/login'
 
     player = None
