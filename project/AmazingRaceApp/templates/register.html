@@ -41,20 +41,25 @@
                 <div class="form-group row">
                   <div class="col-sm-6 mb-3 mb-sm-0">
                     <input type="text" class="form-control form-control-user" name="first_name" placeholder="First Name">
+                      <h6 style="color: red; margin-top: 10px; ">{{ form.first_name.errors }}</h6>
                   </div>
                   <div class="col-sm-6">
                     <input type="text" class="form-control form-control-user" name="last_name" placeholder="Last Name">
+                    <h6 style="color: red; margin-top: 10px; ">{{ form.last_name.errors }}</h6>
                   </div>
                 </div>
                 <div class="form-group">
                   <input type="text" class="form-control form-control-user" name="username" placeholder="User Name">
+                    <h6 style="color: red; margin-top: 10px; ">{{ form.username.errors }}</h6>
                 </div>
                 <div class="form-group row">
                   <div class="col-sm-6 mb-3 mb-sm-0">
                     <input type="password" class="form-control form-control-user" name="password1" placeholder="Password">
+                    <h6 style="color: red; margin-top: 10px; ">{{ form.password1.errors }}</h6>
                   </div>
                   <div class="col-sm-6">
                     <input type="password" class="form-control form-control-user" name="password2" placeholder="Repeat Password">
+                    <h6 style="color: red; margin-top: 10px; ">{{ form.password2.errors }}</h6>
                   </div>
 
                 </div>
@@ -66,7 +71,7 @@
               </form>
               <hr>
               <div class="text-center">
-                <a class="small" href="login.html">Already have an account? Login!</a>
+                <a class="small" href="{% url 'login' %}">Already have an account? Login!</a>
               </div>
             </div>
           </div>
