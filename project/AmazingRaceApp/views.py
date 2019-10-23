@@ -137,9 +137,11 @@ class GameCreationListView(LoginRequiredMixin, generic.TemplateView):
 
         #temp game
         self.game_creator = GameCreatorMiddleware(request.user.username)
+        self.lat_long = MapsMiddleware()
 
         return render(request, self.template_name, context={
-            'locations_code': self.game_creator.get_ordered_locations_of_game('LQGY-M42U')
+            'locations_code': self.game_creator.get_ordered_locations_of_game('LQGY-M42U'),
+            'lat_long': self.lat_long.get_list_of_long_lat('LQGY-M42U')
         })
 
 class LocationListView(LoginRequiredMixin, generic.TemplateView):
