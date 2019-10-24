@@ -1,12 +1,8 @@
-import string
-import random
-
-from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.contrib.auth.forms import UserCreationForm
 from django import forms
 from django.contrib.auth.models import User
 
-from AmazingRaceApp.api.GameCreatorMiddleware import GameCreatorMiddleware
-from AmazingRaceApp.models import Game
+from api.models import Game
 
 
 class RegisterForm(UserCreationForm):

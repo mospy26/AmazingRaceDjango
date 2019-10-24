@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
 
-from AmazingRaceApp.models import Game, Location
+from api.models import Game, Location
 
 
 class GameSerializer(serializers.HyperlinkedModelSerializer):

@@ -1,6 +1,6 @@
 [
 {
-    "model": "AmazingRaceApp.gameplayer",
+    "model": "api.gameplayer",
     "pk": 1,
     "fields": {
         "rank": 1,
@@ -9,7 +9,7 @@
     }
 },
 {
-    "model": "AmazingRaceApp.gameplayer",
+    "model": "api.gameplayer",
     "pk": 2,
     "fields": {
         "rank": 2,
@@ -18,7 +18,7 @@
     }
 },
 {
-    "model": "AmazingRaceApp.gameplayer",
+    "model": "api.gameplayer",
     "pk": 3,
     "fields": {
         "rank": 3,
@@ -27,7 +27,7 @@
     }
 },
 {
-    "model": "AmazingRaceApp.gameplayer",
+    "model": "api.gameplayer",
     "pk": 4,
     "fields": {
         "rank": 4,
@@ -36,7 +36,7 @@
     }
 },
 {
-    "model": "AmazingRaceApp.gameplayer",
+    "model": "api.gameplayer",
     "pk": 5,
     "fields": {
         "rank": 5,
@@ -45,7 +45,7 @@
     }
 },
 {
-    "model": "AmazingRaceApp.gameplayer",
+    "model": "api.gameplayer",
     "pk": 6,
     "fields": {
         "rank": 1,
@@ -54,7 +54,7 @@
     }
 },
 {
-    "model": "AmazingRaceApp.gameplayer",
+    "model": "api.gameplayer",
     "pk": 7,
     "fields": {
         "rank": 2,
@@ -63,7 +63,7 @@
     }
 },
 {
-    "model": "AmazingRaceApp.gameplayer",
+    "model": "api.gameplayer",
     "pk": 8,
     "fields": {
         "rank": 3,
@@ -72,7 +72,7 @@
     }
 },
 {
-    "model": "AmazingRaceApp.gameplayer",
+    "model": "api.gameplayer",
     "pk": 9,
     "fields": {
         "rank": 1,
@@ -81,7 +81,7 @@
     }
 },
 {
-    "model": "AmazingRaceApp.gameplayer",
+    "model": "api.gameplayer",
     "pk": 10,
     "fields": {
         "rank": 2,
@@ -90,7 +90,7 @@
     }
 },
 {
-    "model": "AmazingRaceApp.gameplayer",
+    "model": "api.gameplayer",
     "pk": 11,
     "fields": {
         "rank": 3,
@@ -99,7 +99,7 @@
     }
 },
 {
-    "model": "AmazingRaceApp.gameplayer",
+    "model": "api.gameplayer",
     "pk": 12,
     "fields": {
         "rank": 1,
@@ -108,7 +108,7 @@
     }
 },
 {
-    "model": "AmazingRaceApp.gameplayer",
+    "model": "api.gameplayer",
     "pk": 13,
     "fields": {
         "rank": 2,
@@ -117,7 +117,7 @@
     }
 },
 {
-    "model": "AmazingRaceApp.gameplayer",
+    "model": "api.gameplayer",
     "pk": 14,
     "fields": {
         "rank": 3,
@@ -126,7 +126,7 @@
     }
 },
 {
-    "model": "AmazingRaceApp.gameplayer",
+    "model": "api.gameplayer",
     "pk": 15,
     "fields": {
         "rank": 1,
@@ -135,7 +135,7 @@
     }
 },
 {
-    "model": "AmazingRaceApp.gameplayer",
+    "model": "api.gameplayer",
     "pk": 16,
     "fields": {
         "rank": 2,
@@ -144,7 +144,7 @@
     }
 },
 {
-    "model": "AmazingRaceApp.gameplayer",
+    "model": "api.gameplayer",
     "pk": 17,
     "fields": {
         "rank": 3,

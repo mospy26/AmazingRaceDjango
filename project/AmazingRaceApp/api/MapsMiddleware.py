@@ -6,7 +6,7 @@ from geopy import distance
 import certifi
 import ssl
 
-from ..models import ProfilePictures, GamePlayer, Game, Location, LocationUser
+from api.models import Game, Location
 
 
 class MapsMiddleware:
@@ -37,8 +37,7 @@ class MapsMiddleware:
     Returns a list of locations for a given game_code with it's corresponding
     latitude and longitude
     '''
-    
-        
+
     def get_list_of_long_lat(self, game_code):
         game = Game.objects.get(code=game_code)
         all_locations = Location.objects.filter(game=game)
@@ -47,7 +46,7 @@ class MapsMiddleware:
             latitude, longitude = self.get_coordinate(location.name)
             latitude = float(latitude)
             longitude = float(longitude)
-            
+
             yield (latitude, longitude, location.name)
 
     def get_all_name_code(self):

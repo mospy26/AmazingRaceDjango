@@ -2,7 +2,7 @@ from django.contrib.auth.models import User
 from rest_framework import viewsets
 
 from .serializers import GameSerializer, UserSerializer, LocationSerializer
-from AmazingRaceApp.models import Game, Location
+from api.models import Game, Location
 
 
 class GameView(viewsets.ModelViewSet):

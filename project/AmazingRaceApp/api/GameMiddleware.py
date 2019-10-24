@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.db.models import Subquery
 from django.utils.datetime_safe import datetime
 import random
-from ..models import Location, Game, GamePlayer
+from api.models import Location, Game, GamePlayer
 
 
 # API for the Game Database
