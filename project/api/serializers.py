@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
 
-from api.models import Game, Location
+from api.models import Game, Location, GamePlayer
 
 
 class GameSerializer(serializers.HyperlinkedModelSerializer):
@@ -28,3 +28,13 @@ class LocationSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Location
         fields = '__all__'
+
+
+class GamesPlayedSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = GamePlayer
+        fields = (
+            'rank',
+            'game',
+            'player'
+        )
