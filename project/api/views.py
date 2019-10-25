@@ -25,12 +25,12 @@ class LocationView(viewsets.ReadOnlyModelViewSet):
     queryset = Location.objects.all()
 
 
-class GamesPlayedView(views.APIView):
-    # authentication_classes = [SessionAuthentication, BasicAuthentication]
-    # queryset = GamePlayer.objects.none()
-    # serializer_class = GamesPlayedSerializer
+class GamesPlayedView(viewsets.ModelViewSet):
+    authentication_classes = [SessionAuthentication, BasicAuthentication]
+    queryset = GamePlayer.objects.none()
+    serializer_class = GamesPlayedSerializer
 
-    def get(self, request):
+    def list(self, request, **kwargs):
         games_played = GamePlayer.objects.filter(player=request.user)
         serializer = GamesPlayedSerializer(games_played, many=True, context={'request': request})
         return Response(serializer.data)
