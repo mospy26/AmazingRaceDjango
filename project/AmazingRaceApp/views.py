@@ -155,6 +155,7 @@ class GameCreationListView(LoginRequiredMixin, generic.TemplateView):
     def get(self, request, code, *args, **kwargs):
         # temp game
         self.game_creator = GameCreatorMiddleware(request.user.username)
+        self.maps = MapsMiddleware()
 
         if not self.game_creator.is_authorized_to_access_game(code):
             return handler(request, 403)
@@ -162,7 +163,8 @@ class GameCreationListView(LoginRequiredMixin, generic.TemplateView):
         return render(request, self.template_name, context={
             'locations_code': self.game_creator.get_ordered_locations_of_game(code),
             'game_details': self.game_creator.get_code_and_name(code),
-            'code': code
+            'code': code,
+            'lat_long': self.maps.get_list_of_long_lat(code)
         })
 
     def post(self, request, *args, **kwargs):
