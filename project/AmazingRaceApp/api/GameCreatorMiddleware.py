@@ -68,3 +68,7 @@ class GameCreatorMiddleware:
     def get_ordered_locations_of_game(self, code):
         self.game_middleware = _GameMiddleware(code)
         return self.game_middleware.ordered_locations()
+
+    def get_location_at_x(self, code, x):
+        self.game_middleware = _GameMiddleware(code)
+        return self.game_middleware.get_x_location(x)
