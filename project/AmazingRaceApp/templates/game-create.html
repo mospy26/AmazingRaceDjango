@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {% extends "topbar.html" %}
   {% load static %}
   {% block content %}
@@ -27,7 +28,7 @@
                   <div class="card-body">
                     <div class="row no-gutters align-items-center">
                       <div class="col mr-2">
-                        <a href="/game/addlocation"><div class="h5 mb-0 font-weight-bold text-primary">Add<br>Location</div></a>
+                        <a href="#"><div class="h5 mb-0 font-weight-bold text-primary">Add<br>Location</div></a>
                       </div>
                       <div class="col-auto">
                         <i class="fas fa-location-arrow fa-2x text-gray-300"></i>
@@ -43,43 +44,11 @@
                   <div class="card-body">
                     <div class="row no-gutters align-items-center">
                       <div class="col mr-2">
-                        <a href="#" data-toggle="modal" data-target="#GameSettingsModal"><div class="h5 mb-0 font-weight-bold text-success">Game<br>Settings</div></a>
+                        <a href="#"><div class="h5 mb-0 font-weight-bold text-success">Game<br>Settings</div></a>
                       </div>
                       <div class="col-auto">
                         <i class="fas fa-cog fa-2x text-gray-300"></i>
                       </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              
-              <!-- Game Settings Modal-->
-              <div class="modal fade" id="GameSettingsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title" id="exampleModalLabel">Game Settings</h5>
-                      <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                      </button>
-                    </div>
-                    <form class="navbar-search" id="gameTitleInput" method="post" action="{% url 'homepage' %}">
-                      {% csrf_token %}
-                        <div class="modal-body">
-                        <h6 class="text-center" id="exampleModalLabel">Change Game Name</h6>
-                        <div class="input-group">
-                          <input type="text" class="form-control bg-light border-0 small" name="title" placeholder="Enter New Game Name" aria-label="GameLocation" aria-describedby="basic-addon2">
-                            <input name="code" type="hidden" value="">
-                        </div>
-                        <br>
-                        <input class="btn btn-primary btn-user btn-block" type="submit" value="Update">
-                      </div>
-                  
-                    </form>
-                    <div class="modal-footer">
-                      <button class="btn btn-secondary btn-danger" type="button" data-dismiss="modal">Delete Game</button>
-                      <button class="btn btn-secondary btn-success" type="button" data-dismiss="modal">Start Game</button>
-                      <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
                     </div>
                   </div>
                 </div>
@@ -91,7 +60,7 @@
                   <div class="card-body">
                     <div class="row no-gutters align-items-center">
                       <div class="col mr-2">
-                        <a href="/game/leaderboard"><div class="h5 mb-0 font-weight-bold text-warning">View<br>Leaderboard</div></a>
+                        <a href="#"><div class="h5 mb-0 font-weight-bold text-warning">View<br>Leaderboard</div></a>
                       </div>
                       <div class="col-auto">
                         <i class="fas fa-trophy fa-2x text-gray-300"></i>
@@ -196,6 +165,231 @@
         
         <!-- /.container-fluid -->
       </div>
+      <!-- End of Main Content -->
+      
+      <!--   https://stackoverflow.com/questions/2072848/reorder-html-table-rows-using-drag-and-drop -->
+      <script type="text/javascript">
+        $(window).on('load', function(){
+          var fixHelperModified = function(e, tr) {
+            var $originals = tr.children();
+            var $helper = tr.clone();
+            $helper.children().each(function(index) {
+              $(this).width($originals.eq(index).width())
+            });
+          return $helper;
+        },
+        updateIndex = function(e, ui) {
+          $('td.index', ui.item.parent()).each(function (i) {
+            $(this).html(i + 1);
+          });
+        };
+        
+        $("#gameLocations tbody").sortable({
+          helper: fixHelperModified,
+          stop: updateIndex
+          }).disableSelection();
+        });
+
+      </script>
+  {% endblock %}
+
+
+=======
+{% extends "topbar.html" %}
+  {% load static %}
+  {% block content %}
+        <!-- Begin Page Content -->
+
+        <div class="container-fluid">
+
+
+          <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">Game Creation Dashboard</h1>
+            {% for game in game_details %}
+            <h5>{{ game.0 }} | {{ game.1 }}</h5>
+            {% endfor %}
+
+          </div>
+           
+
+          <!-- Add Location box -->
+          <div class = "row">
+            <!-- Basic Card Example -->
+            
+            <div class="col-xl-3 col-md-4">
+
+              <!-- Add Location box -->
+              <div class="mb-4">
+                <div class="card border-left-primary shadow h-100 py-2">
+                  <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                      <div class="col mr-2">
+                        <a href="/game/addlocation"><div class="h5 mb-0 font-weight-bold text-primary">Add<br>Location</div></a>
+                      </div>
+                      <div class="col-auto">
+                        <i class="fas fa-location-arrow fa-2x text-gray-300"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Game Settings box -->
+              <div class="mb-4">
+                <div class="card border-left-success shadow h-100 py-2">
+                  <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                      <div class="col mr-2">
+                        <a href="#" data-toggle="modal" data-target="#GameSettingsModal"><div class="h5 mb-0 font-weight-bold text-success">Game<br>Settings</div></a>
+                      </div>
+                      <div class="col-auto">
+                        <i class="fas fa-cog fa-2x text-gray-300"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Game Settings Modal-->
+              <div class="modal fade" id="GameSettingsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Game Settings</h5>
+                      <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                      </button>
+                    </div>
+                    <form class="navbar-search" id="gameTitleInput" method="post" action="/game/create/{{ code }}">
+                      {% csrf_token %}
+                        <div class="modal-body">
+                        <h6 class="text-center" id="exampleModalLabel">Change Game Name</h6>
+                        <div class="input-group">
+                          <input type="text" class="form-control bg-light border-0 small" name="title" placeholder="Enter New Game Name" aria-label="GameLocation" aria-describedby="basic-addon2">
+                            <input name="code" type="hidden" value="">
+                        </div>
+                        <br>
+                        <input class="btn btn-primary btn-user btn-block" type="submit" value="Update">
+                      </div>
+                  
+                    </form>
+                    <div class="modal-footer">
+                      <button class="btn btn-secondary btn-danger" type="button" data-dismiss="modal">Delete Game</button>
+                      <button class="btn btn-secondary btn-success" type="button" data-dismiss="modal">Start Game</button>
+                      <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Leaderboard box -->
+              <div class="mb-4">
+                <div class="card border-left-warning shadow h-100 py-2">
+                  <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                      <div class="col mr-2">
+                        <a href="/game/leaderboard"><div class="h5 mb-0 font-weight-bold text-warning">View<br>Leaderboard</div></a>
+                      </div>
+                      <div class="col-auto">
+                        <i class="fas fa-trophy fa-2x text-gray-300"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+            </div>
+            
+            <div class="col-xl-9 col-md-8">
+              <!-- Basic Card Example -->
+              <div class="card shadow mb-4">
+                <div class="card-body">
+                  <div>
+                    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
+                          integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+                          crossorigin=""/>
+                    <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"
+                            integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="
+                            crossorigin="">
+                    </script>
+                    <style>
+                      #mapid{
+                        height: 70vh;
+                      }
+                    </style>
+                    <div id = "mapid">
+                    </div>
+                    <script>
+                      var mymap = L.map('mapid').setView([51.505, -0.09], 13);
+
+                      L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+                        attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                      }).addTo(mymap);
+                    </script>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Table for locations -->
+          
+          <div class = "row">
+            <div class = "col">
+              <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                
+                  <h6 class="m-0 font-weight-bold text-primary">Game Locations</h6>
+                  
+                </div>
+                <div class="card-body">
+                  <div class="table-responsive">
+                    
+                    <div class="row">
+                      <div class = "col-auto mr-auto">
+                      <h5> Drag table rows to reorder the game locations</h5>
+                      </div>
+                      <div class = "col-auto">
+                      <a href="#" class="btn btn-success btn-icon-split">
+                        <span class="icon text-white-50">
+                          <i class="fas fa-check"></i>
+                        </span>
+                        <span class="text">Update Location Order</span>
+                      </a>
+                      </div>
+                    </div>
+                    
+                    
+                    
+                    <table class="mt-3 table table-bordered grid" id="gameLocations" width="100%" cellspacing="0">
+                      <thead>
+                      <tr>
+                        <th class="index">Position Number</th>
+                        <th>Location Name</th>
+                        <th>Location Code</th>
+                      </tr>
+                      </thead>
+                      <tbody>
+
+                      {% for location in locations_code %}
+                      <tr>
+                        <td class="index">{{ location.0 }}</td>
+                        <td>{{ location.1.name}}</td>
+                        <td>{{ location.1.code}}</td>
+                      </tr>
+                      {% endfor %}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+        
+        <!-- /.container-fluid -->
+      </div>
 
       <!-- End of Main Content -->
       
@@ -226,4 +420,5 @@
   {% endblock %}
 
 
+>>>>>>> origin/integration
       

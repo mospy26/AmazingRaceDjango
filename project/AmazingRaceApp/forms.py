@@ -38,3 +38,14 @@ class GameTitleForm(forms.ModelForm):
             'title',
             'code'
         ]
+
+
+class GameRenameForm(forms.ModelForm):
+
+    class Meta:
+        model = Game
+
+        fields = [
+            'title',
+            'code'
+        ]
