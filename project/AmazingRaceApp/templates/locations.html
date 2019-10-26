@@ -6,11 +6,13 @@
             <div class = "container-fluid">
                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
                     <h1 class="h3 mb-0 text-gray-800">Locations Dashboard</h1>
-                    <h5>superbunny_99 | User ID: u3e9qe82e</h5>
+                    <h5>{{ game_player_name }} | {{ game_player_username }}</h5>
                 </div>
 
                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                    <h8>Edwin's Game | Game ID: dj9jeq2k0</h8>
+                    {% for game in game_details %}
+                    <h8>{{game.0 }} | Game ID: {{ game.1 }}</h8>
+                    {% endfor %}
                 </div>
 
                 <div class = "row">
@@ -21,28 +23,12 @@
                                 <h6 class="m-0 font-weight-bold text-primary">Location Details</h6>
                             </div>
                             <div class="card-body">
+                                {% for location in locations_code %}
                                 <div class = "row">
                                     <div class = "col">
                                         Location Name:
                                     </div>
-
                                     <div class = "col">
-                                        <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-                                            <div class="input-group">
-                                                <input type="text" class="form-control bg-light border-0 small" value="USYD - Fisher Library" aria-label="Search" aria-describedby="basic-addon2">
-
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                                <br>
-                                {% for location in locations_code %}
-                                <div class = "row">
-                                    <div class = "col">
-                                        Location Address:
-                                    </div>
-                                    <div class = "col">
-
                                         {{ location.1.name }}
                                     </div>
                                 </div>
@@ -54,7 +40,7 @@
                                         Location Code:
                                     </div>
                                     <div class = "col">
-                                        {{ location.1.code }}
+                                        {{ location.1.code}}
                                     </div>
                                 </div>
                                 <br>
@@ -76,7 +62,7 @@
                                     <div class = "col">
                                         <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                                             <div class="input-group">
-                                                <textarea type="text" class="form-control bg-light border-0 small" rows = "4" aria-label="Search" aria-describedby="basic-addon2">{{location.1.clues}}</textarea>
+                                                <textarea type="text" class="form-control bg-light border-0 small" rows = "4" aria-label="Search" aria-describedby="basic-addon2"> {{ location.1.clues }}</textarea>
                                             </div>
                                         </form>
                                     </div>
@@ -121,16 +107,6 @@
                                           }).addTo(mymap);
 
                                           var marker = L.marker([51.5, -0.09]).addTo(mymap);
-
-                                          var circle = L.circle([51.508, -0.11], {
-                                            color: 'red',
-                                            fillColor: '#f03',
-                                            fillOpacity: 0.5,
-                                            radius: 500
-                                          }).addTo(mymap);
-
-                                          marker.bindPopup("<b>WDF is this shit</b><br>Wheres the fuckin map.").openPopup();
-                                          circle.bindPopup("FUCK.");
                                         </script>
                                     </div>
                                 </div>

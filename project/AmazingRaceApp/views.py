@@ -37,7 +37,6 @@ class HomepageView(LoginRequiredMixin, generic.TemplateView):
 
             return HttpResponseRedirect("/game/create")
 
-        print(form.errors)
         return render(request, self.template_name, {
             'form': form
         })

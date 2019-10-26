@@ -35,12 +35,18 @@
                   <tbody>
                   {% for game in games %}
                     <tr>
+                      {% if page_name == "Played" %}
                       <td>{{ game.0.title }}</td>
                       <td>{{ game.0.code }}</td>
                       <td>{{ game.0.start_time }}</td>
-                      {% if page_name == "Played" %}
                       <td>{{ game.2 }} </td>
                       <td>{{ game.1 }}</td>
+                      {% endif %}
+
+                      {% if page_name == "Created" %}
+                      <td>{{ game.title }}</td>
+                      <td>{{ game.code }}</td>
+                      <td>{{ game.start_time }}</td>
                       {% endif %}
                     </tr>
                   {% endfor %}
