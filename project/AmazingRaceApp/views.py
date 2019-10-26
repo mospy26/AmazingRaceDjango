@@ -13,6 +13,15 @@ from AmazingRaceApp.forms import RegisterForm
 from AmazingRaceApp.forms import RegisterForm, GameTitleForm
 from AmazingRaceApp.api.MapsMiddleware import MapsMiddleware
 
+from django.shortcuts import render_to_response
+from django.template import RequestContext
+
+
+def handler404(request):
+    response = render_to_response('404.html', {}, context_instance=RequestContext(request))
+    response.status_code = 404
+    return response
+
 
 class HomepageView(LoginRequiredMixin, generic.TemplateView):
     template_name = 'home.html'
