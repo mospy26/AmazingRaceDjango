@@ -64,13 +64,15 @@ class _GameMiddleware:
         self.game.title = name
         self.game.save()
 
-    @classmethod
     def make_live(self, game: Game):
         # defines what happens when a game is made live
         game.live = True
         game.start_time = datetime.now()
         game.end_time = datetime.now()
         return game
+
+    def get_status(self):
+        return self.game.live
 
     def _generate_code(self):
         game_codes = Game.objects.values_list('code')

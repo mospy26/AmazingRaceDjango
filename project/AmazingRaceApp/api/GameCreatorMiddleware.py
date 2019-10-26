@@ -3,7 +3,7 @@ from django.core.exceptions import ObjectDoesNotExist, EmptyResultSet
 
 import traceback
 
-from api.models import GameCreator
+from ..models import Game, GameCreator, Location
 from .GameMiddleware import _GameMiddleware
 
 """ 
@@ -72,3 +72,24 @@ class GameCreatorMiddleware:
     def get_leaderboard(self, code):
         self.game_middleware = _GameMiddleware(code)
         return self.game_middleware.game_leaderboard()
+
+    def get_status_of_game(self, code):
+        self.game_middleware = _GameMiddleware(code)
+        return self.game_middleware.get_status()
+
+    def get_code_and_name(self, code):
+        self.game_middleware = _GameMiddleware(code)
+        return self.game_middleware.get_code_and_name()
+
+    def update_location_order(self, location_codes_list, game_code):
+        counter = 1
+        game = Game.objects.get(code=game_code)
+        for code in location_codes_list:
+            location = Location.objects.get(code=code, game=game)
+            if location.order != counter:
+                location.order = counter
+                location.save()
+            counter += 1
+
+    def is_authorized_to_access_game(self, code):
+        return GameCreator.objects.filter(game=_GameMiddleware(code).game, creator=self.user).exists()
