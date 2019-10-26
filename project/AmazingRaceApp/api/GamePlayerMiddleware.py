@@ -127,7 +127,7 @@ class GamePlayerMiddleware:
         # Begin the games
         for games in live_games:
             for i in GamePlayer.objects.filter(game=games, player=self.user).values('rank'):
-                yield games.title, i['rank'], games.start_time.strftime('%d/%m/%Y')
+                yield games.title, i['rank'], games.start_time
         for games in non_live_games:
             for i in GamePlayer.objects.filter(game=games, player=self.user).values('rank'):
                 yield games.title, i['rank'], games.start_time
