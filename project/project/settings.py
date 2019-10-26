@@ -36,8 +36,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'AmazingRaceApp',
-    'api',
-    'rest_framework'
 ]
 
 MIDDLEWARE = [
