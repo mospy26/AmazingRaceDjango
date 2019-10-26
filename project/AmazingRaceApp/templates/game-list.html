@@ -29,14 +29,23 @@
                       {% if page_name == "Played" %}
                       <th>Rank</th>
                       <th>Creator (Username)</th>
+
                       {% endif %}
+                      <td>Status</td>
                     </tr>
                   </thead>
                   <tbody>
                   {% for game in games %}
                     <tr>
+                      {% if status == False %}
+                      <td><a href = "/game/leaderboard/#">{{ game.title }}</a></td>
+                      {% endif %}
+
+                      {% if status == True %}
+                      <td><a href = "/game/leaderboard/#">{{ game.title }}</a></td>
+                      {% endif %}
+
                       {% if page_name == "Played" %}
-                      <td>{{ game.0.title }}</td>
                       <td>{{ game.0.code }}</td>
                       <td>{{ game.0.start_time }}</td>
                       <td>{{ game.2 }} </td>
@@ -44,10 +53,18 @@
                       {% endif %}
 
                       {% if page_name == "Created" %}
-                      <td>{{ game.title }}</td>
                       <td>{{ game.code }}</td>
                       <td>{{ game.start_time }}</td>
                       {% endif %}
+
+                      {% if status == False %}
+                      <td><font color = "#d9534f">Closed</font></td>
+                      {% endif %}
+
+                      {% if status == True %}
+                      <td><font color = "#5cb85c">Live</font></td>
+                      {% endif %}
+
                     </tr>
                   {% endfor %}
                   </tbody>

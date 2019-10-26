@@ -72,6 +72,9 @@ class _GameMiddleware:
         game.end_time = datetime.now()
         return game
 
+    def get_status(self):
+        return self.game.live
+
     def _generate_code(self):
         game_codes = Game.objects.values_list('code')
         while True:

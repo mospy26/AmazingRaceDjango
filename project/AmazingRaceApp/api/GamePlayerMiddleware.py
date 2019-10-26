@@ -78,17 +78,28 @@ class GamePlayerMiddleware:
     '''
     Gets the cursor to the table which contains 
     all the locations have been visited by the user 
+    along with the order, name, clue and code (if visited)
+    else it returns ???
     @param: None 
-    @return: list of visited locations from the user 
+    @return: list of visited locations along with the name, 
+    clue and code from the user or ???
     '''
 
     def locations_visited(self, game_code):
         game = Game.objects.get(code=game_code)
         all_locations = Location.objects.filter(game=game)
 
+        first = True
+
         for this_location in all_locations:
             if (LocationUser.objects.filter(location=this_location, user=self.user)):
-                yield this_location.name
+                yield this_location.order, this_location.name, this_location.clues, this_location.code
+            else:
+                if first:
+                    yield this_location.order, "???", this_location.clues, "???"
+                    first = False
+                else:
+                    yield this_location.order, "???", "???", "???"
 
     '''
     Gets the cursor to a list of games played 

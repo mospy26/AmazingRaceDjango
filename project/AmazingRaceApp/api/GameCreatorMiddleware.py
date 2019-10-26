@@ -76,3 +76,7 @@ class GameCreatorMiddleware:
     def get_leaderboard(self, code):
         self.game_middleware = _GameMiddleware(code)
         return self.game_middleware.game_leaderboard()
+
+    def get_status_of_game(self, code):
+        self.game_middleware = _GameMiddleware(code)
+        return self.game_middleware.get_status()

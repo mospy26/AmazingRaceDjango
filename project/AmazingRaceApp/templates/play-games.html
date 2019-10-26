@@ -8,7 +8,9 @@
 
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h1 class="h3 mb-0 text-gray-800">Game Player Dashboard</h1>
-            <h5>Edwin's Game | Game ID: 3r93qw9</h5>
+            {% for game in game_details %}
+            <h5>{{game.0}} | Game ID: {{game.1}}</h5>
+            {% endfor %}
           </div>
 
 
@@ -52,7 +54,7 @@
                   <div class="card-body">
                     <div class="row no-gutters align-items-center">
                       <div class="col mr-2">
-                        <a href="#"><div class="h5 mb-0 font-weight-bold text-warning">View<br>Leaderboard</div></a>
+                        <a href="/game/leaderboard"><div class="h5 mb-0 font-weight-bold text-warning">View<br>Leaderboard</div></a>
                       </div>
                       <div class="col-auto">
                         <i class="fas fa-trophy fa-2x text-gray-300"></i>
@@ -88,18 +90,6 @@
                     L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
                       attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                     }).addTo(mymap);
-
-                    var marker = L.marker([51.5, -0.09]).addTo(mymap);
-
-                    var circle = L.circle([51.508, -0.11], {
-                      color: 'red',
-                      fillColor: '#f03',
-                      fillOpacity: 0.5,
-                      radius: 500
-                    }).addTo(mymap);
-
-                    marker.bindPopup("<b>WDF is this shit</b><br>Wheres the fuckin map.").openPopup();
-                    circle.bindPopup("FUCK.");
                   </script>
                 </div>
               </div>
@@ -112,7 +102,7 @@
             <div class = "col">
               <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                  <h6 class="m-0 font-weight-bold text-primary">Game Locations</h6>
+                  <h6 class="m-0 font-weight-bold text-primary">Visited Game Locations</h6>
                 </div>
                 <div class="card-body">
                   <div class="table-responsive">
@@ -121,47 +111,21 @@
                       <tr>
                         <th>Location Number</th>
                         <th>Location Name</th>
-                        <th>Location Clue</th>
                         <th>Location Code</th>
+                        <th>Location Clue</th>
                       </tr>
                       </thead>
                       <tbody>
-                      <tr>
-                        <td>1</td>
-                        <td>University of Sydney - Quadrangle</td>
-                        <td>Location Clue</td>
-                        <td>128445</td>
+                      {% for locations in visited %}
+
+                        <tr>
+                        <td>{{locations.0}}</td>
+                        <td>{{locations.1}}</td>
+                        <td>{{locations.3}}</td>
+                        <td>{{locations.2}}</td>
                       </tr>
-                      <tr>
-                        <td>2</td>
-                        <td>Broadway Shopping Centre</td>
-                        <td>Location Clue</td>
-                        <td>154964</td>
-                      </tr>
-                      <tr>
-                        <td>3</td>
-                        <td>World Square</td>
-                        <td>Location Clue</td>
-                        <td>178539</td>
-                      </tr>
-                      <tr>
-                        <td>4</td>
-                        <td>Opera House</td>
-                        <td>Location Clue</td>
-                        <td>138593</td>
-                      </tr>
-                      <tr>
-                        <td>5</td>
-                        <td>Regent Place</td>
-                        <td>Location Clue</td>
-                        <td>112493</td>
-                      </tr>
-                      <tr>
-                        <td>6</td>
-                        <td>Darling Harbour Bridge</td>
-                        <td>Location Clue</td>
-                        <td>176849</td>
-                      </tr>
+
+                      {% endfor %}
                       </tbody>
                     </table>
                   </div>
