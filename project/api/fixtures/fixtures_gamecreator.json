@@ -1,34 +1,34 @@
 [
 {
-    "model": "api.gamecreator",
+    "model": "AmazingRaceApp.gamecreator",
     "pk": 1,
     "fields": {
         "creator": 6
     }
 },
 {
-    "model": "api.gamecreator",
+    "model": "AmazingRaceApp.gamecreator",
     "pk": 2,
     "fields": {
         "creator": 5
     }
 },
 {
-    "model": "api.gamecreator",
+    "model": "AmazingRaceApp.gamecreator",
     "pk": 3,
     "fields": {
         "creator": 4
     }
 },
 {
-    "model": "api.gamecreator",
+    "model": "AmazingRaceApp.gamecreator",
     "pk": 4,
     "fields": {
         "creator": 3
     }
 },
 {
-    "model": "api.gamecreator",
+    "model": "AmazingRaceApp.gamecreator",
     "pk": 5,
     "fields": {
         "creator": 7

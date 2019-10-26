@@ -8,7 +8,10 @@
 
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h1 class="h3 mb-0 text-gray-800">Game Creation Dashboard</h1>
-            <h5>Edwin's Game | Game ID: 3r93qw9</h5>
+            {% for game in game_details %}
+            <h5>{{ game.0 }} | {{ game.1 }}</h5>
+            {% endfor %}
+
           </div>
            
 
@@ -24,7 +27,7 @@
                   <div class="card-body">
                     <div class="row no-gutters align-items-center">
                       <div class="col mr-2">
-                        <a href="#"><div class="h5 mb-0 font-weight-bold text-primary">Add<br>Location</div></a>
+                        <a href="/game/addlocation"><div class="h5 mb-0 font-weight-bold text-primary">Add<br>Location</div></a>
                       </div>
                       <div class="col-auto">
                         <i class="fas fa-location-arrow fa-2x text-gray-300"></i>
@@ -40,11 +43,43 @@
                   <div class="card-body">
                     <div class="row no-gutters align-items-center">
                       <div class="col mr-2">
-                        <a href="#"><div class="h5 mb-0 font-weight-bold text-success">Game<br>Settings</div></a>
+                        <a href="#" data-toggle="modal" data-target="#GameSettingsModal"><div class="h5 mb-0 font-weight-bold text-success">Game<br>Settings</div></a>
                       </div>
                       <div class="col-auto">
                         <i class="fas fa-cog fa-2x text-gray-300"></i>
                       </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Game Settings Modal-->
+              <div class="modal fade" id="GameSettingsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Game Settings</h5>
+                      <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                      </button>
+                    </div>
+                    <form class="navbar-search" id="gameTitleInput" method="post" action="/game/create/{{ code }}">
+                      {% csrf_token %}
+                        <div class="modal-body">
+                        <h6 class="text-center" id="exampleModalLabel">Change Game Name</h6>
+                        <div class="input-group">
+                          <input type="text" class="form-control bg-light border-0 small" name="title" placeholder="Enter New Game Name" aria-label="GameLocation" aria-describedby="basic-addon2">
+                            <input name="code" type="hidden" value="">
+                        </div>
+                        <br>
+                        <input class="btn btn-primary btn-user btn-block" type="submit" value="Update">
+                      </div>
+                  
+                    </form>
+                    <div class="modal-footer">
+                      <button class="btn btn-secondary btn-danger" type="button" data-dismiss="modal">Delete Game</button>
+                      <button class="btn btn-secondary btn-success" type="button" data-dismiss="modal">Start Game</button>
+                      <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
                     </div>
                   </div>
                 </div>
@@ -56,7 +91,7 @@
                   <div class="card-body">
                     <div class="row no-gutters align-items-center">
                       <div class="col mr-2">
-                        <a href="#"><div class="h5 mb-0 font-weight-bold text-warning">View<br>Leaderboard</div></a>
+                        <a href="/game/leaderboard"><div class="h5 mb-0 font-weight-bold text-warning">View<br>Leaderboard</div></a>
                       </div>
                       <div class="col-auto">
                         <i class="fas fa-trophy fa-2x text-gray-300"></i>
@@ -89,7 +124,6 @@
                     </div>
                     <script>
                       var mymap = L.map('mapid');
-
                       L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
                         attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                       }).addTo(mymap);
@@ -109,7 +143,6 @@
                       
                       var bounds = new L.LatLngBounds(arrayOfLatLngs);
                       mymap.fitBounds(bounds);
-
                     </script>
                   </div>
                 </div>
@@ -160,7 +193,7 @@
                       <tr>
                         <td class="index">{{ location.0 }}</td>
                         <td>{{ location.1.name}}</td>
-                        <td>{{ location.1.code }}</td>
+                        <td>{{ location.1.code}}</td>
                       </tr>
                       {% endfor %}
                       </tbody>
@@ -175,6 +208,7 @@
         
         <!-- /.container-fluid -->
       </div>
+
       <!-- End of Main Content -->
       
       <!--   https://stackoverflow.com/questions/2072848/reorder-html-table-rows-using-drag-and-drop -->
@@ -202,6 +236,4 @@
 
       </script>
   {% endblock %}
-
-
       

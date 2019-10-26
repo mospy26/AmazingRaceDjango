@@ -20,13 +20,18 @@ class _GameMiddleware:
         for user in self.users:
             yield user
 
+    def get_code_and_name(self):
+        yield self.game.title, self.game.code
+
     # returns tuple of rank and player name
     # note that player refers to an object encapsulating all data about him/her.
     # and game refers to an object encapsulating all data about the game (code, title etc.)
     # rank is an integer
     def game_leaderboard(self):
+        i = 100  # TEMPORARY SUB FOR SCORE!
         for player in self.game_players:
-            yield (player.rank, player.player.first_name + " " + player.player.last_name)
+            yield player.rank, i, player.player.username
+            i = i - 1
 
     """
         Gives the entire location object, you will need to use attributes such as:
@@ -46,12 +51,18 @@ class _GameMiddleware:
             i += 1
             yield i, location
 
-    def get_location(self):
+    def get_x_location(self, x):
         game_locations = Location.objects.filter(game=self.game).order_by('order')
         i = 0
         for location in game_locations:
             i += 1
-        yield i, location
+            if (i == x):
+                yield i, location
+                break;
+
+    def change_name(self, name):
+        self.game.title = name
+        self.game.save()
 
     @classmethod
     def make_live(self, game: Game):

@@ -37,7 +37,7 @@ class Migration(migrations.Migration):
                 ('latitude', models.TextField()),
                 ('code', models.TextField(max_length=100)),
                 ('order', models.IntegerField()),
-                ('game', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='api.Game')),
+                ('game', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='AmazingRaceApp.Game')),
             ],
         ),
         migrations.CreateModel(

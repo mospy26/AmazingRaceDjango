@@ -1,8 +1,10 @@
 from django.contrib.auth.models import User
+from django.core.exceptions import ObjectDoesNotExist, EmptyResultSet
 from django.core.files import File
 
+import traceback
 import os
-from api.models import ProfilePictures, GamePlayer, Game, Location, LocationUser, GameCreator
+from ..models import ProfilePictures, GamePlayer, Game, Location, LocationUser, GameCreator
 
 
 # API for getting all locations in a game 
@@ -39,9 +41,9 @@ class GamePlayerMiddleware:
     # TODO: Check if this actually renders when called on the front end 
     def get_profile_picture(self):
         profile_pic = self.profilePic.picture.url
-        exists = os.path.exists("../" + profile_pic)
+        # Check if the file path exists as well 
         
-        if not profile_pic or not exists:
+        if not profile_pic:
             return "/media/profile_picture/default-picture.png" 
         
         return profile_pic
@@ -94,12 +96,12 @@ class GamePlayerMiddleware:
     @param: None 
     @return: list of games (by code) played by the user (live/past)
     '''
-
     def list_played_games(self):
         for game in self.games:
             game_creator = GameCreator.objects.get(game=game)
             rank = GamePlayer.objects.get(game=game, player=self.user)
             yield game, game_creator.creator.username, rank.rank
+
 
     '''
     Gets the cursor to the rank of the x recent games. The 
@@ -125,7 +127,7 @@ class GamePlayerMiddleware:
         # Begin the games
         for games in live_games:
             for i in GamePlayer.objects.filter(game=games, player=self.user).values('rank'):
-                yield games.title, i['rank'], games.start_time.strftime('%d/%m/%Y')
+                yield games.title, i['rank'], games.start_time
         for games in non_live_games:
             for i in GamePlayer.objects.filter(game=games, player=self.user).values('rank'):
                 yield games.title, i['rank'], games.start_time

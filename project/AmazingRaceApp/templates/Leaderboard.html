@@ -6,7 +6,9 @@
         <div class="container-fluid">
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h1 class="h3 mb-0 text-gray-800">Leaderboard</h1>
-            <h5>Edwin's Game | Game ID: 3r93qw9</h5>
+            {% for game in game_details %}
+            <h5>{{game.0}} | {{game.1}}</h5>
+            {% endfor %}
           </div>
   
 
@@ -26,41 +28,17 @@
                     <tr>
                       <th>Rank</th>
                       <th>Score</th>
-                      <th>Profile</th>
-                      <th>Name</th>
+                      <th>Username</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td>1</td>
-                      <td>100</td>
-                      <td>Image</td>
-                      <td>Edwin</td>
-                    </tr>
-                    <tr>
-                      <td>2</td>
-                      <td>99</td>
-                      <td>Image</td>
-                      <td>Mustafa</td>
-                    </tr>
-                    <tr>
-                      <td>4</td>
-                      <td>94 </td>
-                      <td>Image</td>
-                      <td>Kevin</td>
-                    </tr>
-                    <tr>
-                      <td>5</td>
-                      <td>93 </td>
-                      <td>Image</td>
-                      <td>Sophia</td>
-                    </tr>
-                    <tr>
-                      <td>6</td>
-                      <td>45 (WAM) </td>
-                      <td>Image</td>
-                      <td>Brendon</td>
-                    </tr>
+                  {% for player in leaderboards %}
+                  <tr>
+                    <td>{{player.0}}</td>
+                    <td>{{player.1}}</td>
+                    <td>{{player.2}}</td>
+                  </tr>
+                  {% endfor %}
                   </tbody>
                 </table>
               </div>

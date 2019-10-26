@@ -1,5 +1,5 @@
 from django.contrib import admin
-from api.models import ProfilePictures, Game, GameCreator, GamePlayer, \
+from .models import ProfilePictures, Game, GameCreator, GamePlayer, \
     Location, LocationUser
 
 # Register your models here.
