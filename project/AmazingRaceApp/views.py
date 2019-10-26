@@ -1,7 +1,8 @@
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
-from django.http import HttpResponseRedirect
+import json
+from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render, redirect
 
 # Create your views here.
@@ -20,7 +21,7 @@ from AmazingRaceApp.models import GameCreator
 
 
 def handler(request, status_code):
-    response = render_to_response(str(status_code)+'.html', {'user': request.user})
+    response = render_to_response(str(status_code) + '.html', {'user': request.user})
     response.status_code = int(status_code)
     return response
 
@@ -168,13 +169,39 @@ class GameCreationListView(LoginRequiredMixin, generic.TemplateView):
         })
 
     def post(self, request, *args, **kwargs):
+
+        self.game_creator = GameCreatorMiddleware(request.user.username)
+
+        if not self.game_creator.is_authorized_to_access_game(kwargs['code']):
+            return handler(request, 403)
+
+        if 'title' in request.POST.keys() and 'code' in kwargs.keys():
+            return self._update_title_post_request(request, **kwargs)
+        elif 'location_order' in request.POST.keys():
+            return self._update_location_order_post_request(request, **kwargs)
+
+    def _update_title_post_request(self, request, *args, **kwargs):
+        self.maps = MapsMiddleware()
         self.game_creator = GameCreatorMiddleware(request.user.username)
         self.game = _GameMiddleware(kwargs['code'])
         self.game.change_name(request.POST['title'])
         return render(request, self.template_name, context={
             'locations_code': self.game_creator.get_ordered_locations_of_game(kwargs['code']),
             'game_details': self.game_creator.get_code_and_name(kwargs['code']),
-            'code': kwargs['code']
+            'code': kwargs['code'],
+            'lat_long': self.maps.get_list_of_long_lat(kwargs['code'])
+        })
+
+    def _update_location_order_post_request(self, request, *args, **kwargs):
+        self.maps = MapsMiddleware()
+        self.game_creator = GameCreatorMiddleware(request.user.username)
+        codes_order_list = request.POST['location_order'].split(',')
+        self.game_creator.update_location_order(codes_order_list, kwargs['code'])
+        return render(request, self.template_name, context={
+            'locations_code': self.game_creator.get_ordered_locations_of_game(kwargs['code']),
+            'game_details': self.game_creator.get_code_and_name(kwargs['code']),
+            'code': kwargs['code'],
+            'lat_long': self.maps.get_list_of_long_lat(kwargs['code'])
         })
 
 
