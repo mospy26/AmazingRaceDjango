@@ -4,6 +4,8 @@ from django.core.files import File
 
 import traceback
 import os
+
+from AmazingRaceApp.api.GameMiddleware import _GameMiddleware
 from ..models import ProfilePictures, GamePlayer, Game, Location, LocationUser, GameCreator
 
 
@@ -196,5 +198,5 @@ class GamePlayerMiddleware:
         return no_of_visited_locations, total_locations
 
     def get_status_of_game(self, game_code):
-        game = Game.objects.get(code=game_code)
-        return game.live
+        game = _GameMiddleware(game_code)
+        return game.get_status()

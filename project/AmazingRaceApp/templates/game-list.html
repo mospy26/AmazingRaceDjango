@@ -48,7 +48,7 @@
 
                                 {% elif status == "Not Published" %}
                                     {% if page_name == "Played" %}
-                                            <td><a href = "/game/leaderboard/#">{{ game.0.title }}</a></td>
+                                        <td><a href = "/game/leaderboard/#">{{ game.0.title }}</a></td>
                                     {% else %}
                                         <td><a href = "/game/create/{{ game.code }}">{{ game.title }}</a></td>
                                     {% endif %}
