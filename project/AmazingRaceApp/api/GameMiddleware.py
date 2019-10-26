@@ -28,8 +28,10 @@ class _GameMiddleware:
     # and game refers to an object encapsulating all data about the game (code, title etc.)
     # rank is an integer
     def game_leaderboard(self):
+        i = 100 #TEMPORARY SUB FOR SCORE!
         for player in self.game_players:
-            yield (player.rank, player.player.first_name + " " + player.player.last_name)
+            yield player.rank, i, player.player.first_name + " " + player.player.last_name
+            i = i - 1
 
     """
         Gives the entire location object, you will need to use attributes such as:
