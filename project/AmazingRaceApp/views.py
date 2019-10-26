@@ -186,11 +186,4 @@ class LocationAdd(LoginRequiredMixin, generic.TemplateView):
     
     def get(self, request, *args, **kwargs):
         return render(request, self.template_name)
-
-class GameSettings(LoginRequiredMixin, generic.TemplateView):
-    template_name = 'gamesetting.html'
-    login_url = '/login'
-    
-    def get(self, request, *args, **kwargs):
-        return render(request, self.template_name)
     
