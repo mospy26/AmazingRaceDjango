@@ -20,6 +20,9 @@ class _GameMiddleware:
         for user in self.users:
             yield user
 
+    def get_code_and_name(self):
+        yield self.game.title, self.game.code
+
     # returns tuple of rank and player name
     # note that player refers to an object encapsulating all data about him/her.
     # and game refers to an object encapsulating all data about the game (code, title etc.)
