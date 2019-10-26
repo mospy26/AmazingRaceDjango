@@ -64,7 +64,6 @@ class _GameMiddleware:
         self.game.title = name
         self.game.save()
 
-    @classmethod
     def make_live(self, game: Game):
         # defines what happens when a game is made live
         game.live = True
