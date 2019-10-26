@@ -173,9 +173,9 @@ class GameCreationListView(LoginRequiredMixin, generic.TemplateView):
     def get(self, request, code, *args, **kwargs):
         # temp game
         self.game_creator = GameCreatorMiddleware(request.user.username)
-        self.game = self.game_creator.get_game(code)
+        game = self.game_creator.get_game(code)
 
-        if not self.game:
+        if not game:
             return handler(request, 403)
 
         if not self.game_creator.is_authorized_to_access_game(code):

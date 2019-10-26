@@ -37,7 +37,7 @@
                         <tbody>
                         {% for game in games %}
                             <tr>
-                                {% if status == False %}
+                                {% if status == "Live" or status == "Closed" %}
 {#                                    <td>#}
                                         {% if page_name == "Played" %}
                                             <td><a href = "/game/leaderboard/#">{{ game.0.title }}</a></td>
@@ -46,7 +46,7 @@
                                         {% endif %}
 {#                                    </td>#}
 
-                                {% else %}
+                                {% elif status == "Not Published" %}
                                     {% if page_name == "Played" %}
                                             <td><a href = "/game/leaderboard/#">{{ game.0.title }}</a></td>
                                     {% else %}
@@ -66,12 +66,16 @@
                                     <td>{{ game.start_time }}</td>
                                 {% endif %}
 
-                                {% if status == False %}
+                                {% if status == "Closed" %}
                                     <td><font color = "#d9534f">Closed</font></td>
                                 {% endif %}
 
-                                {% if status == True %}
+                                {% if status == "Live" %}
                                     <td><font color = "#5cb85c">Live</font></td>
+                                {% endif %}
+
+                                {% if status == "Not Published" %}
+                                    <td><font color = "#d3d3d3">Not Published</font></td>
                                 {% endif %}
 
                             </tr>
