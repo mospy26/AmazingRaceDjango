@@ -168,12 +168,12 @@
                       <h5> Drag table rows to reorder the game locations</h5>
                       </div>
                       <div class = "col-auto">
-                      <a href="#" class="btn btn-success btn-icon-split">
+                      <button onclick="updateLocation()" id="update_location" class="btn btn-success btn-icon-split">
                         <span class="icon text-white-50">
                           <i class="fas fa-check"></i>
                         </span>
                         <span class="text">Update Location Order</span>
-                      </a>
+                      </button>
                       </div>
                     </div>
                     
@@ -233,7 +233,19 @@
           stop: updateIndex
           }).disableSelection();
         });
-
+        
+        
+        function updateLocation() {
+          let size = document.getElementById("gameLocations").rows.length;
+          let codes = [];
+          
+          for (let x = 1; x < size; x++) {
+            codes.push(document.getElementById("gameLocations").rows.item(x).cells[2].innerHTML);
+          }
+          
+          alert(codes);
+          
+        }
       </script>
   {% endblock %}
       
