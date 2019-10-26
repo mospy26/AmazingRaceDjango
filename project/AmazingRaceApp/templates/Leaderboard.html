@@ -28,15 +28,15 @@
                     <tr>
                       <th>Rank</th>
                       <th>Score</th>
-                      <th>Name</th>
+                      <th>Username</th>
                     </tr>
                   </thead>
                   <tbody>
                   {% for player in leaderboards %}
                   <tr>
-                    <th>{{player.0}}</th>
-                    <th>{{player.1}}</th>
-                    <th>{{player.2}}</th>
+                    <td>{{player.0}}</td>
+                    <td>{{player.1}}</td>
+                    <td>{{player.2}}</td>
                   </tr>
                   {% endfor %}
                   </tbody>

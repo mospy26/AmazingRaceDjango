@@ -42,10 +42,10 @@ class GamePlayerMiddleware:
     def get_profile_picture(self):
         profile_pic = self.profilePic.picture.url
         # Check if the file path exists as well 
-        
+
         if not profile_pic:
-            return "/media/profile_picture/default-picture.png" 
-        
+            return "/media/profile_picture/default-picture.png"
+
         return profile_pic
 
     def get_username(self):
@@ -58,7 +58,24 @@ class GamePlayerMiddleware:
         return self.user.first_name + " " + self.user.last_name
 
     def get_games_played(self):
-        return len(self.games);
+        return len(self.games)
+
+    def visit_location(self, location_code, game_code):
+        game = Game.objects.get(code=game_code)
+        all_locations = Location.objects.filter(game=game).order_by('order')
+        for this_location in all_locations:
+            if LocationUser.objects.filter(location=this_location, user=self.user).order_by('order').exists():
+                continue
+            if not LocationUser.objects.filter(location=this_location, user=self.user).exists() \
+                    and Location.objects.get(code=location_code).order == this_location.order + 1:
+                current_location = LocationUser.objects.create(
+                        time_visited=datetime.now(),
+                        user=self.user,
+                        game=game
+                )
+                return True
+            else:
+                return False
 
     '''
     Returns all the clue for all the games that are currently live for the player 
@@ -100,19 +117,18 @@ class GamePlayerMiddleware:
                     first = False
                 else:
                     yield this_location.order, "???", "???", "???"
-
     '''
     Gets the cursor to a list of games played 
     (live or past) by the user 
     @param: None 
     @return: list of games (by code) played by the user (live/past)
     '''
+
     def list_played_games(self):
         for game in self.games:
             game_creator = GameCreator.objects.get(game=game)
             rank = GamePlayer.objects.get(game=game, player=self.user)
             yield game, game_creator.creator.username, rank.rank
-
 
     '''
     Gets the cursor to the rank of the x recent games. The 

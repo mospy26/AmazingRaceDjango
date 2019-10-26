@@ -76,7 +76,13 @@ class GameCreatorMiddleware:
     def get_leaderboard(self, code):
         self.game_middleware = _GameMiddleware(code)
         return self.game_middleware.game_leaderboard()
-
+    
     def get_status_of_game(self, code):
         self.game_middleware = _GameMiddleware(code)
         return self.game_middleware.get_status()
+    def get_code_and_name(self, code):
+        self.game_middleware = _GameMiddleware(code)
+        return self.game_middleware.get_code_and_name()
+
+    def is_authorized_to_access_game(self, code):
+        return GameCreator.objects.filter(game=_GameMiddleware(code).game, creator=self.user).exists()
