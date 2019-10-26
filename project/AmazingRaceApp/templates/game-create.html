@@ -8,7 +8,10 @@
 
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h1 class="h3 mb-0 text-gray-800">Game Creation Dashboard</h1>
-            <h5>Edwin's Game | Game ID: 3r93qw9</h5>
+            {% for game in game_details %}
+            <h5>{{ game.0 }} | {{ game.1 }}</h5>
+            {% endfor %}
+
           </div>
            
 
@@ -145,8 +148,8 @@
                       {% for location in locations_code %}
                       <tr>
                         <td class="index">{{ location.0 }}</td>
-                        <td>{{ location.1.latitude}}</td>
-                        <td>{{ location.1.longitude }}</td>
+                        <td>{{ location.1.name}}</td>
+                        <td>{{ location.1.code}}</td>
                       </tr>
                       {% endfor %}
                       </tbody>

@@ -20,6 +20,9 @@ class _GameMiddleware:
         for user in self.users:
             yield user
 
+    def get_code_and_name(self):
+        yield self.game.title, self.game.code
+
     # returns tuple of rank and player name
     # note that player refers to an object encapsulating all data about him/her.
     # and game refers to an object encapsulating all data about the game (code, title etc.)
@@ -45,6 +48,17 @@ class _GameMiddleware:
         for location in game_locations:
             i += 1
             yield i, location
+
+    def get_x_location(self, x):
+        game_locations = Location.objects.filter(game=self.game).order_by('order')
+        i = 0
+        for location in game_locations:
+            i += 1
+            if(i == x):
+                yield i, location
+                break;
+
+
 
     @classmethod
     def make_live(self, game: Game):
