@@ -16,6 +16,8 @@ from AmazingRaceApp.api.MapsMiddleware import MapsMiddleware
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 
+from AmazingRaceApp.models import GameCreator
+
 
 def handler404(request):
     response = render_to_response('404.html', {}, context_instance=RequestContext(request))
@@ -43,8 +45,10 @@ class HomepageView(LoginRequiredMixin, generic.TemplateView):
 
         if form.is_valid():
             game = form.save()
-
-            # return HttpResponseRedirect("/game/create")
+            game_creator = GameCreator.objects.create(
+                game=game,
+                creator=request.user
+            )
             return redirect('create_game', game.code)
 
         return render(request, self.template_name, {
