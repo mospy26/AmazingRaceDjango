@@ -1,6 +1,6 @@
 [
 {
-    "model": "AmazingRaceApp.location",
+    "model": "api.location",
     "pk": 1,
     "fields": {
         "name": "Sydney Opera House",
@@ -13,7 +13,7 @@
     }
 },
 {
-    "model": "AmazingRaceApp.location",
+    "model": "api.location",
     "pk": 2,
     "fields": {
         "name": "Royal Botanic Gardens, Sydney",
@@ -26,7 +26,7 @@
     }
 },
 {
-    "model": "AmazingRaceApp.location",
+    "model": "api.location",
     "pk": 3,
     "fields": {
         "name": "The University Of Sydney, Sydney",
@@ -39,7 +39,7 @@
     }
 },
 {
-    "model": "AmazingRaceApp.location",
+    "model": "api.location",
     "pk": 4,
     "fields": {
         "name": "Newtown Station, Sydney",
@@ -52,7 +52,7 @@
     }
 },
 {
-    "model": "AmazingRaceApp.location",
+    "model": "api.location",
     "pk": 5,
     "fields": {
         "name": "Manly Beach, Sydney",
@@ -65,7 +65,7 @@
     }
 },
 {
-    "model": "AmazingRaceApp.location",
+    "model": "api.location",
     "pk": 6,
     "fields": {
         "name": "Shelly beach, NSW",
@@ -78,7 +78,7 @@
     }
 },
 {
-    "model": "AmazingRaceApp.location",
+    "model": "api.location",
     "pk": 7,
     "fields": {
         "name": "Sydney International Airport, Sydney",
@@ -91,7 +91,7 @@
     }
 },
 {
-    "model": "AmazingRaceApp.location",
+    "model": "api.location",
     "pk": 8,
     "fields": {
         "name": "Sir Josephs Park, Sydney",
@@ -104,7 +104,7 @@
     }
 },
 {
-    "model": "AmazingRaceApp.location",
+    "model": "api.location",
     "pk": 9,
     "fields": {
         "name": "Wentworth Falls, NSW",
@@ -117,7 +117,7 @@
     }
 },
 {
-    "model": "AmazingRaceApp.location",
+    "model": "api.location",
     "pk": 10,
     "fields": {
         "name": "Conservative Hub, Sydney",

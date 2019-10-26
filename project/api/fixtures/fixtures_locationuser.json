@@ -1,6 +1,6 @@
 [
 {
-    "model": "AmazingRaceApp.locationuser",
+    "model": "api.locationuser",
     "pk": 1,
     "fields": {
         "time_visited": "2019-10-02T07:59:03Z",
@@ -9,7 +9,7 @@
     }
 },
 {
-    "model": "AmazingRaceApp.locationuser",
+    "model": "api.locationuser",
     "pk": 2,
     "fields": {
         "time_visited": "2019-10-02T07:59:25Z",

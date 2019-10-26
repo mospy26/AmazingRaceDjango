@@ -1,10 +1,8 @@
 from django.contrib.auth.models import User
-from django.core.exceptions import ObjectDoesNotExist, EmptyResultSet
 from django.core.files import File
 
-import traceback
 import os
-from ..models import ProfilePictures, GamePlayer, Game, Location, LocationUser, GameCreator
+from api.models import ProfilePictures, GamePlayer, Game, Location, LocationUser, GameCreator
 
 
 # API for getting all locations in a game 

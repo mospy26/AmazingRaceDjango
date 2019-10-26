@@ -1,13 +1,9 @@
-import string
-
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist, EmptyResultSet
-from django.utils.datetime_safe import datetime
-import random
 
 import traceback
 
-from ..models import Game, GameCreator
+from api.models import GameCreator
 from .GameMiddleware import _GameMiddleware
 
 """ 
