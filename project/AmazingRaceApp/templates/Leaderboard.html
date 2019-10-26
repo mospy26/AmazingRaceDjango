@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {% extends "topbar.html" %}
   {% load static %}
   {% block content %}
@@ -72,4 +73,58 @@
 
       </div>
       <!-- End of Main Content -->
+=======
+{% extends "topbar.html" %}
+  {% load static %}
+  {% block content %}
+
+        <!-- Begin Page Content -->
+        <div class="container-fluid">
+          <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">Leaderboard</h1>
+            {% for game in game_details %}
+            <h5>{{game.0}} | {{game.1}}</h5>
+            {% endfor %}
+          </div>
+  
+
+          <!-- Page Heading -->
+        <!--  <h1 class="h3 mb-2 text-gray-800">Leaderboard</h1> -->
+
+
+          <!-- DataTales Example -->
+          <div class="card shadow mb-4">
+            <div class="card-header py-3">
+              <h6 class="m-0 font-weight-bold text-primary">Game Leaderboard</h6>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                  <thead>
+                    <tr>
+                      <th>Rank</th>
+                      <th>Score</th>
+                      <th>Name</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  {% for player in leaderboards %}
+                  <tr>
+                    <th>{{player.0}}</th>
+                    <th>{{player.1}}</th>
+                    <th>{{player.2}}</th>
+                  </tr>
+                  {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <!-- /.container-fluid -->
+
+      </div>
+      <!-- End of Main Content -->
+>>>>>>> origin/integration
   {% endblock %}

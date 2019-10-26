@@ -28,8 +28,10 @@ class _GameMiddleware:
     # and game refers to an object encapsulating all data about the game (code, title etc.)
     # rank is an integer
     def game_leaderboard(self):
+        i = 100  # TEMPORARY SUB FOR SCORE!
         for player in self.game_players:
-            yield (player.rank, player.player.first_name + " " + player.player.last_name)
+            yield player.rank, i, player.player.first_name + " " + player.player.last_name
+            i = i - 1
 
     """
         Gives the entire location object, you will need to use attributes such as:
@@ -54,11 +56,13 @@ class _GameMiddleware:
         i = 0
         for location in game_locations:
             i += 1
-            if(i == x):
+            if (i == x):
                 yield i, location
                 break;
 
-
+    def change_name(self, name):
+        self.game.title = name
+        self.game.save()
 
     @classmethod
     def make_live(self, game: Game):
