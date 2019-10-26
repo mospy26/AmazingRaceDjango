@@ -9,7 +9,7 @@ from django.views import generic
 from AmazingRaceApp.api.GamePlayerMiddleware import GamePlayerMiddleware
 from AmazingRaceApp.api.GameCreatorMiddleware import GameCreatorMiddleware
 from AmazingRaceApp.api.GameMiddleware import _GameMiddleware
-from AmazingRaceApp.forms import RegisterForm
+from AmazingRaceApp.forms import RegisterForm, GameRenameForm
 from AmazingRaceApp.forms import RegisterForm, GameTitleForm
 from AmazingRaceApp.api.MapsMiddleware import MapsMiddleware
 
@@ -148,6 +148,7 @@ class GamePlayedListView(LoginRequiredMixin, generic.TemplateView):
 class GameCreationListView(LoginRequiredMixin, generic.TemplateView):
     template_name = 'game-create.html'
     login_url = '/login'
+    form = GameRenameForm
 
     def get(self, request, code, *args, **kwargs):
         # temp game
@@ -156,7 +157,18 @@ class GameCreationListView(LoginRequiredMixin, generic.TemplateView):
 
         return render(request, self.template_name, context={
             'locations_code': self.game_creator.get_ordered_locations_of_game(code),
-            'game_details': self.game.get_code_and_name()
+            'game_details': self.game.get_code_and_name(),
+            'code': code
+        })
+
+    def post(self, request, *args, **kwargs):
+        self.game_creator = GameCreatorMiddleware(request.user.username)
+        self.game = _GameMiddleware(kwargs['code'])
+        self.game.change_name(request.POST['title'])
+        return render(request, self.template_name, context={
+            'locations_code': self.game_creator.get_ordered_locations_of_game(self.game.game.code),
+            'game_details': self.game.get_code_and_name(),
+            'code': kwargs['code']
         })
 
 
