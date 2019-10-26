@@ -129,7 +129,8 @@ class GameCreatedListView(LoginRequiredMixin, generic.TemplateView):
 
         return render(request, self.template_name, context={
             'page_name': 'Created',
-            'games': self.player.created_games()
+            'games': self.player.created_games(),
+            'status': self.player.get_status_of_game('LQGY-M42U')
         })
 
 
@@ -141,10 +142,26 @@ class GamePlayedListView(LoginRequiredMixin, generic.TemplateView):
 
     def get(self, request, *args, **kwargs):
         self.player = GamePlayerMiddleware(request.user.username)
+        self.creator = GameCreatorMiddleware(request.user.username)
 
         return render(request, self.template_name, context={
             'page_name': 'Played',
-            'games': self.player.list_played_games()
+            'games': self.player.list_played_games(),
+            'status': self.creator.get_status_of_game('LQGY-M42U')
+        })
+
+class GamePlayingListView(LoginRequiredMixin, generic.TemplateView):
+    template_name = 'play-games.html'
+    login_url = '/login'
+
+    player = None
+
+    def get(self, request, *args, **kwargs):
+        self.game = _GameMiddleware('LQGY-M42U')
+        self.player = GamePlayerMiddleware(request.user.username)
+        return render(request, self.template_name, context={
+            'game_details': self.game.get_code_and_name(),
+            'visited': self.player.locations_visited('LQGY-M42U')
         })
 
 

@@ -15,5 +15,6 @@ urlpatterns = [
     path('game/create/<slug:code>', views.GameCreationListView.as_view(), name = 'create_game'),
     path('game/location/', views.LocationListView.as_view(), name = "locations"),
     path('game/addlocation/', views.LocationAdd.as_view(), name = "add_locations"),
-    path('game/leaderboard/', views.LeaderboardView.as_view(), name='leaderboard')
+    path('game/leaderboard/', views.LeaderboardView.as_view(), name='leaderboard'),
+    path('game/play/code', views.GamePlayingListView.as_view(), name = 'play_game')
 ]
