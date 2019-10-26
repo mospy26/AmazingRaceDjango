@@ -185,5 +185,8 @@ class LocationAdd(LoginRequiredMixin, generic.TemplateView):
     login_url = '/login'
     
     def get(self, request, *args, **kwargs):
-        return render(request, self.template_name)
+        self.game = _GameMiddleware('LQGY-M42U')
+        return render(request, self.template_name, context={
+            'game_details': self.game.get_code_and_name()
+        })
     

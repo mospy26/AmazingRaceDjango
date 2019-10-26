@@ -5,7 +5,9 @@
             <div class = "container-fluid">
                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
                     <h1 class="h3 mb-0 text-gray-800">Add Location Dashboard</h1>
-                    <h5>Edwin's Game | Game ID: 3r93qw9</h5>
+                    {% for game in game_details %}
+                    <h5>{{game.0}} | Game ID: {{game.1}}</h5>
+                    {% endfor %}
                 </div>
 
 
@@ -26,9 +28,15 @@
                             </form>
                             <div class = "col">
                                 <div>
-                                    <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Submit <i class="fas fa-edit fa-sm text-white-50"></i></a>
+                                    <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Search <i class="fas fa-search fa-sm text-white-50"></i></a>
                                 </div>
                             </div>
+                            <div class = "col">
+                                <div>
+                                    <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Submit <i class="fas fa-check fa-sm text-white-50"></i></a>
+                                </div>
+                            </div>
+
 
                         </div>
                     </div>
@@ -58,16 +66,6 @@
                           }).addTo(mymap);
 
                           var marker = L.marker([51.5, -0.09]).addTo(mymap);
-
-                          var circle = L.circle([51.508, -0.11], {
-                            color: 'red',
-                            fillColor: '#f03',
-                            fillOpacity: 0.5,
-                            radius: 500
-                          }).addTo(mymap);
-
-                          marker.bindPopup("<b>WDF is this shit</b><br>Wheres the fuckin map.").openPopup();
-                          circle.bindPopup("FUCK.");
                         </script>
                     </div>
                 </div>
