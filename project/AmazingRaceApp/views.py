@@ -196,7 +196,6 @@ class LocationListView(LoginRequiredMixin, generic.TemplateView):
             'game_player_username': self.player.get_username()
         })
 
-
 class LocationAdd(LoginRequiredMixin, generic.TemplateView):
     template_name = 'addlocation.html'
     login_url = '/login'

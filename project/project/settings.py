@@ -1,3 +1,4 @@
+
 """
 Django settings for project project.
 
