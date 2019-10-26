@@ -72,3 +72,7 @@ class GameCreatorMiddleware:
     def get_location_at_x(self, code, x):
         self.game_middleware = _GameMiddleware(code)
         return self.game_middleware.get_x_location(x)
+
+    def get_leaderboard(self, code):
+        self.game_middleware = _GameMiddleware(code)
+        return self.game_middleware.game_leaderboard()

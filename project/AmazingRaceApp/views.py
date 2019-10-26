@@ -47,6 +47,16 @@ class LeaderboardView(LoginRequiredMixin, generic.TemplateView):
     template_name = 'Leaderboard.html'
     login_url = '/login'
 
+    def get(self, request, *args, **kwargs):
+
+        #temp game
+        self.game_creator = GameCreatorMiddleware(request.user.username)
+        self.game = _GameMiddleware('LQGY-M42U')
+
+        return render(request, self.template_name, context={
+            'game_details': self.game.get_code_and_name(),
+            'leaderboards': self.game_creator.get_leaderboard('LQGY-M42U')
+        })
 
 class ProfilepageView(LoginRequiredMixin, generic.TemplateView):
     template_name = 'profilepage.html'
