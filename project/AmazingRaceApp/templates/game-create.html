@@ -243,7 +243,10 @@
             codes.push(document.getElementById("gameLocations").rows.item(x).cells[2].innerHTML);
           }
           
-          alert(codes);
+//          https://stackoverflow.com/questions/133925/javascript-post-request-like-a-form-submit
+          
+          document.body.innerHTML += '<form id="dynForm" method="post" action="/game/create/{{ code }}>{% csrf_token %}<input type="hidden" value="' + codes.join(",") + '"></form>';
+          document.getElementById("dynForm").submit();
           
         }
       </script>
