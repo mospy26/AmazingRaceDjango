@@ -14,5 +14,5 @@ urlpatterns = [
     path('game/location/', views.LocationListView.as_view(), name = "locations"),
     path('game/addlocation/', views.LocationAdd.as_view(), name = "add_locations"),
     path('game/settings/', views.GameSettings.as_view(), name = "game_settings"),
-    path('game/leaderboard/', views.LeaderboardView.as_view(), name='leaderboard'),
+    path('game/leaderboard/', views.LeaderboardView.as_view(), name='leaderboard')
 ]
