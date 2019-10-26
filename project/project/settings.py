@@ -25,7 +25,7 @@ SECRET_KEY = 'l68x8gb2pwtwmb=z)_a*200*u5h@ehx6a(ex#7_d@7%vn#p@!8'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -125,3 +125,4 @@ LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'AmazingRaceApp/media')
+
