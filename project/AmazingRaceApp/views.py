@@ -142,12 +142,11 @@ class GamePlayedListView(LoginRequiredMixin, generic.TemplateView):
 
     def get(self, request, *args, **kwargs):
         self.player = GamePlayerMiddleware(request.user.username)
-        self.creator = GameCreatorMiddleware(request.user.username)
-
+        games = self.player.list_played_games()
         return render(request, self.template_name, context={
             'page_name': 'Played',
-            'games': self.player.list_played_games(),
-            'status': self.creator.get_status_of_game('LQGY-M42U')
+            'games': games,
+            'status': self.player.get_status_of_game('LQGY-M42U')
         })
 
 
@@ -174,10 +173,15 @@ class GameCreationListView(LoginRequiredMixin, generic.TemplateView):
     def get(self, request, code, *args, **kwargs):
         # temp game
         self.game_creator = GameCreatorMiddleware(request.user.username)
-        self.maps = MapsMiddleware()
+        self.game = self.game_creator.get_game(code)
+
+        if not self.game:
+            return handler(request, 403)
 
         if not self.game_creator.is_authorized_to_access_game(code):
             return handler(request, 403)
+
+        self.maps = MapsMiddleware()
 
         return render(request, self.template_name, context={
             'locations_code': self.game_creator.get_ordered_locations_of_game(code),
@@ -190,7 +194,8 @@ class GameCreationListView(LoginRequiredMixin, generic.TemplateView):
 
         self.game_creator = GameCreatorMiddleware(request.user.username)
 
-        if not self.game_creator.is_authorized_to_access_game(kwargs['code']):
+        if not self.game_creator.is_authorized_to_access_game(kwargs['code']) or \
+                not self.game_creator.is_live_game(kwargs['code']):
             return handler(request, 403)
 
         if 'title' in request.POST.keys() and 'code' in kwargs.keys():

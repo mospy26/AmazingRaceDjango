@@ -45,30 +45,23 @@ class Game(models.Model):
 
     def _refactor_input(self):
 
-        print(self.end_time, timezone.now())
-
         if self.end_time <= self.start_time:
-            # return some error message
-            # for now will reset both to a default value
-            self.end_time = datetime(2000, 1, 2)
-            self.start_time = datetime(2000, 1, 1)
+            self.end_time = None
+            self.start_time = None
+            self.live = False
+            self.archived = False
+
+        elif self.end_time is not None and self.end_time <= timezone.now():
             self.live = False
             self.archived = True
 
-        elif self.end_time is not None and self.end_time <= timezone.now() and (
-                self.live is True or self.archived is True):
+        elif self.start_time is None or self.end_time is None:
             self.live = False
-            self.archived = True
+            self.live = False
 
         else:
             self.live = True
             self.archived = False
-
-        if self.start_time is None:
-            self.end_time = datetime(2000, 1, 2)
-            self.start_time = datetime(2000, 1, 1)
-            self.live = False
-            self.archived = True
 
 
 class GameCreator(models.Model):
