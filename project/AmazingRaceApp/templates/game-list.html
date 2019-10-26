@@ -38,11 +38,16 @@
                   {% for game in games %}
                     <tr>
                       {% if status == False %}
-                      <td><a href = "/game/leaderboard/#">{{ game.title }}</a></td>
-                      {% endif %}
+                      <td><a href = "/game/leaderboard/#">
+                          {% if page_name == "Played" %}
+                          {{ game.0.title }}
+                              {% else %}
+                              {{ game.title }}
+                              {% endif %}
+                      </a></td>
 
-                      {% if status == True %}
-                      <td><a href = "/game/leaderboard/#">{{ game.title }}</a></td>
+                      {% else %}
+                      <td><a href = "/game/leaderboard/#">{{ game.0.title }}</a></td>
                       {% endif %}
 
                       {% if page_name == "Played" %}

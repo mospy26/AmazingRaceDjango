@@ -150,6 +150,7 @@ class GamePlayedListView(LoginRequiredMixin, generic.TemplateView):
             'status': self.creator.get_status_of_game('LQGY-M42U')
         })
 
+
 class GamePlayingListView(LoginRequiredMixin, generic.TemplateView):
     template_name = 'play-games.html'
     login_url = '/login'
