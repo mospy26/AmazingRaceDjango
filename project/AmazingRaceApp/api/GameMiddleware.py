@@ -46,13 +46,6 @@ class _GameMiddleware:
             i += 1
             yield i, location
 
-    def get_location(self):
-        game_locations = Location.objects.filter(game=self.game).order_by('order')
-        i = 0
-        for location in game_locations:
-            i += 1
-        yield i, location
-
     @classmethod
     def make_live(self, game: Game):
         # defines what happens when a game is made live
