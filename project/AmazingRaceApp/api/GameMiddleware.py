@@ -30,7 +30,7 @@ class _GameMiddleware:
     def game_leaderboard(self):
         i = 100  # TEMPORARY SUB FOR SCORE!
         for player in self.game_players:
-            yield player.rank, i, player.player.first_name + " " + player.player.last_name
+            yield player.rank, i, player.player.username
             i = i - 1
 
     """
