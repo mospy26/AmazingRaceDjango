@@ -37,17 +37,6 @@ class MapsMiddleware:
     Returns a list of locations for a given game_code with it's corresponding
     latitude and longitude
     '''
-    
-    def _convert_to_decimal(self, degrees):
-        total = 0
-        degrees = degrees.split("˚")
-        total = total + float(degrees[0])
-        degrees = degrees[1].split("'")
-        total = total + float(degrees[0])/60
-        degrees = degrees[1].split("\"")
-        total = total + float(degrees[0])/3600
-        
-        return total
 
     def get_list_of_long_lat(self, game_code):
         game = Game.objects.get(code=game_code)
@@ -55,10 +44,10 @@ class MapsMiddleware:
 
         for location in all_locations:
             latitude, longitude = self.get_coordinate(location.name)
-            latitude = self._convert_to_decimal(latitude)
-            longitude = self._convert_to_decimal(longitude)
+            latitude = float(latitude)
+            longitude = float(longitude)
             
-            yield (location.name, latitude, longitude)
+            yield (latitude, longitude, location.name)
 
     def get_all_name_code(self):
         location = Location.objects.all()
