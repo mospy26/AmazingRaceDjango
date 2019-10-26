@@ -7,6 +7,7 @@ from django.contrib.auth.models import User
 
 from AmazingRaceApp.api.GameCreatorMiddleware import GameCreatorMiddleware
 from AmazingRaceApp.models import Game
+from AmazingRaceApp.models import ProfilePictures
 
 
 class RegisterForm(UserCreationForm):
@@ -38,3 +39,9 @@ class GameTitleForm(forms.ModelForm):
             'title',
             'code'
         ]
+
+class ProfileUpdateForm(forms.ModelForm):
+    
+    class Meta: 
+        model = ProfilePictures
+        fields = ('picture',)

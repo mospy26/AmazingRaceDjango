@@ -9,9 +9,9 @@ from django.views import generic
 from AmazingRaceApp.api.GamePlayerMiddleware import GamePlayerMiddleware
 from AmazingRaceApp.api.GameCreatorMiddleware import GameCreatorMiddleware
 from AmazingRaceApp.api.GameMiddleware import _GameMiddleware
-from AmazingRaceApp.forms import RegisterForm
-from AmazingRaceApp.forms import RegisterForm, GameTitleForm
+from AmazingRaceApp.forms import RegisterForm, GameTitleForm, ProfileUpdateForm
 from AmazingRaceApp.api.MapsMiddleware import MapsMiddleware
+from .models import ProfilePictures
 
 
 class HomepageView(LoginRequiredMixin, generic.TemplateView):
@@ -55,19 +55,34 @@ class ProfilepageView(LoginRequiredMixin, generic.TemplateView):
     player = None
     creator = None
 
+    updateProfilePicture = ProfileUpdateForm
+
     def get(self, request, *args, **kwargs):
-        self.player = GamePlayerMiddleware(request.user.username)
+        # self.player = GamePlayerMiddleware(request.user.username)
+        # self.creator = GameCreatorMiddleware(request.user.username)
         self.creator = GameCreatorMiddleware(request.user.username)
-        # self.creator = GameCreatorMiddleware("blam")
-        # self.player = GamePlayerMiddleware("blam")
+        self.player = GamePlayerMiddleware(request.user.username)
 
         return render(request, self.template_name, context={
             'games_played': self.player.get_games_played(),
             'games_created': self.creator.get_number_created_games(),
             'name': self.player.get_name(),
             'username': self.player.get_username(),
-            'profile_picture': self.player.get_profile_picture()
+            'profile_picture': self.player.get_profile_picture(),
+            'picture_update': self.updateProfilePicture
         })
+
+    def post(self, request, *args, **kwargs):
+        form = ProfileUpdateForm(request.FILES, request.POST)
+        # form.fields['user'] = User.objects.get(username=request.user.username)
+        if form.is_valid():
+            profile_picture, created = ProfilePictures.objects.get_or_create(user=request.user)
+            profile_picture.picture = request.FILES['picture']
+            profile_picture.save()
+            return render(request, "register.html")    
+        print(form.errors)
+        print(request.POST)
+        return render(request, "login.html")
 
 
 class RegisterView(generic.TemplateView):
@@ -155,3 +170,5 @@ class LocationListView(LoginRequiredMixin, generic.TemplateView):
         return render(request, self.template_name, context={
             'locations_code': self.game_creator.get_one_location('LQGY-M42U')
         })
+
+

@@ -108,12 +108,18 @@
                                     Upload Profile Picture:
                                 </div>
                                 <div class = "col">
-                                    <form>
-                                        {{ picture_form }}
-                                    </form>
-                                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                                        <a type="submit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Select Image From Desktop <i class="fas fa-edit fa-sm text-white-50"></i></a>
+                                
+                                <form method="POST" enctype="multipart/form-data" action="{% url 'user' %}">
+                                    {% csrf_token %}
+                                    <fieldset class="form-group">
+                                        {{ picture_update.picture }}
+                                    </fieldset>
+                                    
+                                    <div class="form-group">
+                                        <button class="btn btn-outline-info" type="submit">Update Profile Picture</button>
                                     </div>
+                                </form>
+
                                 </div>
                             </div>
     

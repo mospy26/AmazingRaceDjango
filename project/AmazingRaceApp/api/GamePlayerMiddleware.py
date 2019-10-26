@@ -41,9 +41,9 @@ class GamePlayerMiddleware:
     # TODO: Check if this actually renders when called on the front end 
     def get_profile_picture(self):
         profile_pic = self.profilePic.picture.url
-        exists = os.path.exists("../" + profile_pic)
+        # Check if the file path exists as well 
         
-        if not profile_pic or not exists:
+        if not profile_pic:
             return "/media/profile_picture/default-picture.png" 
         
         return profile_pic
