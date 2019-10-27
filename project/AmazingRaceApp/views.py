@@ -240,12 +240,20 @@ class LocationListView(LoginRequiredMixin, generic.TemplateView):
         self.locations = GameCreatorMiddleware(request.user.username)
         self.player = GamePlayerMiddleware(request.user.username)
         self.game = _GameMiddleware('LQGY-M42U')
-
+        self.maps = MapsMiddleware()
+        
+        location_name = getattr(next(self.locations.get_location_at_x('LQGY-M42U', 1))[1], 'name')
+        
+        latitude, longitude = self.maps.get_coordinate(location_name)
+        latitude = float(latitude)
+        longitude = float(longitude)
+        
         return render(request, self.template_name, context={
             'locations_code': self.locations.get_location_at_x('LQGY-M42U', 1),
             'game_details': self.game.get_code_and_name(),
             'game_player_name': self.player.get_name(),
-            'game_player_username': self.player.get_username()
+            'game_player_username': self.player.get_username(),
+            'lat_long': [latitude, longitude]
         })
 
 
