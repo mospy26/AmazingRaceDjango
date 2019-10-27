@@ -256,5 +256,28 @@ class LocationAdd(LoginRequiredMixin, generic.TemplateView):
     def get(self, request, *args, **kwargs):
         self.game = _GameMiddleware('LQGY-M42U')
         return render(request, self.template_name, context={
-            'game_details': self.game.get_code_and_name()
+            'game_details': self.game.get_code_and_name(),
+            'lat_long': [-33.865143, 151.209900],
+            'location_name': ""
+        })
+    
+    def post(self, request, *args, **kwargs):
+        self.game = _GameMiddleware('LQGY-M42U')
+        self.maps = MapsMiddleware()
+        
+        location = request.POST['locationSearch'].title()
+        
+        try:
+            latitude, longitude = self.maps.get_coordinate(request.POST['locationSearch'])
+            latitude = float(latitude)
+            longitude = float(longitude)
+        except:
+            latitude = -33.865143
+            longitude = 151.209900
+            location = location + " Not Found"
+        
+        return render(request, self.template_name, context={
+            'game_details': self.game.get_code_and_name(),
+            'lat_long': [latitude, longitude],
+            'location_name': location
         })
