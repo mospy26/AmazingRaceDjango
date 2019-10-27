@@ -294,7 +294,7 @@ class LocationAdd(LoginRequiredMixin, generic.TemplateView):
         except:
             latitude = -33.865143
             longitude = 151.209900
-            location = location + " Not Found"
+            location = location + " * Not Found - Please Try Again *"
         
         return render(request, self.template_name, context={
             'game_details': self.game.get_code_and_name(),
