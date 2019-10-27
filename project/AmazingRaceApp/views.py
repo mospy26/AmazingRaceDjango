@@ -153,15 +153,27 @@ class GamePlayedListView(LoginRequiredMixin, generic.TemplateView):
 class GamePlayingListView(LoginRequiredMixin, generic.TemplateView):
     template_name = 'play-games.html'
     login_url = '/login'
-
     player = None
 
     def get(self, request, *args, **kwargs):
         self.game = _GameMiddleware('LQGY-M42U')
         self.player = GamePlayerMiddleware(request.user.username)
+        
+        lat_long = []
+        visited = self.player.locations_visited('LQGY-M42U')
+        for location in visited:
+            if location[1] != "???":
+                temp = []
+                latitude, longitude = self.maps.get_coordinate(location[1])
+                temp.append(float(latitude))
+                temp.append(float(longitude))
+                temp.append(location[1])
+                lat_long.append(temp)
+            
         return render(request, self.template_name, context={
             'game_details': self.game.get_code_and_name(),
-            'visited': self.player.locations_visited('LQGY-M42U')
+            'visited': self.player.locations_visited('LQGY-M42U'),
+            'lat_long': lat_long
         })
 
 
