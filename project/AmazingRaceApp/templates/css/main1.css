@@ -10,7 +10,8 @@ html, body {
 }
 
 body {
-	background: url('techglobe.gif');
+	background: url('../img/nasaglobe.jpg');
+	background-color: blue;
 	background-attachment: fixed;
 	background-position: center;
 	background-size: cover;
@@ -150,7 +151,7 @@ div.gallery {
 
 div.gallery:hover {
   border: 1px solid #777;
-	background-color: white
+	background-color: grey
 }
 
 div.gallery img {
@@ -159,9 +160,9 @@ div.gallery img {
 }
 
 div.desc {
-	background-color: white;
+	
   padding: 20px;
   text-align: center;
-	color: white;
+	color: black;
 
 }
