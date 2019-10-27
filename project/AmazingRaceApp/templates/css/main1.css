@@ -10,7 +10,7 @@ html, body {
 }
 
 body {
-	background: url('world.jpg');
+	background: url('techglobe.gif');
 	background-attachment: fixed;
 	background-position: center;
 	background-size: cover;
@@ -32,7 +32,7 @@ h2 {
 	font-weight: 300;
 
 	margin-top: -7px;
-	margin-bottom: 25px;
+	margin-bottom: 10px;
 }
 
 /*About Us title*/
@@ -42,13 +42,27 @@ h3 {
 	font-size: 70px;
 }
 
+/*Meet the Team*/
+h4 {
+	color: white;
+	font-family: 'Karla';
+	font-size: 70px;
+}
+
 /*Get Started info*/
 p {
 	color: #A3A3A3;
 	font-family: 'Roboto';
 	font-size: 14px;
-	line-height: 21px;
+
 }
+
+h5 {
+	color: #A3A3A3;
+	font-family: 'Roboto';
+	font-size: 14px;
+}
+
 
 /*Menubar Links*/
 .menuLinks {
@@ -80,7 +94,7 @@ p {
 	/* http://howtocenterincss.com/ */
 	display:flex;
 	justify-content:center;
-	align-items:center;"
+	align-items:center;
 }
 
 #about {
@@ -120,4 +134,34 @@ p {
 	display: inline-block;
 	color: white;
 	font-family: 'Roboto';
+}
+
+
+div.gallery {
+	background-color: white;
+  margin: 5px;
+	margin-left: 10px;
+  border: 1px solid #ccc;
+  float: left;
+  width: 235px;
+
+
+}
+
+div.gallery:hover {
+  border: 1px solid #777;
+	background-color: white
+}
+
+div.gallery img {
+  width: 100%;
+  height: auto;
+}
+
+div.desc {
+	background-color: white;
+  padding: 20px;
+  text-align: center;
+	color: white;
+
 }
