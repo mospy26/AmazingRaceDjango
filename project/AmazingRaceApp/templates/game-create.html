@@ -79,6 +79,7 @@
                     <div class="modal-footer">
                       <button class="btn btn-secondary btn-danger" type="button" data-dismiss="modal">Delete Game</button>
                       <button class="btn btn-secondary btn-success" type="button" data-dismiss="modal">Start Game</button>
+                      <button class="btn btn-secondary btn-danger" type="button" data-dismiss="modal">Stop Game</button>
                       <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
                     </div>
                   </div>
@@ -122,8 +123,9 @@
                     </style>
                     <div id = "mapid">
                     </div>
-                    <script>
-                      var mymap = L.map('mapid');
+                    <script>                    
+                      var mymap = L.map('mapid').setView([-33.865143, 151.209900, -0.09], 13);
+                      
                       L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
                         attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                       }).addTo(mymap);
@@ -139,10 +141,11 @@
                         var marker = L.marker([{{ x.0 }}, {{ x.1 }}]).addTo(mymap);
                         marker.bindPopup("{{ x.2 }}").openPopup();
                         
+                        var bounds = new L.LatLngBounds(arrayOfLatLngs);
+                        mymap.fitBounds(bounds);
+                        
                       {% endfor %}
                       
-                      var bounds = new L.LatLngBounds(arrayOfLatLngs);
-                      mymap.fitBounds(bounds);
                     </script>
                   </div>
                 </div>

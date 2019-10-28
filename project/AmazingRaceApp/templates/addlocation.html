@@ -89,7 +89,8 @@
               } else if (location.includes("* Not Found - Please Try Again *")) {
                   alert("Error in location selected")
               } else {
-                  alert(location);
+                  document.body.innerHTML += '<form id="dynForm" method="post" action="<INSERT>"> {% csrf_token %} <input type="hidden" value="' + location + '" name="location_order"></form>';
+                  document.getElementById("dynForm").submit();
               }
             }
         </script>
