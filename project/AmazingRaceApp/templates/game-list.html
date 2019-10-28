@@ -35,17 +35,20 @@
                         </tr>
                         </thead>
                         <tbody>
-                        {% for game in games %}
+                        {% for game, status in game_and_status %}
                             <tr>
-                                {% if status == "Live" or status == "Closed" %}
-{#                                    <td>#}
-                                        {% if page_name == "Played" %}
-                                            <td><a href = "/game/leaderboard/#">{{ game.0.title }}</a></td>
-                                        {% else %}
-                                            <td><a href = "/game/leaderboard/#">{{ game.title }}</a></td>
-                                        {% endif %}
-{#                                    </td>#}
-
+                                {% if status == "Live" %}
+                                    {% if page_name == "Played" %}
+                                        <td><a href = "/game/play/code">{{ game.0.title }}</a></td>
+                                    {% else %}
+                                        <td><a href = "/game/create/{{ game.code }}">{{ game.title }}</a></td>
+                                    {% endif %}
+                                {% elif status == "Closed" %}
+                                    {% if page_name == "Played" %}
+                                        <td><a href = "/game/leaderboard/#">{{ game.0.title }}</a></td>
+                                    {% else %}
+                                        <td><a href = "/game/create/{{ game.code }}">{{ game.title }}</a></td>
+                                    {% endif %}
                                 {% elif status == "Not Published" %}
                                     {% if page_name == "Played" %}
                                         <td><a href = "/game/leaderboard/#">{{ game.0.title }}</a></td>
@@ -75,7 +78,7 @@
                                 {% endif %}
 
                                 {% if status == "Not Published" %}
-                                    <td><font color = "#d3d3d3">Not Published</font></td>
+                                    <td><font color = "#5bc0de">Not Published</font></td>
                                 {% endif %}
 
                             </tr>

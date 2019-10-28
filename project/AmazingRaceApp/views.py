@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 import json
 from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render, redirect
+from django import template
 
 # Create your views here.
 from django.views import generic
@@ -126,11 +127,14 @@ class GameCreatedListView(LoginRequiredMixin, generic.TemplateView):
 
     def get(self, request, *args, **kwargs):
         self.player = GameCreatorMiddleware(request.user.username)
+        
+        game_status = []
+        for x in self.player.created_games():
+            game_status.append(self.player.get_status_of_game(x.code))
 
         return render(request, self.template_name, context={
             'page_name': 'Created',
-            'games': self.player.created_games(),
-            'status': self.player.get_status_of_game('LQGY-M42U')
+            'game_and_status': zip(self.player.created_games(), game_status)
         })
 
 
@@ -143,10 +147,14 @@ class GamePlayedListView(LoginRequiredMixin, generic.TemplateView):
     def get(self, request, *args, **kwargs):
         self.player = GamePlayerMiddleware(request.user.username)
         games = self.player.list_played_games()
+        
+        game_status = []
+        for x in self.player.list_played_games():
+            game_status.append(self.player.get_status_of_game(x[0].code))
+            
         return render(request, self.template_name, context={
             'page_name': 'Played',
-            'games': games,
-            'status': self.player.get_status_of_game('LQGY-M42U')
+            'game_and_status': zip(games, game_status)
         })
 
 
