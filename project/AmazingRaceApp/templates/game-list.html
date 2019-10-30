@@ -25,11 +25,12 @@
                         <tr>
                             <th>Game Name</th>
                             <th>Game Code</th>
-                            <th>Date {{page_name}}</th>
                             {% if page_name == "Played" %}
+                                <th>Date {{page_name}}</th>
                                 <th>Rank</th>
                                 <th>Creator (Username)</th>
-
+                            {% else %}
+                                <th>Date Game Started</th>
                             {% endif %}
                             <td>Status</td>
                         </tr>
@@ -68,7 +69,11 @@
 
                                 {% if page_name == "Created" %}
                                     <td>{{ game.code }}</td>
-                                    <td>{{ game.start_time }}</td>
+                                    {% if game.start_time == None %}
+                                        <td>Game Not Started</td>
+                                    {% else %}
+                                        <td>{{ game.start_time }}</td>
+                                    {% endif %}
                                 {% endif %}
 
                                 {% if status == "Closed" %}
