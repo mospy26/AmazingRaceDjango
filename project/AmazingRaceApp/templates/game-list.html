@@ -36,22 +36,24 @@
                         </thead>
                         <tbody>
                         {% for game, status in game_and_status %}
+                            {% if status == "Not Published" and page_name == "Played" %}
+                            {% else %}
                             <tr>
                                 {% if status == "Live" %}
                                     {% if page_name == "Played" %}
-                                        <td><a href = "/game/play/{{ game.code }}">{{ game.0.title }}</a></td>
+                                        <td><a href = "/game/play/{{ game.0.code }}">{{ game.0.title }}</a></td>
                                     {% else %}
                                         <td><a href = "/game/create/{{ game.code }}">{{ game.title }}</a></td>
                                     {% endif %}
                                 {% elif status == "Closed" %}
                                     {% if page_name == "Played" %}
-                                        <td><a href = "/game/leaderboard/#">{{ game.0.title }}</a></td>
+                                        <td><a href = "/game/leaderboard/{{ game.0.code }}">{{ game.0.title }}</a></td>
                                     {% else %}
                                         <td><a href = "/game/create/{{ game.code }}">{{ game.title }}</a></td>
                                     {% endif %}
                                 {% elif status == "Not Published" %}
                                     {% if page_name == "Played" %}
-                                        <td><a href = "/game/leaderboard/#">{{ game.0.title }}</a></td>
+                                        <td><a href = "/game/leaderboard/{{ game.0.code }}">{{ game.0.title }}</a></td>
                                     {% else %}
                                         <td><a href = "/game/create/{{ game.code }}">{{ game.title }}</a></td>
                                     {% endif %}
@@ -82,6 +84,7 @@
                                 {% endif %}
 
                             </tr>
+                            {% endif %}
                         {% endfor %}
                         </tbody>
                     </table>

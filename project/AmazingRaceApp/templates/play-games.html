@@ -4,13 +4,13 @@
 
         <!-- Begin Page Content -->
         <div class="container-fluid">
-
+        {% for game in game_details %}
 
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h1 class="h3 mb-0 text-gray-800">Game Player Dashboard</h1>
-            {% for game in game_details %}
-            <h5>{{game.0}} | Game ID: {{game.1}}</h5>
-            {% endfor %}
+            
+            <h5>{{game.0}} | {{game.1}}</h5>
+            
           </div>
 
 
@@ -54,7 +54,7 @@
                   <div class="card-body">
                     <div class="row no-gutters align-items-center">
                       <div class="col mr-2">
-                        <a href="/game/leaderboard"><div class="h5 mb-0 font-weight-bold text-warning">View<br>Leaderboard</div></a>
+                        <a href="/game/leaderboard/{{game.1}}"><div class="h5 mb-0 font-weight-bold text-warning">View<br>Leaderboard</div></a>
                       </div>
                       <div class="col-auto">
                         <i class="fas fa-trophy fa-2x text-gray-300"></i>
@@ -154,6 +154,7 @@
         </div>
 
         <!-- /.container-fluid -->
+      {% endfor %}
       </div>
       <!-- End of Main Content -->
 
