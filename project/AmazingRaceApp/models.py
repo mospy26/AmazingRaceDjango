@@ -10,7 +10,7 @@ from django.contrib.auth.models import User
 # REMEMBER TO MAKE MIGRATIONS and MIGRATE
 
 class ProfilePictures(models.Model):
-    picture = models.ImageField(upload_to="profile_picture", default="/profile_picture/default-picture.png", blank=True)
+    picture = models.ImageField(upload_to="profile_picture", default="/profile_picture/default-picture.png")
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
 
