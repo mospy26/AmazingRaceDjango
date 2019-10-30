@@ -17,9 +17,9 @@ from AmazingRaceApp.api.MapsMiddleware import MapsMiddleware
 
 from django.shortcuts import render_to_response
 from django.template import RequestContext
+from django.core.files.storage import FileSystemStorage, Storage
 
 from AmazingRaceApp.models import GameCreator
-
 
 def handler(request, status_code):
     response = render_to_response(str(status_code) + '.html', {'user': request.user})
@@ -119,7 +119,29 @@ class ProfilepageView(LoginRequiredMixin, generic.TemplateView):
             'games_created': self.creator.get_number_created_games(),
             'name': self.player.get_name(),
             'username': self.player.get_username(),
-            'profile_picture': None if not self.player.profilePic else self.player.get_profile_picture()
+            'profile_picture': None if not self.player.profilePic else self.player.get_profile_picture(),
+        })
+
+    def post(self, request, *args, **kwargs):
+        self.player = GamePlayerMiddleware(request.user.username)
+        self.creator = GameCreatorMiddleware(request.user.username)
+        
+        uploaded_file = request.FILES['document']
+        
+        fs = FileSystemStorage()
+        s = Storage()
+        path = "profile_picture/" + request.user.username + "-profile-pic.png"
+        fs.delete(path)
+        fs.save(path, uploaded_file)
+
+        self.player.update_profile_pictures(path)
+
+        return render(request, self.template_name, context={
+            'games_played': self.player.get_games_played(),
+            'games_created': self.creator.get_number_created_games(),
+            'name': self.player.get_name(),
+            'username': self.player.get_username(),
+            'profile_picture': None if not self.player.profilePic else self.player.get_profile_picture(),
         })
 
 

@@ -25,7 +25,6 @@ class RegisterForm(UserCreationForm):
             user.save()
         pp = ProfilePictures(user=user)
         pp.save()
-        print("SAVING")
         return user
 
 

@@ -34,20 +34,16 @@ class GamePlayerMiddleware:
     @return: Nothing
     '''
 
-    def update_profile_pictures(self, image_url):
-        if self.profilePic:
-            self.profilePic.picture.delete(save=True)
-        django_file = File(open(image_url, "rb"))
-        self.profilePic.picture.save(self.user.username + "-profile-pic" + ".jpeg", django_file, save=True)
+    def update_profile_pictures(self, url):
+        self.profilePic.picture = url
+        self.profilePic.save()        
 
     def delete_profile_picture(self):
         self.profilePic.picture = "/profile_picture/default-picture.png"
         self.profilePic.save()
 
-    # TODO: Check if this actually renders when called on the front end 
     def get_profile_picture(self):
         profile_pic = self.profilePic.picture.url
-        # Check if the file path exists as well 
 
         if not profile_pic:
             return "/media/profile_picture/default-picture.png"

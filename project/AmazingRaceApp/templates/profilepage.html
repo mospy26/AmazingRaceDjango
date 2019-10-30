@@ -111,11 +111,14 @@
                                 
                                 <form method="POST" enctype="multipart/form-data" action="{% url 'user' %}">
                                     {% csrf_token %}
-                                    <fieldset class="form-group">
+                                    <input type="file" name="document" class="btn btn-outline-info">
+                                    <br>
+                                    <br>
+                                    <!-- <fieldset class="form-group">
                                         {{ picture_update.picture }}
-                                    </fieldset>
+                                    </fieldset> -->
                                     
-                                    <div class="form-group">
+                                    <div class="form-group"x>
                                         <button class="btn btn-outline-info" type="submit">Update Profile Picture</button>
                                     </div>
                                 </form>
