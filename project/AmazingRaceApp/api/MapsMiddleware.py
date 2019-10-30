@@ -63,6 +63,7 @@ class MapsMiddleware:
         if custom_name is None or custom_name == '':
             custom_name = area_name
         latitude, longitude = self.get_coordinate(area_name, city, country)
+
         location_code = self._generate_code(game_code)
         game = Game.objects.get(code=game_code)
         existing_locations = Location.objects.filter(game=game)
@@ -91,3 +92,11 @@ class MapsMiddleware:
                     break
             if unique:
                 return code
+
+    def delete_location(self, game_code, location_code):
+        game = Game.objects.get(code=game_code)
+        location = Location.objects.filter(game=game_code, location_code=location_code)
+        if (len(location) != 1):
+            return 
+        location[0].delete()
+        return None
