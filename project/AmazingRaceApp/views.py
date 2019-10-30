@@ -65,8 +65,10 @@ class LeaderboardView(LoginRequiredMixin, generic.TemplateView):
     def get(self, request, code, *args, **kwargs):
         # temp game
         self.game_creator = GameCreatorMiddleware(request.user.username)
+        self.game_player = GamePlayerMiddleware(request.user.username)
 
-        if not self.game_creator.is_authorized_to_access_game(code):
+        if not self.game_creator.is_authorized_to_access_game(
+                code) and not self.game_player.is_authorized_to_access_game(code):
             return handler(request, '403')
 
         self.game = _GameMiddleware('LQGY-M42U')
@@ -131,7 +133,7 @@ class GameCreatedListView(LoginRequiredMixin, generic.TemplateView):
 
     def get(self, request, *args, **kwargs):
         self.player = GameCreatorMiddleware(request.user.username)
-        
+
         game_status = []
         for x in self.player.created_games():
             game_status.append(self.player.get_status_of_game(x.code))
@@ -151,11 +153,11 @@ class GamePlayedListView(LoginRequiredMixin, generic.TemplateView):
     def get(self, request, *args, **kwargs):
         self.player = GamePlayerMiddleware(request.user.username)
         games = self.player.list_played_games()
-        
+
         game_status = []
         for x in self.player.list_played_games():
             game_status.append(self.player.get_status_of_game(x[0].code))
-            
+
         return render(request, self.template_name, context={
             'page_name': 'Played',
             'game_and_status': zip(games, game_status)
@@ -167,12 +169,21 @@ class GamePlayingListView(LoginRequiredMixin, generic.TemplateView):
     login_url = '/login'
     player = None
 
-    def get(self, request, *args, **kwargs):
-        self.game = _GameMiddleware('LQGY-M42U')
+    def get(self, request, code, *args, **kwargs):
+        self.game = _GameMiddleware(code)
+
+        if not self.game:
+            return handler(request, '404')
+
         self.player = GamePlayerMiddleware(request.user.username)
-        
+
+        if not self.player.is_authorized_to_access_game(code):
+            return handler(request, '404')
+
+        self.maps = MapsMiddleware()
+
         lat_long = []
-        visited = self.player.locations_visited('LQGY-M42U')
+        visited = self.player.locations_visited(code)
         for location in visited:
             if location[1] != "???":
                 temp = []
@@ -181,10 +192,10 @@ class GamePlayingListView(LoginRequiredMixin, generic.TemplateView):
                 temp.append(float(longitude))
                 temp.append(location[1])
                 lat_long.append(temp)
-            
+
         return render(request, self.template_name, context={
             'game_details': self.game.get_code_and_name(),
-            'visited': self.player.locations_visited('LQGY-M42U'),
+            'visited': self.player.locations_visited(code),
             'lat_long': lat_long
         })
 
@@ -219,7 +230,7 @@ class GameCreationListView(LoginRequiredMixin, generic.TemplateView):
         self.game_creator = GameCreatorMiddleware(request.user.username)
 
         if not self.game_creator.is_authorized_to_access_game(kwargs['code']) or \
-                not self.game_creator.is_live_game(kwargs['code']):
+                self.game_creator.is_live_game(kwargs['code']):
             return handler(request, 403)
 
         if 'title' in request.POST.keys() and 'code' in kwargs.keys():
@@ -260,23 +271,27 @@ class LocationListView(LoginRequiredMixin, generic.TemplateView):
     player = None
     creator = None
 
-    def get(self, request, *args, **kwargs):
+    def get(self, request, game_code, location_code, *args, **kwargs):
         self.locations = GameCreatorMiddleware(request.user.username)
-        self.player = GamePlayerMiddleware(request.user.username)
-        self.game = _GameMiddleware('LQGY-M42U')
+        self.game = _GameMiddleware(game_code)
         self.maps = MapsMiddleware()
-        
-        location_name = getattr(next(self.locations.get_location_at_x('LQGY-M42U', 1))[1], 'name')
-        
+
+        this_location = self.locations.get_location_by_code(location_code)
+
+        if not self.locations.is_authorized_to_access_game(game_code):
+            return handler(request, '404')
+
+        location_name = getattr(next(self.locations.get_location_at_x(game_code, 1)), 'name')
+
         latitude, longitude = self.maps.get_coordinate(location_name)
         latitude = float(latitude)
         longitude = float(longitude)
-        
+
         return render(request, self.template_name, context={
-            'locations_code': self.locations.get_location_at_x('LQGY-M42U', 1),
+            'locations_code': this_location,
             'game_details': self.game.get_code_and_name(),
-            'game_player_name': self.player.get_name(),
-            'game_player_username': self.player.get_username(),
+            'game_player_name': self.locations.get_name(),
+            'game_player_username': self.locations.get_username(),
             'lat_long': [latitude, longitude]
         })
 
@@ -292,13 +307,13 @@ class LocationAdd(LoginRequiredMixin, generic.TemplateView):
             'lat_long': [-33.865143, 151.209900],
             'location_name': ""
         })
-    
+
     def post(self, request, *args, **kwargs):
         self.game = _GameMiddleware('LQGY-M42U')
         self.maps = MapsMiddleware()
-        
+
         location = request.POST['locationSearch'].title()
-        
+
         try:
             latitude, longitude = self.maps.get_coordinate(request.POST['locationSearch'])
             latitude = float(latitude)
@@ -307,9 +322,11 @@ class LocationAdd(LoginRequiredMixin, generic.TemplateView):
             latitude = -33.865143
             longitude = 151.209900
             location = location + " * Not Found - Please Try Again *"
-        
+
         return render(request, self.template_name, context={
             'game_details': self.game.get_code_and_name(),
             'lat_long': [latitude, longitude],
             'location_name': location
         })
+
+    # LQGY-M42U echa creatoed

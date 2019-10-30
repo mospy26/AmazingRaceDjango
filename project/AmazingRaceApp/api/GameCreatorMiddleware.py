@@ -69,6 +69,10 @@ class GameCreatorMiddleware:
         self.game_middleware = _GameMiddleware(code)
         return self.game_middleware.ordered_locations()
 
+    def get_location_by_code(self, code):
+        location = Location.objects.filter(code=code)
+        return None if not location.exists() else location
+
     def get_location_at_x(self, code, x):
         self.game_middleware = _GameMiddleware(code)
         return self.game_middleware.get_x_location(x)
@@ -108,4 +112,4 @@ class GameCreatorMiddleware:
         return None
 
     def is_live_game(self, code):
-        return _GameMiddleware(code).live
+        return _GameMiddleware(code).game.live

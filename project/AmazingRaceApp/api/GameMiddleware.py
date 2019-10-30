@@ -58,10 +58,7 @@ class _GameMiddleware:
         game_locations = Location.objects.filter(game=self.game).order_by('order')
         i = 0
         for location in game_locations:
-            i += 1
-            if (i == x):
-                yield i, location
-                break;
+            yield location
 
     def change_name(self, name):
         self.game.title = name

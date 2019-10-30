@@ -51,6 +51,11 @@ class Game(models.Model):
             self.live = False
             self.archived = False
 
+        if self.start_time and self.start_time > timezone.now():
+            self.live = False
+            self.archived = False
+            self.end_time = None
+
         elif self.end_time is not None and self.end_time <= timezone.now():
             self.live = False
             self.archived = True
@@ -100,6 +105,9 @@ class Location(models.Model):
 
     def _generate_latitude_and_longitute(self):
         pass
+
+    def __str__(self):
+        return self.name
 
 
 class LocationUser(models.Model):

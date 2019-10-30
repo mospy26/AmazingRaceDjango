@@ -195,7 +195,7 @@
                       {% for location in locations_code %}
                       <tr>
                         <td class="index">{{ location.0 }}</td>
-                        <td><a href="#">{{ location.1.name}}</a></td>
+                        <td><a href="/game/create/{{ code }}/{{ location.1.code }}">{{ location.1.name}}</a></td>
                         <td>{{ location.1.code}}</td>
                       </tr>
                       {% endfor %}

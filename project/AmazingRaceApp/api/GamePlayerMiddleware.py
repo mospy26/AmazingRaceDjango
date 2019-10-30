@@ -111,7 +111,7 @@ class GamePlayerMiddleware:
         first = True
 
         for this_location in all_locations:
-            if (LocationUser.objects.filter(location=this_location, user=self.user)):
+            if LocationUser.objects.filter(location=this_location, user=self.user).exists():
                 yield this_location.order, this_location.name, this_location.clues, this_location.code
             else:
                 if first:
@@ -200,3 +200,9 @@ class GamePlayerMiddleware:
     def get_status_of_game(self, game_code):
         game = _GameMiddleware(game_code)
         return game.get_status()
+
+    def is_authorized_to_access_game(self, code):
+        game = _GameMiddleware(code)
+        if not game.game:
+            return False
+        return GamePlayer.objects.filter(game=_GameMiddleware(code).game, player=self.user).exists()
