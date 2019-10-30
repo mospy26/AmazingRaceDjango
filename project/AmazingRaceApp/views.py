@@ -43,7 +43,26 @@ class HomepageView(LoginRequiredMixin, generic.TemplateView):
         })
 
     def post(self, request, *args, **kwargs):
+        player = GamePlayerMiddleware(request.user.username)
         form = self.form(request.POST)
+
+        if 'code' in request.POST.keys() and request.POST['code'] != ['']:
+            game = _GameMiddleware(request.POST['code'])
+            if not game.game:
+                return render(request, self.template_name, context={
+                    'recent_game_ranks': player.rank_in_most_recent_games(10),
+                    'game_error': "Oops, incorrect code!"
+                })
+            else:
+                print(request.POST['code'])
+                if player.can_join_game(request.POST['code']):
+                    player.join_game(request.POST['code'])
+                    return HttpResponseRedirect("/game/leaderboard/" + request.POST['code'])
+                else:
+                    return render(request, self.template_name, context={
+                        'recent_game_ranks': player.rank_in_most_recent_games(10),
+                        'game_error': "Oops, incorrect code!"
+                    })
 
         if form.is_valid():
             game = form.save()

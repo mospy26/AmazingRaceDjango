@@ -79,16 +79,18 @@
                     
                     <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;" src="{% static 'img/undraw_to_the_moon_v1mv.svg' %}" alt="">
                     
-                    <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                    <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search" method="post" action="/    ">
+                        {% csrf_token %}
                       <div class="input-group">
-                        <input type="text" class="form-control bg-light border-0 small" placeholder="Input Game Code" aria-label="Search" aria-describedby="basic-addon2">
+                        <input type="text" class="form-control bg-light border-0 small" placeholder="Input Game Code" aria-label="Search" aria-describedby="basic-addon2" name="code">
                         <div class="input-group-append">
-                          <button class="btn btn-primary" type="button">
+                          <button class="btn btn-primary" type="submit">
                             <i class="fas fa-greater-than fa-sm"></i>
                           </button>
                         </div>
                       </div>
                     </form>
+                      <h6 style="color: red"> {{ game_error }} </h6>
                   </div>
                 </div>
               </div>

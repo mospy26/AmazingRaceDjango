@@ -1,3 +1,5 @@
+from os.path import exists
+
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist, EmptyResultSet
 from django.core.files import File
@@ -9,7 +11,8 @@ from AmazingRaceApp.api.GameMiddleware import _GameMiddleware
 from ..models import ProfilePictures, GamePlayer, Game, Location, LocationUser, GameCreator
 
 
-# API for getting all locations in a game 
+# API for getting all locations in a game
+
 class GamePlayerMiddleware:
 
     def __init__(self, username):
@@ -37,7 +40,7 @@ class GamePlayerMiddleware:
         django_file = File(open(image_url, "rb"))
         self.profilePic.picture.save(self.user.username + "-profile-pic" + ".jpeg", django_file, save=True)
 
-    def delete_profile_picture(self): 
+    def delete_profile_picture(self):
         self.profilePic.picture = "/profile_picture/default-picture.png"
         self.profilePic.save()
 
@@ -72,9 +75,9 @@ class GamePlayerMiddleware:
             if not LocationUser.objects.filter(location=this_location, user=self.user).exists() \
                     and Location.objects.get(code=location_code).order == this_location.order + 1:
                 current_location = LocationUser.objects.create(
-                        time_visited=datetime.now(),
-                        user=self.user,
-                        game=game
+                    time_visited=datetime.now(),
+                    user=self.user,
+                    game=game
                 )
                 return True
             else:
@@ -120,6 +123,7 @@ class GamePlayerMiddleware:
                     first = False
                 else:
                     yield this_location.order, "???", "???", "???"
+
     '''
     Gets the cursor to a list of games played 
     (live or past) by the user 
@@ -207,3 +211,37 @@ class GamePlayerMiddleware:
         if not game.game:
             return False
         return GamePlayer.objects.filter(game=_GameMiddleware(code).game, player=self.user).exists()
+
+    def can_join_game(self, code):
+        to_join_game = Game.objects.filter(code=code)
+
+        if not to_join_game.exists():
+            return False
+
+        game_player = GamePlayer.objects.filter(game=to_join_game.first(), player=self.user)
+
+        if game_player.exists():
+            return False
+
+        game_creator = GameCreator.objects.filter(game=to_join_game.first(), creator=self.user)
+        if game_creator.exists():
+            return False
+
+        return True
+
+    def join_game(self, code):
+        to_join_game = Game.objects.get(code=code)
+
+        players = GamePlayer.objects.filter(game=to_join_game)
+        rank = 0 if not players.exists() else players.order_by('-rank').first().rank + 1
+
+        game_player = GamePlayer.objects.create(
+            rank=rank,
+            game=to_join_game,
+            player=self.user
+        )
+
+        # class GamePlayer(models.Model):
+        #     rank = models.BigIntegerField()
+        #     game = models.ForeignKey(Game, on_delete=models.CASCADE)
+        #     player = models.ForeignKey(User, on_delete=models.CASCADE)

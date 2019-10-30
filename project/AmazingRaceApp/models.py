@@ -42,8 +42,11 @@ class Game(models.Model):
                 if code == existing_code:
                     unique = False
                     break
+                else:
+                    unique = True
             if unique:
                 self.code = code
+                return
 
     def _refactor_input(self):
 
