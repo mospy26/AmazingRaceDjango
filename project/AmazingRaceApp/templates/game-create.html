@@ -76,8 +76,8 @@
                   
                     </form>
                     <div class="modal-footer">
-                      <button class="btn btn-secondary btn-danger" type="button" data-dismiss="modal">Delete Game</button>
-                      <button class="btn btn-secondary btn-success" type="button" data-dismiss="modal">Start Game</button>
+                      <button class="btn btn-secondary btn-danger" type="button" data-dismiss="modal" onclick="deleteGame()">Delete Game</button>
+                      <button class="btn btn-secondary btn-success" type="button" data-dismiss="modal" onclick="startGame()">Start Game</button>
                       <button class="btn btn-secondary btn-danger" type="button" data-dismiss="modal">Stop Game</button>
                       <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
                     </div>
@@ -251,6 +251,16 @@
           document.body.innerHTML += '<form id="dynForm" method="post" action="/game/create/{{ code }}"> {% csrf_token %} <input type="hidden" value="' + codes.join(",") + '" name="location_order"></form>';
           document.getElementById("dynForm").submit();
           
+        }
+
+        function deleteGame() {
+            document.body.innerHTML += '<form id="delete_game" method="post" action="/game/create/{{ code }}"> {% csrf_token %} <input type="hidden" value="{{ code }}" name="game_delete"></form>';
+            document.getElementById("delete_game").submit();
+        }
+
+        function startGame() {
+            document.body.innerHTML += '<form id="start_game" method="post" action="/game/create/{{ code }}"> {% csrf_token %} <input type="hidden" value="{{ code }}" name="game_start"></form>';
+            document.getElementById("start_game").submit();
         }
       </script>
   {% endblock %}

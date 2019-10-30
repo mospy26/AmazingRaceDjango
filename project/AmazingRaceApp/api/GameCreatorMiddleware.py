@@ -116,3 +116,7 @@ class GameCreatorMiddleware:
 
     def is_live_game(self, code):
         return _GameMiddleware(code).game.live
+
+    def start_game(self, code):
+        self.game_middleware = _GameMiddleware(code)
+        self.game_middleware.make_live()
