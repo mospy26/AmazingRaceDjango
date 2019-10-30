@@ -3,7 +3,7 @@ from . import views
 from django.contrib.auth.views import LoginView, LogoutView
 
 urlpatterns = [
-    path('loggedOutHome/', views.HomepageLoggedOutView.as_view(), name='homepageLoggedOut'),
+    path('start/', views.HomepageLoggedOutView.as_view(), name='homepageLoggedOut'),
     path('', views.HomepageView.as_view(), name='homepage'),
     path('user/', views.ProfilepageView.as_view(), name='user'),
     path('login/', LoginView.as_view(template_name='login.html', redirect_authenticated_user=True), name='login'),

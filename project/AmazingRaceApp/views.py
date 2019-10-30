@@ -35,7 +35,7 @@ class HomepageLoggedOutView(generic.TemplateView):
 
 class HomepageView(LoginRequiredMixin, generic.TemplateView):
     template_name = 'home.html'
-    login_url = '/login'
+    login_url = '/start'
 
     form = GameTitleForm
 
@@ -84,7 +84,7 @@ class HomepageView(LoginRequiredMixin, generic.TemplateView):
 
 class LeaderboardView(LoginRequiredMixin, generic.TemplateView):
     template_name = 'Leaderboard.html'
-    login_url = '/login'
+    login_url = '/start'
 
     def get(self, request, code, *args, **kwargs):
         # temp game
@@ -105,7 +105,7 @@ class LeaderboardView(LoginRequiredMixin, generic.TemplateView):
 
 class ProfilepageView(LoginRequiredMixin, generic.TemplateView):
     template_name = 'profilepage.html'
-    login_url = '/login'
+    login_url = '/start'
 
     player = None
     creator = None
@@ -150,7 +150,7 @@ class RegisterView(generic.TemplateView):
 
 class GameCreatedListView(LoginRequiredMixin, generic.TemplateView):
     template_name = 'game-list.html'
-    login_url = '/login'
+    login_url = '/start'
 
     player = None
 
@@ -169,7 +169,7 @@ class GameCreatedListView(LoginRequiredMixin, generic.TemplateView):
 
 class GamePlayedListView(LoginRequiredMixin, generic.TemplateView):
     template_name = 'game-list.html'
-    login_url = '/login'
+    login_url = '/start'
 
     player = None
 
@@ -189,7 +189,7 @@ class GamePlayedListView(LoginRequiredMixin, generic.TemplateView):
 
 class GamePlayingListView(LoginRequiredMixin, generic.TemplateView):
     template_name = 'play-games.html'
-    login_url = '/login'
+    login_url = '/start'
     player = None
 
     def get(self, request, code, *args, **kwargs):
@@ -225,7 +225,7 @@ class GamePlayingListView(LoginRequiredMixin, generic.TemplateView):
 
 class GameCreationListView(LoginRequiredMixin, generic.TemplateView):
     template_name = 'game-create.html'
-    login_url = '/login'
+    login_url = '/start'
     form = GameRenameForm
 
     def get(self, request, code, *args, **kwargs):
@@ -310,7 +310,7 @@ class GameCreationListView(LoginRequiredMixin, generic.TemplateView):
 
 class LocationListView(LoginRequiredMixin, generic.TemplateView):
     template_name = 'locations.html'
-    login_url = '/login'
+    login_url = '/start'
 
     locations = None
     player = None
@@ -358,7 +358,7 @@ class LocationListView(LoginRequiredMixin, generic.TemplateView):
 
 class LocationAdd(LoginRequiredMixin, generic.TemplateView):
     template_name = 'addlocation.html'
-    login_url = '/login'
+    login_url = '/start'
 
     creator = None
 
