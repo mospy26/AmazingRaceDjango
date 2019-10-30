@@ -6,7 +6,7 @@ from django import forms
 from django.contrib.auth.models import User
 
 from AmazingRaceApp.api.GameCreatorMiddleware import GameCreatorMiddleware
-from AmazingRaceApp.models import Game, ProfilePictures
+from AmazingRaceApp.models import Game, ProfilePictures, Location
 
 
 class RegisterForm(UserCreationForm):
@@ -43,7 +43,6 @@ class GameTitleForm(forms.ModelForm):
 
 
 class GameRenameForm(forms.ModelForm):
-
     class Meta:
         model = Game
 
@@ -51,3 +50,10 @@ class GameRenameForm(forms.ModelForm):
             'title',
             'code'
         ]
+
+
+class ChangeClueForm(forms.ModelForm):
+    class Meta:
+        model = Location
+
+        fields = '__all__'

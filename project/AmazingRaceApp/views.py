@@ -354,6 +354,7 @@ class LocationListView(LoginRequiredMixin, generic.TemplateView):
         self.maps = MapsMiddleware()
 
         this_location = self.locations.get_location_by_code(location_code)
+        this_location_copy = self.locations.get_location_by_code(location_code)
 
         if not self.locations.is_authorized_to_access_game(game_code):
             return handler(request, '404')
@@ -369,23 +370,27 @@ class LocationListView(LoginRequiredMixin, generic.TemplateView):
             'game_details': self.game.get_code_and_name(),
             'game_player_name': self.locations.get_name(),
             'game_player_username': self.locations.get_username(),
-            'lat_long': [latitude, longitude]
+            'lat_long': [latitude, longitude],
+            'game_code': self.game.game.code,
+            'location_code': this_location_copy.first()
         })
 
-    def post(self, request, code, location_code, *args, **kwargs):
-        self.game = _GameMiddleware(code)
+    def post(self, request, game_code, location_code, *args, **kwargs):
+        self.locations = GameCreatorMiddleware(request.user.username)
+        self.game = _GameMiddleware(game_code)
         self.creator = GameCreatorMiddleware(request.user)
         self.maps = MapsMiddleware()
 
-        if not self.creator.is_authorized_to_access_game(code):
+        if not self.creator.is_authorized_to_access_game(game_code):
             return handler(request, '404')
 
-        if 'delete_location' in request.POST.keys():
-            self._delete_location(code, self.locations.get_location_by_code(location_code))
+        if 'delete_location_code' in request.POST.keys():
+            return self._delete_location(request, game_code, request.POST['delete_location_code'], self.locations.get_location_by_code(location_code))
 
     def _delete_location(self, request, game_code, location_code, *args, **kwargs):
         self.maps = MapsMiddleware()
         self.maps.delete_location(game_code, location_code)
+        return HttpResponseRedirect('/game/create/'+game_code)
 
 
 class LocationAdd(LoginRequiredMixin, generic.TemplateView):
