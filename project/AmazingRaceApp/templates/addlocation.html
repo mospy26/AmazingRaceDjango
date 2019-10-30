@@ -6,7 +6,7 @@
                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
                     <h1 class="h3 mb-0 text-gray-800">Add Location Dashboard</h1>
                     {% for game in game_details %}
-                    <h5>{{game.0}} | Game ID: {{game.1}}</h5>
+                    <h5>{{game.0}} | {{game.1}}</h5>
                     {% endfor %}
                 </div>
 
@@ -35,7 +35,7 @@
                             </form>
                             
                             <div>
-                                <button onclick="saveLocation()" id="save_location" class="btn btn-success btn-icon-split">
+                                <button onclick="saveLocation('{{ code }}')" id="save_location" class="btn btn-success btn-icon-split">
                                   <span class="icon text-white-50">
                                     <i class="fas fa-check"></i>
                                   </span>
@@ -81,7 +81,7 @@
             <!-- /.container-fluid -->
         </div>
         <script type="text/javascript">
-            function saveLocation() {
+            function saveLocation(code) {
               let location = document.getElementById("input_location").innerHTML;
               location = location.slice(10);
               if (location === " ") {
@@ -89,8 +89,8 @@
               } else if (location.includes("* Not Found - Please Try Again *")) {
                   alert("Error in location selected")
               } else {
-                  document.body.innerHTML += '<form id="dynForm" method="post" action="<INSERT>"> {% csrf_token %} <input type="hidden" value="' + location + '" name="location_order"></form>';
-                  document.getElementById("dynForm").submit();
+                  document.body.innerHTML += '<form id="add_location" method="post" action="/game/create/{{ code }}/new/location"> {% csrf_token %} <input type="hidden" value="' + code + '" name="code"> <input type="hidden" value="' + location + '" name="location_order"></form>';
+                  document.getElementById("add_location").submit();
               }
             }
         </script>

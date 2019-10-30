@@ -49,7 +49,26 @@ class HomepageView(LoginRequiredMixin, generic.TemplateView):
         })
 
     def post(self, request, *args, **kwargs):
+        player = GamePlayerMiddleware(request.user.username)
         form = self.form(request.POST)
+
+        if 'code' in request.POST.keys() and request.POST['code'] != ['']:
+            game = _GameMiddleware(request.POST['code'])
+            if not game.game:
+                return render(request, self.template_name, context={
+                    'recent_game_ranks': player.rank_in_most_recent_games(10),
+                    'game_error': "Oops, incorrect code!"
+                })
+            else:
+                print(request.POST['code'])
+                if player.can_join_game(request.POST['code']):
+                    player.join_game(request.POST['code'])
+                    return HttpResponseRedirect("/game/leaderboard/" + request.POST['code'])
+                else:
+                    return render(request, self.template_name, context={
+                        'recent_game_ranks': player.rank_in_most_recent_games(10),
+                        'game_error': "Oops, incorrect code!"
+                    })
 
         if form.is_valid():
             game = form.save()
@@ -77,11 +96,11 @@ class LeaderboardView(LoginRequiredMixin, generic.TemplateView):
                 code) and not self.game_player.is_authorized_to_access_game(code):
             return handler(request, '403')
 
-        self.game = _GameMiddleware('LQGY-M42U')
+        self.game = _GameMiddleware(code)
 
         return render(request, self.template_name, context={
             'game_details': self.game.get_code_and_name(),
-            'leaderboards': self.game_creator.get_leaderboard('LQGY-M42U')
+            'leaderboards': self.game_creator.get_leaderboard(code)
         })
 
 
@@ -125,7 +144,6 @@ class RegisterView(generic.TemplateView):
             form.save()
             return HttpResponseRedirect('/login')
 
-        print(form['first_name'].errors)
         return render(request, self.template_name, {
             'form': form
         })
@@ -243,6 +261,8 @@ class GameCreationListView(LoginRequiredMixin, generic.TemplateView):
             return self._update_title_post_request(request, **kwargs)
         elif 'location_order' in request.POST.keys():
             return self._update_location_order_post_request(request, **kwargs)
+        elif 'delete' in request.POST.keys():
+            return self._delete_game(kwargs['code'])
 
     def _update_title_post_request(self, request, *args, **kwargs):
         self.maps = MapsMiddleware()
@@ -267,6 +287,10 @@ class GameCreationListView(LoginRequiredMixin, generic.TemplateView):
             'code': kwargs['code'],
             'lat_long': self.maps.get_list_of_long_lat(kwargs['code'])
         })
+
+    def _delete_game(self, request, code, *args, **kwargs):
+        self.game_creator = GameCreatorMiddleware(request.user.username)
+        self.game_creator.delete_game(code)
 
 
 class LocationListView(LoginRequiredMixin, generic.TemplateView):
@@ -301,38 +325,73 @@ class LocationListView(LoginRequiredMixin, generic.TemplateView):
             'lat_long': [latitude, longitude]
         })
 
+    def post(self, request, code, location_code, *args, **kwargs):
+        self.game = _GameMiddleware(code)
+        self.creator = GameCreatorMiddleware(request.user)
+        self.maps = MapsMiddleware()
+
+        if not self.creator.is_authorized_to_access_game(code):
+            return handler(request, '404')
+
+        if 'delete_location' in request.POST.keys():
+            self._delete_location(code, self.locations.get_location_by_code(location_code))
+
+    def _delete_location(self, request, game_code, location_code, *args, **kwargs):
+        self.maps = MapsMiddleware()
+        self.maps.delete_location(game_code, location_code)
 
 class LocationAdd(LoginRequiredMixin, generic.TemplateView):
     template_name = 'addlocation.html'
     login_url = '/login'
 
+    creator = None
+
     def get(self, request, code, *args, **kwargs):
-        self.game = _GameMiddleware('LQGY-M42U')
+        self.game = _GameMiddleware(code)
+        self.creator = GameCreatorMiddleware(request.user)
+
+        if not self.creator.is_authorized_to_access_game(code):
+            return handler(request, '404')
+
         return render(request, self.template_name, context={
             'game_details': self.game.get_code_and_name(),
             'lat_long': [-33.865143, 151.209900],
             'location_name': ""
         })
 
-    def post(self, request, *args, **kwargs):
-        self.game = _GameMiddleware('LQGY-M42U')
+    def post(self, request, code, *args, **kwargs):
+        self.game = _GameMiddleware(code)
+        self.creator = GameCreatorMiddleware(request.user)
         self.maps = MapsMiddleware()
 
-        location = request.POST['locationSearch'].title()
+        if not self.creator.is_authorized_to_access_game(code):
+            return handler(request, '404')
 
-        try:
-            latitude, longitude = self.maps.get_coordinate(request.POST['locationSearch'])
-            latitude = float(latitude)
-            longitude = float(longitude)
-        except:
-            latitude = -33.865143
-            longitude = 151.209900
-            location = location + " * Not Found - Please Try Again *"
+        if 'location_order' in request.POST.keys():
+            location = request.POST['location_order'].title().strip()
+            return self._add_location(request, code, location)
 
-        return render(request, self.template_name, context={
-            'game_details': self.game.get_code_and_name(),
-            'lat_long': [latitude, longitude],
-            'location_name': location
-        })
+        elif 'locationSearch' in request.POST.keys():
+            location = request.POST['locationSearch'].title()
+
+            try:
+                latitude, longitude = self.maps.get_coordinate(request.POST['locationSearch'])
+                latitude = float(latitude)
+                longitude = float(longitude)
+            except:
+                latitude = -33.865143
+                longitude = 151.209900
+                location = location + " * Not Found - Please Try Again *"
+
+            return render(request, self.template_name, context={
+                'game_details': self.game.get_code_and_name(),
+                'lat_long': [latitude, longitude],
+                'location_name': location,
+                'code': code
+            })
+
+    def _add_location(self, request, code, location):
+        created = self.maps.create_game_location(code, location)
+        return HttpResponseRedirect('/game/create/' + code + "/" + created.code)
 
     # LQGY-M42U echa creatoed

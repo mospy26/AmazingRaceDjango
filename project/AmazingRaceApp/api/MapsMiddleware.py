@@ -6,7 +6,7 @@ from geopy import distance
 import certifi
 import ssl
 
-import random 
+import random
 import string
 
 from ..models import ProfilePictures, GamePlayer, Game, Location, LocationUser
@@ -49,7 +49,7 @@ class MapsMiddleware:
             latitude, longitude = self.get_coordinate(location.name)
             latitude = float(latitude)
             longitude = float(longitude)
-            
+
             yield (latitude, longitude, location.name)
 
     def get_all_name_code(self):
@@ -59,18 +59,44 @@ class MapsMiddleware:
             i += 1
             yield i, l.name, l.code
 
-    def create_game_location(self, game_code, game_name, area_name, custom_name='', city='', country=''):
-        if not custom_name is None or custom_name == '':
-            custom_name = area_name 
+    def create_game_location(self, game_code, area_name, custom_name='', city='', country=''):
+        if custom_name is None or custom_name == '':
+            custom_name = area_name
         latitude, longitude = self.get_coordinate(area_name, city, country)
-        location_code = ''.join(random.choice(string.ascii_uppercase + string.digits) for i in range(5)).upper()
-        game = Game.objects.get(game_code=game_code, game_name=game_name)
-        order = len(Location.objects.get(game=game)) + 1
-        new_location = Location(name=custom_name, 
-                        clues="", 
-                        longitude=str(longitude), 
-                        latitude=str(latitude), 
-                        code=location_code,
-                        game=game,
-                        order=order)
+
+        location_code = self._generate_code(game_code)
+        game = Game.objects.get(code=game_code)
+        existing_locations = Location.objects.filter(game=game)
+
+        order = 1 if not existing_locations.exists() else existing_locations.order_by('order').last().order + 1
+
+        new_location = Location(name=custom_name,
+                                clues="",
+                                longitude=str(longitude),
+                                latitude=str(latitude),
+                                code=location_code,
+                                game=game,
+                                order=order)
         new_location.save()
+        return new_location
+
+    def _generate_code(self, game_code):
+        location_codes = Location.objects.filter(game=Game.objects.get(code=game_code)).values_list('code')
+        while True:
+            unique = True
+            code = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(8))
+            code = code[:4] + "-" + code[4:]
+            for existing_code in location_codes:
+                if code == existing_code:
+                    unique = False
+                    break
+            if unique:
+                return code
+
+    def delete_location(self, game_code, location_code):
+        game = Game.objects.get(code=game_code)
+        location = Location.objects.filter(game=game_code, location_code=location_code)
+        if (len(location) != 1):
+            return 
+        location[0].delete()
+        return None

@@ -35,12 +35,17 @@ class Game(models.Model):
     def _generate_code(self):
         game_codes = Game.objects.values_list('code')
         while True:
-            game_code = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(8))
-            game_code = game_code[:4] + "-" + game_code[4:]
+            unique = True
+            code = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(8))
+            code = code[:4] + "-" + code[4:]
             for existing_code in game_codes:
-                if game_code == existing_code:
+                if code == existing_code:
+                    unique = False
                     break
-                self.code = game_code
+                else:
+                    unique = True
+            if unique:
+                self.code = code
                 return
 
     def _refactor_input(self):
