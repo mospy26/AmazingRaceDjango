@@ -71,11 +71,11 @@ class LeaderboardView(LoginRequiredMixin, generic.TemplateView):
                 code) and not self.game_player.is_authorized_to_access_game(code):
             return handler(request, '403')
 
-        self.game = _GameMiddleware('LQGY-M42U')
+        self.game = _GameMiddleware(code)
 
         return render(request, self.template_name, context={
             'game_details': self.game.get_code_and_name(),
-            'leaderboards': self.game_creator.get_leaderboard('LQGY-M42U')
+            'leaderboards': self.game_creator.get_leaderboard(code)
         })
 
 
@@ -300,19 +300,33 @@ class LocationAdd(LoginRequiredMixin, generic.TemplateView):
     template_name = 'addlocation.html'
     login_url = '/login'
 
+    creator = None
+
     def get(self, request, code, *args, **kwargs):
-        self.game = _GameMiddleware('LQGY-M42U')
+        self.game = _GameMiddleware(code)
+        self.creator = GameCreatorMiddleware(request.user)
+
+        if not self.creator.is_authorized_to_access_game(code):
+            return handler(request, '404')
+
         return render(request, self.template_name, context={
             'game_details': self.game.get_code_and_name(),
             'lat_long': [-33.865143, 151.209900],
             'location_name': ""
         })
 
-    def post(self, request, *args, **kwargs):
-        self.game = _GameMiddleware('LQGY-M42U')
+    def post(self, request, code, *args, **kwargs):
+        self.game = _GameMiddleware(code)
+        self.creator = GameCreatorMiddleware(request.user)
         self.maps = MapsMiddleware()
 
+        if not self.creator.is_authorized_to_access_game(code):
+            return handler(request, '404')
+
         location = request.POST['locationSearch'].title()
+
+        if 'add_location' in request.POST.keys():
+            return self._add_location(request, code, location)
 
         try:
             latitude, longitude = self.maps.get_coordinate(request.POST['locationSearch'])
@@ -328,5 +342,9 @@ class LocationAdd(LoginRequiredMixin, generic.TemplateView):
             'lat_long': [latitude, longitude],
             'location_name': location
         })
+
+    def _add_location(self, request, code, location):
+        self.maps.create_game_location(code, location)
+        return redirect('locations', slug=code)
 
     # LQGY-M42U echa creatoed

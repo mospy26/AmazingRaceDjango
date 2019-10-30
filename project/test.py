@@ -5,7 +5,7 @@ how to write such code
 
 # To run, the command is "python manage.py shell < test.py"
 #
-# from AmazingRaceApp.api.MapsMiddleware import MapsMiddleware
+from AmazingRaceApp.api.MapsMiddleware import MapsMiddleware
 # from AmazingRaceApp.api.GamePlayerMiddleware import GamePlayerMiddleware
 #
 # import os
@@ -18,8 +18,13 @@ how to write such code
 # g.update_profile_pictures("/mnt/c/Users/Markl/Desktop/picture.png")
 # print(g.get_profile_picture())
 # # g.delete_profile_picture()
-from AmazingRaceApp.api.GamePlayerMiddleware import GamePlayerMiddleware
+# from AmazingRaceApp.api.GamePlayerMiddleware import GamePlayerMiddleware
+#
+# g = GamePlayerMiddleware('echa')
+# for a in g.list_played_games():
+#     print(a[0].code, a[1], a[2].rank)
 
-g = GamePlayerMiddleware('echa')
-for a in g.list_played_games():
-    print(a[0].code, a[1], a[2].rank)
+
+# game_code, area_name, custom_name='', city='', country=''):
+maps = MapsMiddleware()
+maps.create_game_location('LQGY-M42U', "Opera House")

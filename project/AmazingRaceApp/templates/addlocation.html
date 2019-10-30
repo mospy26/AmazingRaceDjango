@@ -6,7 +6,7 @@
                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
                     <h1 class="h3 mb-0 text-gray-800">Add Location Dashboard</h1>
                     {% for game in game_details %}
-                    <h5>{{game.0}} | Game ID: {{game.1}}</h5>
+                    <h5>{{game.0}} | {{game.1}}</h5>
                     {% endfor %}
                 </div>
 
@@ -20,7 +20,7 @@
                             </div>
                             
                             
-                            <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search" method="post">
+                            <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search" method="post" name="search">
                                 {% csrf_token %}
                                 <div class="container">
                                     <div class="row d-flex justify-content-between">
@@ -89,8 +89,8 @@
               } else if (location.includes("* Not Found - Please Try Again *")) {
                   alert("Error in location selected")
               } else {
-                  document.body.innerHTML += '<form id="dynForm" method="post" action="<INSERT>"> {% csrf_token %} <input type="hidden" value="' + location + '" name="location_order"></form>';
-                  document.getElementById("dynForm").submit();
+                  document.body.innerHTML += '<form id="add_location" method="post" action="/game/create/{{ code }}/new/location"> {% csrf_token %} <input type="hidden" value="' + location + '" name="location_order"></form>';
+                  document.getElementById("add_location").submit();
               }
             }
         </script>
