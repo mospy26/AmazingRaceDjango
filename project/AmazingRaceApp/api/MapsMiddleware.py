@@ -6,6 +6,9 @@ from geopy import distance
 import certifi
 import ssl
 
+import random 
+import string
+
 from ..models import ProfilePictures, GamePlayer, Game, Location, LocationUser
 
 
@@ -55,3 +58,19 @@ class MapsMiddleware:
         for l in location:
             i += 1
             yield i, l.name, l.code
+
+    def create_game_location(self, game_code, game_name, area_name, custom_name='', city='', country=''):
+        if (custom_name == None or custom_name == ''):
+            custom_name = area_name 
+        latitude, longitude = self.get_coordinate(area_name, city, country)
+        location_code = ''.join(random.choice(string.ascii_lowercase) for i in range(5)).upper()
+        game = Game.objects.get(game_code=game_code, game_name=game_name)
+        order = len(Location.objects.get(game=game)) + 1
+        new_location = Location(name=custom_name, 
+                        clues="", 
+                        longitude=str(longitude), 
+                        latitude=str(latitude), 
+                        code=location_code,
+                        game=game,
+                        order=order)
+        new_location.save()
