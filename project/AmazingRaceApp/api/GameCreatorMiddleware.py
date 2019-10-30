@@ -96,6 +96,9 @@ class GameCreatorMiddleware:
             counter += 1
 
     def is_authorized_to_access_game(self, code):
+        game = _GameMiddleware(code)
+        if not game.game:
+            return False
         return GameCreator.objects.filter(game=_GameMiddleware(code).game, creator=self.user).exists()
 
     def get_game(self, code):

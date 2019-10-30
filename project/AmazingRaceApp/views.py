@@ -62,9 +62,13 @@ class LeaderboardView(LoginRequiredMixin, generic.TemplateView):
     template_name = 'Leaderboard.html'
     login_url = '/login'
 
-    def get(self, request, *args, **kwargs):
+    def get(self, request, code, *args, **kwargs):
         # temp game
         self.game_creator = GameCreatorMiddleware(request.user.username)
+
+        if not self.game_creator.is_authorized_to_access_game(code):
+            return handler(request, '403')
+
         self.game = _GameMiddleware('LQGY-M42U')
 
         return render(request, self.template_name, context={
