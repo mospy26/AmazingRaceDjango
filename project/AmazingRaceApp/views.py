@@ -1,6 +1,7 @@
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
+from django.contrib.auth import update_session_auth_hash
 import json
 from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render, redirect
@@ -53,7 +54,6 @@ class HomepageView(LoginRequiredMixin, generic.TemplateView):
     def post(self, request, *args, **kwargs):
         player = GamePlayerMiddleware(request.user.username)
         form = self.form(request.POST)
-        print(request.POST['code'])
         if 'code' in request.POST.keys() and request.POST['code'] != '':
             game = _GameMiddleware(request.POST['code'])
             if not game.game:
@@ -111,10 +111,12 @@ class ProfilepageView(LoginRequiredMixin, generic.TemplateView):
 
     player = None
     creator = None
+    password_form = None
 
     def get(self, request, *args, **kwargs):
         self.player = GamePlayerMiddleware(request.user.username)
         self.creator = GameCreatorMiddleware(request.user.username)
+        self.password_form = PasswordChangeForm(request.user)
 
         return render(request, self.template_name, context={
             'games_played': self.player.get_games_played(),
@@ -122,6 +124,7 @@ class ProfilepageView(LoginRequiredMixin, generic.TemplateView):
             'name': self.player.get_name(),
             'username': self.player.get_username(),
             'profile_picture': None if not self.player.profilePic else self.player.get_profile_picture(),
+            'password_form': self.password_form
         })
 
     def post(self, request, *args, **kwargs):
@@ -129,32 +132,53 @@ class ProfilepageView(LoginRequiredMixin, generic.TemplateView):
         self.creator = GameCreatorMiddleware(request.user.username)
 
         uploaded_file = None
-        try:
-            uploaded_file = request.FILES['document']
-        except:
+
+        if 'document' in request.POST.keys():
+            try:
+                uploaded_file = request.FILES['document']
+            except:
+                return render(request, self.template_name, context={
+                    'games_played': self.player.get_games_played(),
+                    'games_created': self.creator.get_number_created_games(),
+                    'name': self.player.get_name(),
+                    'username': self.player.get_username(),
+                    'profile_picture': self.player.get_profile_picture(),
+                    'password_form': self.password_form
+                })
+
+            fs = FileSystemStorage()
+            s = Storage()
+            path = "profile_picture/" + request.user.username + "-profile-pic.png"
+            fs.delete(path)
+            fs.save(path, uploaded_file)
+
+            self.player.update_profile_pictures(path)
+
             return render(request, self.template_name, context={
                 'games_played': self.player.get_games_played(),
                 'games_created': self.creator.get_number_created_games(),
                 'name': self.player.get_name(),
                 'username': self.player.get_username(),
                 'profile_picture': self.player.get_profile_picture(),
+                'password_form': self.password_form
             })
 
-        fs = FileSystemStorage()
-        s = Storage()
-        path = "profile_picture/" + request.user.username + "-profile-pic.png"
-        fs.delete(path)
-        fs.save(path, uploaded_file)
+        elif 'old_password' in request.POST.keys():
+            form = PasswordChangeForm(request.user, request.POST)
 
-        self.player.update_profile_pictures(path)
+            if form.is_valid():
+                form.save()
+                update_session_auth_hash(request, form.user)
+                return HttpResponseRedirect('/')
 
-        return render(request, self.template_name, context={
-            'games_played': self.player.get_games_played(),
-            'games_created': self.creator.get_number_created_games(),
-            'name': self.player.get_name(),
-            'username': self.player.get_username(),
-            'profile_picture': self.player.get_profile_picture(),
-        })
+            return render(request, self.template_name, context={
+                'games_played': self.player.get_games_played(),
+                'games_created': self.creator.get_number_created_games(),
+                'name': self.player.get_name(),
+                'username': self.player.get_username(),
+                # 'profile_picture': self.player.get_profile_picture(),
+                'password_form': form
+            })
 
 
 class RegisterView(generic.TemplateView):
@@ -442,14 +466,15 @@ class LocationListView(LoginRequiredMixin, generic.TemplateView):
     def _change_clue(self, request, game_code, location_code, *args, **kwargs):
         self.creator = GameCreatorMiddleware(None)
         self.creator.user = request.user
-        form = self.form(instance=self.creator.get_location_of_game(game_code=game_code, location_code=location_code), data=request.POST)
+        form = self.form(instance=self.creator.get_location_of_game(game_code=game_code, location_code=location_code),
+                         data=request.POST)
 
         if form.is_valid():
             print(request.POST['clues'])
             location = form.save(commit=False)
             location.clues = request.POST['clues']
             location.save()
-            return HttpResponseRedirect('/game/create/'+game_code+"/"+location_code)
+            return HttpResponseRedirect('/game/create/' + game_code + "/" + location_code)
 
         print(form.errors)
         print(request.POST)

@@ -35,65 +35,78 @@
                     <!-- Basic Card Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Username and Password</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">Change Password</h6>
                         </div>
                         <div class="card-body">
                             <div class = "row">
                                 <div class = "col">
-                                    Change Username:
                                 </div>
-    
+
                                 <div class = "col">
-                                    <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-                                        <div class="input-group">
-                                            <input type="text" class="form-control bg-light border-0 small" placeholder="Username..." aria-label="Search" aria-describedby="basic-addon2">
-                                        </div>
-                                    </form>
                                 </div>
                             </div>
+                            <div class = "row">
+                                <div class = "col">
+                                </div>
+                                <div class = "col">
+                                </div>
+                            </div>
+
+{#                            <hr>#}
+                            <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search" method="post" action="{% url 'user' %}" id="old_password">
+                             {% csrf_token %}
+
+                            <div class = "row">
+                                <div class = "col">
+                                    Old Password:
+                                </div>
+                                <div class = "col">
+                                    <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search" method="post" action="{% url 'user' %}" id="old_password">
+                                        {% csrf_token %}
+                                        <div class="input-group">
+                                            <input type="password" name="old_password" class="form-control bg-light border-0 small" placeholder="Current Password..." aria-label="Search" aria-describedby="basic-addon2">
+                                            <h6 style="color: red"> {{ password_form.old_password.errors }} </h6>
+                                        </div>
+                                </div>
+                            </div>
+
                             <br>
+
                             <div class = "row">
                                 <div class = "col">
-                                    Re-Enter Username:
+                                    New Password:
                                 </div>
                                 <div class = "col">
-                                    <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+
+
                                         <div class="input-group">
-                                            <input type="text" class="form-control bg-light border-0 small" placeholder="Confirm..." aria-label="Search" aria-describedby="basic-addon2">
+                                            <input type="password" name="new_password1" class="form-control bg-light border-0 small" placeholder="New Password..." aria-label="Search" aria-describedby="basic-addon2">
+
+                                            <h6 style="color: red"> {{ password_form.new_password1.errors }} </h6>
                                         </div>
-                                    </form>
+
                                 </div>
                             </div>
-    
-                            <hr>
-    
-                            <div class = "row">
-                                <div class = "col">
-                                    Change Password:
-                                </div>
-                                <div class = "col">
-                                    <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-                                        <div class="input-group">
-                                            <input type="text" class="form-control bg-light border-0 small" placeholder="Password..." aria-label="Search" aria-describedby="basic-addon2">
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
+
                             <br>
                             <div class = "row">
                                 <div class = "col">
                                     Re-Enter Password:
                                 </div>
                                 <div class = "col">
-                                    <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+
+
                                         <div class="input-group">
-                                            <input type="text" class="form-control bg-light border-0 small" placeholder="Confirm..." aria-label="Search" aria-describedby="basic-addon2">
+                                            <input type="password" name="new_password2" class="form-control bg-light border-0 small" placeholder="Confirm..." aria-label="Search" aria-describedby="basic-addon2">
+                                            <h6 style="color: red"> {{ password_form.new_password2.errors }} </h6>
                                         </div>
-                                    </form>
+
                                 </div>
                             </div>
+                            </form>
+                            <br>
                             <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                              <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Update Profile <i class="fas fa-edit fa-sm text-white-50"></i></a>
+                              <button onclick="changePassword()" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Update Password <i class="fas fa-edit fa-sm text-white-50"></i></button>
                             </div>
                         </div>
                     </div>
@@ -136,7 +149,15 @@
         </div>
     
     
-    
+        <script>
+
+        function changePassword() {
+            document.getElementById('old_password').submit();
+            {#document.getElementById('new_password').submit();#}
+            {#document.getElementById('confirm_password').submit();#}
+        }
+
+        </script>
     
         <!-- /.container-fluid -->
     </div>
