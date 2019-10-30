@@ -105,11 +105,11 @@ class MapsMiddleware:
 
     def delete_location(self, game_code, location_code):
         game = Game.objects.get(code=game_code)
-        location = Location.objects.filter(game=game_code, location_code=location_code)
-        if (len(location) != 1):
-            return 
-        location[0].delete()
-        return None
+        location = Location.objects.filter(game=game, code=location_code)
+        if not location.exists():
+            return False
+        location.first().delete()
+        return True
 
     def convert_degrees_to_string(self, string):
         degrees, minutes, seconds, direction = re.split('[°\'"]+', string)

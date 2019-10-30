@@ -36,7 +36,7 @@
                                         Location Code:
                                     </div>
                                     <div class = "col">
-                                        {{ location.code}}
+                                        {{ location.code }}
                                     </div>
                                 </div>
                                 <br>
@@ -58,7 +58,7 @@
                                     <div class = "col">
                                         <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                                             <div class="input-group">
-                                                <textarea type="text" class="form-control bg-light border-0 small" rows = "4" aria-label="Search" aria-describedby="basic-addon2"> {{ location.clues }}</textarea>
+                                                <input type="text" class="form-control bg-light border-0 small" name="clues" rows = "4" aria-label="Search" aria-describedby="basic-addon2"> {{ location.clues }}</input>
                                             </div>
                                         </form>
                                     </div>
@@ -68,10 +68,10 @@
                         </div>
                         <div class = "row">
                             <div class = "col-md-3">
-                                <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm">Delete Location <i class="fas fa-trash fa-sm text-white-50"></i></a>
+                                <button class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm" onclick="deleteLocation()">Delete Location <i class="fas fa-trash fa-sm text-white-50"></i></a>
                             </div>
                             <div class ="col-md-3">
-                                <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm">Update Location <i class="fas fa-edit fa-sm text-white-50"></i></a>
+                                <button href="#" class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm">Update Location <i class="fas fa-edit fa-sm text-white-50"></i></button>
                             </div>
                         </div>
                     </div>
@@ -111,7 +111,14 @@
                     </div>
                 </div>
 
+            <!-- delete script for location -->
+            <script>
 
+                function deleteLocation() {
+                    document.body.innerHTML += '<form id="delete_location" action="/game/create/{{ game_code }}/{{ location_code.code }}" method="post"> {% csrf_token %} <input type="hidden" name="delete_location_code" value="{{ location_code.code }}"> </input> <input type="hidden" name="game_code" value="{{ game_code }}"> </input> <input type="submit" name="Delete_location" /> </form>';
+                    document.getElementById("delete_location").submit();
+                    }
+            </script>
 
             </div>
             <!-- /.container-fluid -->
