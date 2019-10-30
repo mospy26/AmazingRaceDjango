@@ -126,8 +126,18 @@ class ProfilepageView(LoginRequiredMixin, generic.TemplateView):
         self.player = GamePlayerMiddleware(request.user.username)
         self.creator = GameCreatorMiddleware(request.user.username)
         
-        uploaded_file = request.FILES['document']
-        
+        uploaded_file = None
+        try: 
+            uploaded_file = request.FILES['document']
+        except: 
+            return render(request, self.template_name, context={
+                'games_played': self.player.get_games_played(),
+                'games_created': self.creator.get_number_created_games(),
+                'name': self.player.get_name(),
+                'username': self.player.get_username(),
+                'profile_picture': self.player.get_profile_picture(),
+            })
+
         fs = FileSystemStorage()
         s = Storage()
         path = "profile_picture/" + request.user.username + "-profile-pic.png"
@@ -141,7 +151,7 @@ class ProfilepageView(LoginRequiredMixin, generic.TemplateView):
             'games_created': self.creator.get_number_created_games(),
             'name': self.player.get_name(),
             'username': self.player.get_username(),
-            'profile_picture': None if not self.player.profilePic else self.player.get_profile_picture(),
+            'profile_picture': self.player.get_profile_picture(),
         })
 
 
