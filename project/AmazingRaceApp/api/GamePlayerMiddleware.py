@@ -6,6 +6,7 @@ from django.core.files import File
 
 import traceback
 import os
+import datetime
 
 from AmazingRaceApp.api.GameMiddleware import _GameMiddleware
 from ..models import ProfilePictures, GamePlayer, Game, Location, LocationUser, GameCreator
@@ -64,20 +65,29 @@ class GamePlayerMiddleware:
 
     def visit_location(self, location_code, game_code):
         game = Game.objects.get(code=game_code)
-        all_locations = Location.objects.filter(game=game).order_by('order')
-        for this_location in all_locations:
-            if LocationUser.objects.filter(location=this_location, user=self.user).order_by('order').exists():
-                continue
-            if not LocationUser.objects.filter(location=this_location, user=self.user).exists() \
-                    and Location.objects.get(code=location_code).order == this_location.order + 1:
-                current_location = LocationUser.objects.create(
-                    time_visited=datetime.now(),
-                    user=self.user,
-                    game=game
-                )
-                return True
-            else:
-                return False
+        game_locations = []
+        locations_visited = []
+        
+        for x in LocationUser.objects.values_list('location_id').filter(user=self.user):
+            locations_visited.append(Location.objects.get(id=x[0]).code)
+        
+        for x in Location.objects.values_list('code').filter(game=game).order_by('order'):
+            game_locations.append( x[0])
+        
+        first = True
+        for x in game_locations:
+            if x not in locations_visited:
+                if not first:
+                    return False 
+                first = False
+                if location_code == x:
+                    current_location = LocationUser.objects.create(
+                        time_visited=datetime.datetime.now(),
+                        user=self.user,
+                        location=Location.objects.get(code=location_code)
+                    )
+                    return True
+        return False
 
     '''
     Returns all the clue for all the games that are currently live for the player 
