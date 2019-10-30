@@ -26,6 +26,12 @@ def handler(request, status_code):
     response.status_code = int(status_code)
     return response
 
+class HomepageLoggedOutView(generic.TemplateView):
+    template_name = 'homepage2.html'
+
+    def get(self, request, *args, **kwargs):
+        return render(request, self.template_name, context={})
+
 
 class HomepageView(LoginRequiredMixin, generic.TemplateView):
     template_name = 'home.html'
