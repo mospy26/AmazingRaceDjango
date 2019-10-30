@@ -50,18 +50,25 @@ class Game(models.Model):
 
     def _refactor_input(self):
 
-        if self.end_time <= self.start_time:
+        if not self.start_time and not self.end_time:
+            return
+
+        elif self.end_time is None and self.start_time is not None:
+            self.live = True if self.start_time <= datetime.now() else False
+            self.archived = False
+
+        if self.end_time.strftime('%Y-%m-%d %H:%M:%S') <= self.start_time.strftime('%Y-%m-%d %H:%M:%S'):
             self.end_time = None
             self.start_time = None
             self.live = False
             self.archived = False
 
-        if self.start_time and self.start_time > timezone.now():
+        if self.start_time and self.start_time.strftime('%Y-%m-%d %H:%M:%S') > timezone.now().strftime('%Y-%m-%d %H:%M:%S'):
             self.live = False
             self.archived = False
             self.end_time = None
 
-        elif self.end_time is not None and self.end_time <= timezone.now():
+        elif self.end_time is not None and self.end_time.strftime('%Y-%m-%d %H:%M:%S') <= timezone.now().strftime('%Y-%m-%d %H:%M:%S'):
             self.live = False
             self.archived = True
 

@@ -111,8 +111,7 @@ class GameCreatorMiddleware:
     def get_game(self, code):
         if self.is_authorized_to_access_game(code):
             game = _GameMiddleware(code)
-            return game if not game.game.live and not game.game.archived else None
-        return None
+            return game
 
     def is_live_game(self, code):
         return _GameMiddleware(code).game.live
@@ -120,3 +119,7 @@ class GameCreatorMiddleware:
     def start_game(self, code):
         self.game_middleware = _GameMiddleware(code)
         self.game_middleware.make_live()
+
+    def stop_game(self, code):
+        self.game_middleware = _GameMiddleware(code)
+        self.game_middleware.end_game()

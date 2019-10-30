@@ -5,6 +5,7 @@ import geopy.geocoders
 from geopy import distance
 import certifi
 import ssl
+import re
 
 import random
 import string
@@ -24,8 +25,13 @@ class MapsMiddleware:
     '''
 
     def get_coordinate(self, location_name, city='', country=''):
-        n = self.nominatim.geocode(location_name + ', ' + city + ', ' + country)
-        return (n.latitude, n.longitude)
+        while True:
+            try:
+                n = self.nominatim.geocode(location_name + ', ' + city + ', ' + country)
+                break
+            except GeocoderTimedOut:
+                return 50, 100
+        return n.latitude, n.longitude
 
     '''
     Returns the distance from the origin to destination in Kilometers
@@ -100,3 +106,10 @@ class MapsMiddleware:
             return 
         location[0].delete()
         return None
+
+    def convert_degrees_to_string(self, string):
+        degrees, minutes, seconds, direction = re.split('[°\'"]+', string)
+        dd = float(degrees) + float(minutes) / 60 + float(seconds) / (60 * 60);
+        if direction == 'E' or direction == 'N':
+            dd *= -1
+        return float(dd)

@@ -49,6 +49,7 @@
                     <form class="navbar-search" id="gameTitleInput" method="post" action="/game/create/{{ code }}">
                       {% csrf_token %}
                         <div class="modal-body">
+                        <input type="hidden" name="game_stop" value="{{ code }}">
                         <input class="btn btn-danger btn-user btn-block" type="submit" value="Stop Game">
                       </div>
                   
