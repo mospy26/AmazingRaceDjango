@@ -387,11 +387,11 @@ class LocationListView(LoginRequiredMixin, generic.TemplateView):
         self.maps = MapsMiddleware()
 
         this_location = self.locations.get_location_by_code(location_code)
+        for x in this_location:
+            location_name = str(x)
 
         if not self.locations.is_authorized_to_access_game(game_code):
             return handler(request, '404')
-
-        location_name = getattr(next(self.locations.get_location_at_x(game_code, 1)), 'name')
 
         latitude, longitude = self.maps.get_coordinate(location_name)
         latitude = float(latitude)
