@@ -26,6 +26,19 @@ class _GameMiddleware:
     def get_code_and_name(self):
         yield self.game.title, self.game.code
 
+    '''
+    Deletes the game from the database. When deleted, make sure to make the API object equate to this function 
+    e.g.
+    api = GameMiddleware(...)
+    api = api.delete_game()
+
+    @param None 
+    @returns None to delete the API 
+    '''
+    def delete_game(self):
+        self.game.delete()
+        return None
+
     # returns tuple of rank and player name
     # note that player refers to an object encapsulating all data about him/her.
     # and game refers to an object encapsulating all data about the game (code, title etc.)

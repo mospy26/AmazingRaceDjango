@@ -74,3 +74,11 @@ class MapsMiddleware:
                         game=game,
                         order=order)
         new_location.save()
+
+    def delete_location(self, game_code, location_code):
+        game = Game.objects.get(code=game_code)
+        location = Location.object.filter(game=game_code, location_code=location_code)
+        if (len(location) != 1):
+            return 
+        location[0].delete()
+        return None
