@@ -100,7 +100,7 @@ class GamePlayerMiddleware:
         for game in self.games:
             if game.live is False:
                 continue
-            locations = Location.objects.filter(game=game, locationuser__time_visited__lte=datetime.now())
+            locations = Location.objects.filter(game=game, locationuser__time_visited__lte=datetime.datetime.now())
             for location in locations:
                 yield game.code, location.name, location.clues
 
