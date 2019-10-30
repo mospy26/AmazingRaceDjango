@@ -11,6 +11,9 @@ import string
 
 from ..models import ProfilePictures, GamePlayer, Game, Location, LocationUser
 
+from bingmaps.apiservices import LocationByQuery
+key = 'Apf1KjfAD0elgv58G8eYY-bOpGeTwOCq_m22dqvBdl8LrLth0DEx6qbo3K4nteDU'
+
 
 class MapsMiddleware:
 
@@ -24,8 +27,14 @@ class MapsMiddleware:
     '''
 
     def get_coordinate(self, location_name, city='', country=''):
-        n = self.nominatim.geocode(location_name + ', ' + city + ', ' + country)
-        return (n.latitude, n.longitude)
+#        n = self.nominatim.geocode(location_name + ', ' + city + ', ' + country)
+        data = {'q': location_name, 'key': key}
+        loc_by_query = LocationByQuery(data)
+        
+        for coord in loc_by_query.get_coordinates:
+            latitude = float(coord.latitude)
+            longitude = float(coord.longitude)
+        return (latitude, longitude)
 
     '''
     Returns the distance from the origin to destination in Kilometers
