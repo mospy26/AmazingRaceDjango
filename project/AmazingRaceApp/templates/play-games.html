@@ -28,11 +28,13 @@
                       <div class="col mr-2">
                         <div class="h5 mb-0 font-weight-bold text-primary">Enter<br>Location</div>
                         <br>
-                        <form class="navbar-search">
+                        <form class="navbar-search" method="post" action="/game/play/{{game.1}}">
+                          {% csrf_token %}
                           <div class="input-group">
-                            <input type="text" class="form-control bg-light border-0 small" placeholder="Enter Location Code..." aria-label="GameLocation" aria-describedby="basic-addon2">
+                            <input type="text" class="form-control bg-light border-0 small" placeholder="Enter Location Code..." aria-label="GameLocation" aria-describedby="basic-addon2" name="location_code">
+                            <input type="hidden" name="game_code" value="{{game.1}}">
                             <div class="input-group-append">
-                              <button class="btn btn-primary" type="button">
+                              <button class="btn btn-primary" type="submit">
                                 <i class="fas fa-search fa-sm"></i>
                               </button>
                             </div>

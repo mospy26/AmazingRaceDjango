@@ -253,6 +253,39 @@ class GamePlayingListView(LoginRequiredMixin, generic.TemplateView):
             'visited': self.player.locations_visited(code),
             'lat_long': lat_long
         })
+    
+    def post(self, request, *args, **kwargs):
+        self.game = _GameMiddleware(request.POST['game_code'])
+
+        if not self.game:
+            return handler(request, '404')
+
+        self.player = GamePlayerMiddleware(request.user.username)
+
+        if not self.player.is_authorized_to_access_game(request.POST['game_code']):
+            return handler(request, '404')
+        
+        if len(request.POST['location_code']) == 9:
+            print(self.player.visit_location(request.POST['location_code'], request.POST['game_code']))
+
+        self.maps = MapsMiddleware()
+
+        lat_long = []
+        visited = self.player.locations_visited(request.POST['game_code'])
+        for location in visited:
+            if location[1] != "???":
+                temp = []
+                latitude, longitude = self.maps.get_coordinate(location[1])
+                temp.append(float(latitude))
+                temp.append(float(longitude))
+                temp.append(location[1])
+                lat_long.append(temp)
+
+        return render(request, self.template_name, context={
+            'game_details': self.game.get_code_and_name(),
+            'visited': self.player.locations_visited(request.POST['game_code']),
+            'lat_long': lat_long
+        })
 
 
 class GameCreationListView(LoginRequiredMixin, generic.TemplateView):
@@ -354,12 +387,13 @@ class LocationListView(LoginRequiredMixin, generic.TemplateView):
         self.maps = MapsMiddleware()
 
         this_location = self.locations.get_location_by_code(location_code)
+
         this_location_copy = self.locations.get_location_by_code(location_code)
+        for x in this_location:
+            location_name = str(x)
 
         if not self.locations.is_authorized_to_access_game(game_code):
             return handler(request, '404')
-
-        location_name = getattr(next(self.locations.get_location_at_x(game_code, 1)), 'name')
 
         latitude, longitude = self.maps.get_coordinate(location_name)
         latitude = float(latitude)
