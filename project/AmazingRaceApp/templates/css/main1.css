@@ -134,7 +134,9 @@ h5 {
 }
 
 .changeMargin {
-    margin-left: 10%;
+    display:flex;
+    	justify-content:center;
+    	align-items:center;
 }
 
 #about {
