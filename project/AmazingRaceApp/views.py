@@ -265,8 +265,14 @@ class GamePlayingListView(LoginRequiredMixin, generic.TemplateView):
         if not self.player.is_authorized_to_access_game(request.POST['game_code']):
             return handler(request, '404')
         
+        error = ""
+        
         if len(request.POST['location_code']) == 9:
-            print(self.player.visit_location(request.POST['location_code'], request.POST['game_code']))
+            result = self.player.visit_location(request.POST['location_code'], request.POST['game_code'])
+            if not result:
+                error = "Invalid Game Code"
+        else:
+            error = "Invalid Game Code"
 
         self.maps = MapsMiddleware()
 
@@ -284,7 +290,8 @@ class GamePlayingListView(LoginRequiredMixin, generic.TemplateView):
         return render(request, self.template_name, context={
             'game_details': self.game.get_code_and_name(),
             'visited': self.player.locations_visited(request.POST['game_code']),
-            'lat_long': lat_long
+            'lat_long': lat_long,
+            'error': error
         })
 
 
