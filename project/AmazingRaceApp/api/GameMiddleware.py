@@ -77,12 +77,12 @@ class _GameMiddleware:
         self.game.title = name
         self.game.save()
 
-    def make_live(self, game: Game):
+    def make_live(self):
         # defines what happens when a game is made live
-        game.live = True
-        game.start_time = datetime.now()
-        game.end_time = datetime.now()
-        return game
+        self.game.live = True
+        self.game.start_time = datetime.now()
+        self.game.end_time = None
+        return self.game.save()
 
     def get_status(self):
         if self.game.live:

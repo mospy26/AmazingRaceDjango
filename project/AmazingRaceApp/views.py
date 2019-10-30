@@ -51,8 +51,8 @@ class HomepageView(LoginRequiredMixin, generic.TemplateView):
     def post(self, request, *args, **kwargs):
         player = GamePlayerMiddleware(request.user.username)
         form = self.form(request.POST)
-
-        if 'code' in request.POST.keys() and request.POST['code'] != ['']:
+        print(request.POST['code'])
+        if 'code' in request.POST.keys() and request.POST['code'] != '':
             game = _GameMiddleware(request.POST['code'])
             if not game.game:
                 return render(request, self.template_name, context={
@@ -60,7 +60,6 @@ class HomepageView(LoginRequiredMixin, generic.TemplateView):
                     'game_error': "Oops, incorrect code!"
                 })
             else:
-                print(request.POST['code'])
                 if player.can_join_game(request.POST['code']):
                     player.join_game(request.POST['code'])
                     return HttpResponseRedirect("/game/leaderboard/" + request.POST['code'])
@@ -257,12 +256,16 @@ class GameCreationListView(LoginRequiredMixin, generic.TemplateView):
                 self.game_creator.is_live_game(kwargs['code']):
             return handler(request, 403)
 
+        print(request.POST)
+
         if 'title' in request.POST.keys() and 'code' in kwargs.keys():
             return self._update_title_post_request(request, **kwargs)
         elif 'location_order' in request.POST.keys():
             return self._update_location_order_post_request(request, **kwargs)
-        elif 'delete' in request.POST.keys():
-            return self._delete_game(kwargs['code'])
+        elif 'game_delete' in request.POST.keys():
+            return self._delete_game(request, *args, **kwargs)
+        elif 'game_start' in request.POST.keys():
+            return self._start_game(request, *args, **kwargs)
 
     def _update_title_post_request(self, request, *args, **kwargs):
         self.maps = MapsMiddleware()
@@ -288,9 +291,15 @@ class GameCreationListView(LoginRequiredMixin, generic.TemplateView):
             'lat_long': self.maps.get_list_of_long_lat(kwargs['code'])
         })
 
-    def _delete_game(self, request, code, *args, **kwargs):
+    def _delete_game(self, request, *args, **kwargs):
         self.game_creator = GameCreatorMiddleware(request.user.username)
-        self.game_creator.delete_game(code)
+        self.game_creator.delete_game(request.POST['game_delete'])
+        return HttpResponseRedirect('/')
+
+    def _start_game(self, request, *args, **kwargs):
+        self.game_creator = GameCreatorMiddleware(request.user.username)
+        self.game_creator.start_game(request.POST['game_start'])
+        return HttpResponseRedirect('/game/create/'+request.POST['game_start'])
 
 
 class LocationListView(LoginRequiredMixin, generic.TemplateView):
@@ -339,6 +348,7 @@ class LocationListView(LoginRequiredMixin, generic.TemplateView):
     def _delete_location(self, request, game_code, location_code, *args, **kwargs):
         self.maps = MapsMiddleware()
         self.maps.delete_location(game_code, location_code)
+
 
 class LocationAdd(LoginRequiredMixin, generic.TemplateView):
     template_name = 'addlocation.html'
