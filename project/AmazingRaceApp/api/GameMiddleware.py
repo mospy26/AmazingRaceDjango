@@ -78,34 +78,3 @@ class _GameMiddleware:
             return "Closed"
         else:
             return "Not Published"
-
-    def _generate_code(self):
-        game_codes = Game.objects.values_list('code')
-        while True:
-            game_code = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(8))
-            game_code = game_code[:4] + "-" + game_code[4:]
-            for existing_code in game_codes:
-                if game_code == existing_code:
-                    break
-                self.code = game_code
-                return
-
-    def _refactor_input(self):
-        if self.end_time <= self.start_time:
-            # return some error message
-            # for now will reset both to a default value
-            self.end_time = datetime(2000, 1, 2)
-            self.start_time = datetime(2000, 1, 1)
-            self.live = False
-            self.archived = True
-
-        elif self.end_time is not None and self.end_time <= datetime.now() and (
-                self.live is True or self.archived is True):
-            self.live = False
-            self.archived = True
-
-        if self.start_time is None:
-            self.end_time = datetime(2000, 1, 2)
-            self.start_time = datetime(2000, 1, 1)
-            self.live = False
-            self.archived = True

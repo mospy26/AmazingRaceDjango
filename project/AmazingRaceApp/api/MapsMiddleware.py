@@ -77,13 +77,17 @@ class MapsMiddleware:
                                 game=game,
                                 order=order)
         new_location.save()
+        return new_location
 
     def _generate_code(self, game_code):
         location_codes = Location.objects.filter(game=Game.objects.get(code=game_code)).values_list('code')
         while True:
+            unique = True
             code = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(8))
-            code = game_code[:4] + "-" + game_code[4:]
+            code = code[:4] + "-" + code[4:]
             for existing_code in location_codes:
-                if game_code == existing_code:
+                if code == existing_code:
+                    unique = False
                     break
+            if unique:
                 return code

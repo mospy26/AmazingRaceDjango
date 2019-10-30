@@ -119,7 +119,6 @@ class RegisterView(generic.TemplateView):
             form.save()
             return HttpResponseRedirect('/login')
 
-        print(form['first_name'].errors)
         return render(request, self.template_name, {
             'form': form
         })
@@ -323,28 +322,31 @@ class LocationAdd(LoginRequiredMixin, generic.TemplateView):
         if not self.creator.is_authorized_to_access_game(code):
             return handler(request, '404')
 
-        location = request.POST['locationSearch'].title()
-
-        if 'add_location' in request.POST.keys():
+        if 'location_order' in request.POST.keys():
+            location = request.POST['location_order'].title().strip()
             return self._add_location(request, code, location)
 
-        try:
-            latitude, longitude = self.maps.get_coordinate(request.POST['locationSearch'])
-            latitude = float(latitude)
-            longitude = float(longitude)
-        except:
-            latitude = -33.865143
-            longitude = 151.209900
-            location = location + " * Not Found - Please Try Again *"
+        elif 'locationSearch' in request.POST.keys():
+            location = request.POST['locationSearch'].title()
 
-        return render(request, self.template_name, context={
-            'game_details': self.game.get_code_and_name(),
-            'lat_long': [latitude, longitude],
-            'location_name': location
-        })
+            try:
+                latitude, longitude = self.maps.get_coordinate(request.POST['locationSearch'])
+                latitude = float(latitude)
+                longitude = float(longitude)
+            except:
+                latitude = -33.865143
+                longitude = 151.209900
+                location = location + " * Not Found - Please Try Again *"
+
+            return render(request, self.template_name, context={
+                'game_details': self.game.get_code_and_name(),
+                'lat_long': [latitude, longitude],
+                'location_name': location,
+                'code': code
+            })
 
     def _add_location(self, request, code, location):
-        self.maps.create_game_location(code, location)
-        return redirect('locations', slug=code)
+        created = self.maps.create_game_location(code, location)
+        return HttpResponseRedirect('/game/create/' + code + "/" + created.code)
 
     # LQGY-M42U echa creatoed
