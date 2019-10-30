@@ -47,6 +47,9 @@ class GameCreatorMiddleware:
             - end_time
             - players
     """
+    def delete_game(self, code):
+        self.game_middleware = _GameMiddleware(code)
+        self.game_middleware.delete_game()
 
     def get_username(self):
         return self.user.username
