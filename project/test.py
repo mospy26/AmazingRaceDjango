@@ -27,4 +27,4 @@ from AmazingRaceApp.api.MapsMiddleware import MapsMiddleware
 
 # game_code, area_name, custom_name='', city='', country=''):
 maps = MapsMiddleware()
-maps.create_game_location('LQGY-M42U', "Opera House")
+print(maps.convert_degrees_to_string("""33°53'09.1"S"""))

@@ -91,3 +91,9 @@ class _GameMiddleware:
             return "Closed"
         else:
             return "Not Published"
+
+    def end_game(self):
+        self.game.live = False
+        self.game.archived = True
+        self.game.end_time = datetime.now()
+        return self.game.save()

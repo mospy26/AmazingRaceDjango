@@ -239,6 +239,11 @@ class GameCreationListView(LoginRequiredMixin, generic.TemplateView):
         if not self.game_creator.is_authorized_to_access_game(code):
             return handler(request, 403)
 
+        if game.game.live:
+            self.template_name = 'game-create-live.html'
+        elif game.game.archived:
+            self.template_name = 'game-create-archived.html'
+
         self.maps = MapsMiddleware()
 
         return render(request, self.template_name, context={
@@ -252,11 +257,8 @@ class GameCreationListView(LoginRequiredMixin, generic.TemplateView):
 
         self.game_creator = GameCreatorMiddleware(request.user.username)
 
-        if not self.game_creator.is_authorized_to_access_game(kwargs['code']) or \
-                self.game_creator.is_live_game(kwargs['code']):
+        if not self.game_creator.is_authorized_to_access_game(kwargs['code']):
             return handler(request, 403)
-
-        print(request.POST)
 
         if 'title' in request.POST.keys() and 'code' in kwargs.keys():
             return self._update_title_post_request(request, **kwargs)
@@ -266,6 +268,8 @@ class GameCreationListView(LoginRequiredMixin, generic.TemplateView):
             return self._delete_game(request, *args, **kwargs)
         elif 'game_start' in request.POST.keys():
             return self._start_game(request, *args, **kwargs)
+        elif 'game_stop' in request.POST.keys() and request.POST['game_stop'] != '':
+            return self._stop_game(request, *args, **kwargs)
 
     def _update_title_post_request(self, request, *args, **kwargs):
         self.maps = MapsMiddleware()
@@ -292,14 +296,16 @@ class GameCreationListView(LoginRequiredMixin, generic.TemplateView):
         })
 
     def _delete_game(self, request, *args, **kwargs):
-        self.game_creator = GameCreatorMiddleware(request.user.username)
         self.game_creator.delete_game(request.POST['game_delete'])
         return HttpResponseRedirect('/')
 
     def _start_game(self, request, *args, **kwargs):
-        self.game_creator = GameCreatorMiddleware(request.user.username)
         self.game_creator.start_game(request.POST['game_start'])
         return HttpResponseRedirect('/game/create/'+request.POST['game_start'])
+
+    def _stop_game(self, request, *args, **kwargs):
+        self.game_creator.stop_game(request.POST['game_stop'])
+        return HttpResponseRedirect('/game/create/' + request.POST['game_stop'])
 
 
 class LocationListView(LoginRequiredMixin, generic.TemplateView):
