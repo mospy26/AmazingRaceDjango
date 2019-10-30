@@ -37,8 +37,9 @@ class GamePlayerMiddleware:
         django_file = File(open(image_url, "rb"))
         self.profilePic.picture.save(self.user.username + "-profile-pic" + ".jpeg", django_file, save=True)
 
-    def delete_profile_picture(self):
-        self.profilePic.picture.delete(save=True)
+    def delete_profile_picture(self): 
+        self.profilePic.picture = "/profile_picture/default-picture.png"
+        self.profilePic.save()
 
     # TODO: Check if this actually renders when called on the front end 
     def get_profile_picture(self):
