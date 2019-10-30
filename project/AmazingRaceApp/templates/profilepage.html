@@ -92,6 +92,9 @@
                                     </form>
                                 </div>
                             </div>
+                            <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                              <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Update Profile <i class="fas fa-edit fa-sm text-white-50"></i></a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -111,7 +114,7 @@
                                 
                                 <form method="POST" enctype="multipart/form-data" action="{% url 'user' %}">
                                     {% csrf_token %}
-                                    <input type="file" name="document" class="btn btn-outline-info">
+                                    <input type="file" name="document">
                                     <br>
                                     <br>
                                     <!-- <fieldset class="form-group">
@@ -119,27 +122,15 @@
                                     </fieldset> -->
                                     
                                     <div class="form-group"x>
-                                        <button class="btn btn-outline-info" type="submit">Update Profile Picture</button>
+                                        <button class="btn btn-sm btn-primary shadow-sm" type="submit">Update Profile Picture</button>
                                     </div>
                                 </form>
 
                                 </div>
                             </div>
-    
-                            <hr>
-                            <br>
-                            <br>
-                            <br>
-                            <br>
-                            <br>
-                            <br>
-                            <br>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Update Profile <i class="fas fa-edit fa-sm text-white-50"></i></a>
             </div>
         </div>
     
