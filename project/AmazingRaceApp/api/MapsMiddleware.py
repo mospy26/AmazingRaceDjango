@@ -60,10 +60,10 @@ class MapsMiddleware:
             yield i, l.name, l.code
 
     def create_game_location(self, game_code, game_name, area_name, custom_name='', city='', country=''):
-        if (custom_name == None or custom_name == ''):
+        if not custom_name is None or custom_name == '':
             custom_name = area_name 
         latitude, longitude = self.get_coordinate(area_name, city, country)
-        location_code = ''.join(random.choice(string.ascii_lowercase) for i in range(5)).upper()
+        location_code = ''.join(random.choice(string.ascii_uppercase + string.digits) for i in range(5)).upper()
         game = Game.objects.get(game_code=game_code, game_name=game_name)
         order = len(Location.objects.get(game=game)) + 1
         new_location = Location(name=custom_name, 
