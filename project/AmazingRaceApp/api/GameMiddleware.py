@@ -72,7 +72,12 @@ class _GameMiddleware:
         return game
 
     def get_status(self):
-        return self.game.live
+        if self.game.live:
+            return "Live"
+        elif self.game.archived:
+            return "Closed"
+        else:
+            return "Not Published"
 
     def _generate_code(self):
         game_codes = Game.objects.values_list('code')

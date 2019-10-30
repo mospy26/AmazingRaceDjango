@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 import json
 from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render, redirect
+from django import template
 
 # Create your views here.
 from django.views import generic
@@ -126,11 +127,14 @@ class GameCreatedListView(LoginRequiredMixin, generic.TemplateView):
 
     def get(self, request, *args, **kwargs):
         self.player = GameCreatorMiddleware(request.user.username)
+        
+        game_status = []
+        for x in self.player.created_games():
+            game_status.append(self.player.get_status_of_game(x.code))
 
         return render(request, self.template_name, context={
             'page_name': 'Created',
-            'games': self.player.created_games(),
-            'status': self.player.get_status_of_game('LQGY-M42U')
+            'game_and_status': zip(self.player.created_games(), game_status)
         })
 
 
@@ -142,27 +146,42 @@ class GamePlayedListView(LoginRequiredMixin, generic.TemplateView):
 
     def get(self, request, *args, **kwargs):
         self.player = GamePlayerMiddleware(request.user.username)
-        self.creator = GameCreatorMiddleware(request.user.username)
-
+        games = self.player.list_played_games()
+        
+        game_status = []
+        for x in self.player.list_played_games():
+            game_status.append(self.player.get_status_of_game(x[0].code))
+            
         return render(request, self.template_name, context={
             'page_name': 'Played',
-            'games': self.player.list_played_games(),
-            'status': self.creator.get_status_of_game('LQGY-M42U')
+            'game_and_status': zip(games, game_status)
         })
 
 
 class GamePlayingListView(LoginRequiredMixin, generic.TemplateView):
     template_name = 'play-games.html'
     login_url = '/login'
-
     player = None
 
     def get(self, request, *args, **kwargs):
         self.game = _GameMiddleware('LQGY-M42U')
         self.player = GamePlayerMiddleware(request.user.username)
+        
+        lat_long = []
+        visited = self.player.locations_visited('LQGY-M42U')
+        for location in visited:
+            if location[1] != "???":
+                temp = []
+                latitude, longitude = self.maps.get_coordinate(location[1])
+                temp.append(float(latitude))
+                temp.append(float(longitude))
+                temp.append(location[1])
+                lat_long.append(temp)
+            
         return render(request, self.template_name, context={
             'game_details': self.game.get_code_and_name(),
-            'visited': self.player.locations_visited('LQGY-M42U')
+            'visited': self.player.locations_visited('LQGY-M42U'),
+            'lat_long': lat_long
         })
 
 
@@ -174,10 +193,15 @@ class GameCreationListView(LoginRequiredMixin, generic.TemplateView):
     def get(self, request, code, *args, **kwargs):
         # temp game
         self.game_creator = GameCreatorMiddleware(request.user.username)
-        self.maps = MapsMiddleware()
+        game = self.game_creator.get_game(code)
+
+        if not game:
+            return handler(request, 403)
 
         if not self.game_creator.is_authorized_to_access_game(code):
             return handler(request, 403)
+
+        self.maps = MapsMiddleware()
 
         return render(request, self.template_name, context={
             'locations_code': self.game_creator.get_ordered_locations_of_game(code),
@@ -190,7 +214,8 @@ class GameCreationListView(LoginRequiredMixin, generic.TemplateView):
 
         self.game_creator = GameCreatorMiddleware(request.user.username)
 
-        if not self.game_creator.is_authorized_to_access_game(kwargs['code']):
+        if not self.game_creator.is_authorized_to_access_game(kwargs['code']) or \
+                not self.game_creator.is_live_game(kwargs['code']):
             return handler(request, 403)
 
         if 'title' in request.POST.keys() and 'code' in kwargs.keys():
@@ -235,12 +260,20 @@ class LocationListView(LoginRequiredMixin, generic.TemplateView):
         self.locations = GameCreatorMiddleware(request.user.username)
         self.player = GamePlayerMiddleware(request.user.username)
         self.game = _GameMiddleware('LQGY-M42U')
-
+        self.maps = MapsMiddleware()
+        
+        location_name = getattr(next(self.locations.get_location_at_x('LQGY-M42U', 1))[1], 'name')
+        
+        latitude, longitude = self.maps.get_coordinate(location_name)
+        latitude = float(latitude)
+        longitude = float(longitude)
+        
         return render(request, self.template_name, context={
             'locations_code': self.locations.get_location_at_x('LQGY-M42U', 1),
             'game_details': self.game.get_code_and_name(),
             'game_player_name': self.player.get_name(),
-            'game_player_username': self.player.get_username()
+            'game_player_username': self.player.get_username(),
+            'lat_long': [latitude, longitude]
         })
 
 
@@ -251,5 +284,28 @@ class LocationAdd(LoginRequiredMixin, generic.TemplateView):
     def get(self, request, *args, **kwargs):
         self.game = _GameMiddleware('LQGY-M42U')
         return render(request, self.template_name, context={
-            'game_details': self.game.get_code_and_name()
+            'game_details': self.game.get_code_and_name(),
+            'lat_long': [-33.865143, 151.209900],
+            'location_name': ""
+        })
+    
+    def post(self, request, *args, **kwargs):
+        self.game = _GameMiddleware('LQGY-M42U')
+        self.maps = MapsMiddleware()
+        
+        location = request.POST['locationSearch'].title()
+        
+        try:
+            latitude, longitude = self.maps.get_coordinate(request.POST['locationSearch'])
+            latitude = float(latitude)
+            longitude = float(longitude)
+        except:
+            latitude = -33.865143
+            longitude = 151.209900
+            location = location + " * Not Found - Please Try Again *"
+        
+        return render(request, self.template_name, context={
+            'game_details': self.game.get_code_and_name(),
+            'lat_long': [latitude, longitude],
+            'location_name': location
         })

@@ -16,32 +16,38 @@
                     <div class="card-body">
                         <div class = "row">
                             <div class = "moveRight">
-                                <h3>Location Address: </h3>
+                                <h4>Location Address: </h4>
                             </div>
-                            <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-                                <div class="input-group">
-                                    <input type="text" class="form-control bg-light border-0 small" placeholder="Enter an address... " aria-label="Search" aria-describedby="basic-addon2">
-                                </div>
-                            </form>
-                            <div class = "col">
-                                <div class = "row">
-                                    <div class="container">
-                                        <div class="row d-flex justify-content-between">
-                                            <div>
-                                                <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Search <i class="fas fa-search fa-sm text-white-50"></i></a>
-                                            </div>
-                                            
-                                              <div>
-                                              <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm">Submit <i class="fas fa-check fa-sm text-white-50"></i></a>
-                                            </div>
+                            
+                            
+                            <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search" method="post">
+                                {% csrf_token %}
+                                <div class="container">
+                                    <div class="row d-flex justify-content-between">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control bg-light border-0 small" placeholder="Enter an address... " aria-label="Search" aria-describedby="basic-addon2" name="locationSearch">
+                                        </div>
+                                        <div>
+                                            <input class="d-none d-sm-inline-block btn btn-primary shadow-sm" type="submit" value="Search">
                                         </div>
                                     </div>
                                 </div>
+                            </form>
+                            
+                            <div>
+                                <button onclick="saveLocation()" id="save_location" class="btn btn-success btn-icon-split">
+                                  <span class="icon text-white-50">
+                                    <i class="fas fa-check"></i>
+                                  </span>
+                                  <span class="text">Add Location</span>
+                                </button>
                             </div>
+                            
+                            
 
                         </div>
                     </div>
-                    <h5 class="text-center">Location: Test Location</h5>
+                    <h5 id="input_location" class="text-center">Location: {{ location_name }} </h5>
                 </div>
 
                 <div class="card shadow mb-4">
@@ -61,18 +67,32 @@
                         <div id = "mapid">
                         </div>
                         <script>
-                          var mymap = L.map('mapid').setView([51.505, -0.09], 13);
+                          var mymap = L.map('mapid').setView([{{ lat_long.0 }}, {{ lat_long.1 }}], 20);
 
                           L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
                             attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                           }).addTo(mymap);
 
-                          var marker = L.marker([51.5, -0.09]).addTo(mymap);
+                          var marker = L.marker([{{ lat_long.0 }}, {{ lat_long.1 }}]).addTo(mymap);
                         </script>
                     </div>
                 </div>
             </div>
             <!-- /.container-fluid -->
         </div>
+        <script type="text/javascript">
+            function saveLocation() {
+              let location = document.getElementById("input_location").innerHTML;
+              location = location.slice(10);
+              if (location === " ") {
+                  alert("Please Enter a location");
+              } else if (location.includes("* Not Found - Please Try Again *")) {
+                  alert("Error in location selected")
+              } else {
+                  document.body.innerHTML += '<form id="dynForm" method="post" action="<INSERT>"> {% csrf_token %} <input type="hidden" value="' + location + '" name="location_order"></form>';
+                  document.getElementById("dynForm").submit();
+              }
+            }
+        </script>
         <!-- End of Main Content -->
     {% endblock %}

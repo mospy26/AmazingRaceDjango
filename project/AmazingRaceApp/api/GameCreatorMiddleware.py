@@ -93,3 +93,12 @@ class GameCreatorMiddleware:
 
     def is_authorized_to_access_game(self, code):
         return GameCreator.objects.filter(game=_GameMiddleware(code).game, creator=self.user).exists()
+
+    def get_game(self, code):
+        if self.is_authorized_to_access_game(code):
+            game = _GameMiddleware(code)
+            return game if not game.game.live and not game.game.archived else None
+        return None
+
+    def is_live_game(self, code):
+        return _GameMiddleware(code).live
