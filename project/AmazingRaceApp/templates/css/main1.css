@@ -11,7 +11,6 @@ html, body {
 
 body {
 	background: url('../img/nasaglobe.jpg');
-	background-color: blue;
 	background-attachment: fixed;
 	background-position: center;
 	background-size: cover;
@@ -29,7 +28,7 @@ h1 {
 h2 {
 	color: white;
 	font-family: 'Raleway';
-	font-size: 30px;
+	font-size: 28px;
 	font-weight: 300;
 
 	margin-top: -7px;
@@ -54,9 +53,11 @@ h4 {
 p {
 	color: #A3A3A3;
 	font-family: 'Roboto';
-	font-size: 14px;
-
+	font-size: 20px;
+	width: 85%;
+	display: inline-block;
 }
+
 
 h5 {
 	color: #A3A3A3;
@@ -97,62 +98,66 @@ h5 {
 	justify-content:center;
 	align-items:center;
 }
-
 #about {
 	border-style: solid;
 	border-color: #F6F6F6;
-	border-width: 50px;
+	border-width: 25px;
 	background-color: #F6F6F6;
 }
 
 #aboutInfo {
 	display: inline-block;
-	width: 85%;
 }
 
-#displayPicture {
-	display: inline;
-	margin: 0 auto;
-	height: 100%;
-	width: auto;
-	padding: 20px;
-	float: left;
-	clear:both;
-
-	width: 250px;
-	height: 250px;
-	position: relative;
-	overflow: hidden;
-	border-radius: 50%;
-}
-
-#displayPicture:hover {
-	-webkit-filter: grayscale(60%);
-}
 
 /*Youtube Button styling*/
 #specialLinks {
 	display: inline-block;
+	color: yellow;
+	background-color: white;
+  font-family: 'Roboto';
+	margin-top: 15px
+}
+
+.btn {
+	display: inline-block;
 	color: white;
 	font-family: 'Roboto';
+	margin-top: 10px
 }
+
+.youtube{
+	background-color: #a71010;
+}
+.youtube:hover{
+	background-color: white;
+	color:#a71010;
+}
+
+.linkedin{
+	background-color: #0e76a8;
+}
+.linkedin:hover{
+	background-color: white;;
+	color: #0e76a8;
+}
+
 
 
 div.gallery {
 	background-color: white;
   margin: 5px;
-	margin-left: 10px;
   border: 1px solid #ccc;
   float: left;
-  width: 235px;
-
-
+  width: 230px;
 }
 
 div.gallery:hover {
   border: 1px solid #777;
-	background-color: grey
+	background-color: #d6d6d6;
+	color: white;
 }
+
 
 div.gallery img {
   width: 100%;
@@ -160,9 +165,14 @@ div.gallery img {
 }
 
 div.desc {
-	
-  padding: 20px;
+	padding-top: 8px;
   text-align: center;
-	color: black;
+	color: #837d7d;
+	font-family: 'Roboto';
+	font-size: 18px
+}
 
+div.desc.subtext{
+	font-size: 12px;
+	padding-bottom: 15px
 }
