@@ -133,18 +133,9 @@ class ProfilepageView(LoginRequiredMixin, generic.TemplateView):
 
         uploaded_file = None
 
-        if 'document' in request.POST.keys():
-            try:
-                uploaded_file = request.FILES['document']
-            except:
-                return render(request, self.template_name, context={
-                    'games_played': self.player.get_games_played(),
-                    'games_created': self.creator.get_number_created_games(),
-                    'name': self.player.get_name(),
-                    'username': self.player.get_username(),
-                    'profile_picture': self.player.get_profile_picture(),
-                    'password_form': self.password_form
-                })
+        # ----------------------- CHECK -----------------------------------------------------
+        try:
+            uploaded_file = request.FILES['document']
 
             fs = FileSystemStorage()
             s = Storage()
@@ -162,8 +153,7 @@ class ProfilepageView(LoginRequiredMixin, generic.TemplateView):
                 'profile_picture': self.player.get_profile_picture(),
                 'password_form': self.password_form
             })
-
-        elif 'old_password' in request.POST.keys():
+        except:
             form = PasswordChangeForm(request.user, request.POST)
 
             if form.is_valid():
@@ -179,6 +169,7 @@ class ProfilepageView(LoginRequiredMixin, generic.TemplateView):
                 # 'profile_picture': self.player.get_profile_picture(),
                 'password_form': form
             })
+        # --------------------------------------------------------------------
 
 
 class RegisterView(generic.TemplateView):
