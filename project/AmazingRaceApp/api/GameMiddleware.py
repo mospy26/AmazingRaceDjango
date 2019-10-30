@@ -97,3 +97,7 @@ class _GameMiddleware:
         self.game.archived = True
         self.game.end_time = datetime.now()
         return self.game.save()
+
+    def get_location(self, code):
+        location = Location.objects.filter(code=code)
+        return None if not location.exists() else location.first()

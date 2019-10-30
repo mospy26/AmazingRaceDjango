@@ -20,12 +20,7 @@ class GameCreatorMiddleware:
 
     def __init__(self, username):
 
-        try:
-            self.user = User.objects.get(username=username)
-        except ObjectDoesNotExist:
-            print(traceback.print_exc())
-        except EmptyResultSet:
-            print(traceback.print_exc())
+        self.user = None if not username else User.objects.get(username=username)
 
         self.games = GameCreator.objects.filter(creator=self.user).select_related('game')
         self.game_middleware = None
@@ -123,3 +118,12 @@ class GameCreatorMiddleware:
     def stop_game(self, code):
         self.game_middleware = _GameMiddleware(code)
         self.game_middleware.end_game()
+
+
+    def get_location_of_game(self, game_code, location_code):
+        if not self.is_authorized_to_access_game(game_code):
+            return None
+        game = _GameMiddleware(game_code)
+        if not game.game:
+            return None
+        return game.get_location(location_code)

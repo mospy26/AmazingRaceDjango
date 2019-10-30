@@ -11,7 +11,7 @@ from django.views import generic
 from AmazingRaceApp.api.GamePlayerMiddleware import GamePlayerMiddleware
 from AmazingRaceApp.api.GameCreatorMiddleware import GameCreatorMiddleware
 from AmazingRaceApp.api.GameMiddleware import _GameMiddleware
-from AmazingRaceApp.forms import RegisterForm, GameRenameForm
+from AmazingRaceApp.forms import RegisterForm, GameRenameForm, ChangeClueForm
 from AmazingRaceApp.forms import RegisterForm, GameTitleForm
 from AmazingRaceApp.api.MapsMiddleware import MapsMiddleware
 
@@ -21,10 +21,12 @@ from django.core.files.storage import FileSystemStorage, Storage
 
 from AmazingRaceApp.models import GameCreator
 
+
 def handler(request, status_code):
     response = render_to_response(str(status_code) + '.html', {'user': request.user})
     response.status_code = int(status_code)
     return response
+
 
 class HomepageLoggedOutView(generic.TemplateView):
     template_name = 'homepage2.html'
@@ -125,11 +127,11 @@ class ProfilepageView(LoginRequiredMixin, generic.TemplateView):
     def post(self, request, *args, **kwargs):
         self.player = GamePlayerMiddleware(request.user.username)
         self.creator = GameCreatorMiddleware(request.user.username)
-        
+
         uploaded_file = None
-        try: 
+        try:
             uploaded_file = request.FILES['document']
-        except: 
+        except:
             return render(request, self.template_name, context={
                 'games_played': self.player.get_games_played(),
                 'games_created': self.creator.get_number_created_games(),
@@ -253,7 +255,7 @@ class GamePlayingListView(LoginRequiredMixin, generic.TemplateView):
             'visited': self.player.locations_visited(code),
             'lat_long': lat_long
         })
-    
+
     def post(self, request, *args, **kwargs):
         self.game = _GameMiddleware(request.POST['game_code'])
 
@@ -264,7 +266,7 @@ class GamePlayingListView(LoginRequiredMixin, generic.TemplateView):
 
         if not self.player.is_authorized_to_access_game(request.POST['game_code']):
             return handler(request, '404')
-        
+
         if len(request.POST['location_code']) == 9:
             print(self.player.visit_location(request.POST['location_code'], request.POST['game_code']))
 
@@ -366,7 +368,7 @@ class GameCreationListView(LoginRequiredMixin, generic.TemplateView):
 
     def _start_game(self, request, *args, **kwargs):
         self.game_creator.start_game(request.POST['game_start'])
-        return HttpResponseRedirect('/game/create/'+request.POST['game_start'])
+        return HttpResponseRedirect('/game/create/' + request.POST['game_start'])
 
     def _stop_game(self, request, *args, **kwargs):
         self.game_creator.stop_game(request.POST['game_stop'])
@@ -380,6 +382,7 @@ class LocationListView(LoginRequiredMixin, generic.TemplateView):
     locations = None
     player = None
     creator = None
+    form = ChangeClueForm
 
     def get(self, request, game_code, location_code, *args, **kwargs):
         self.locations = GameCreatorMiddleware(request.user.username)
@@ -415,16 +418,35 @@ class LocationListView(LoginRequiredMixin, generic.TemplateView):
         self.creator = GameCreatorMiddleware(request.user)
         self.maps = MapsMiddleware()
 
-        if not self.creator.is_authorized_to_access_game(game_code):
+        if not self.creator.is_authorized_to_access_game(request.POST['game_code']):
             return handler(request, '404')
 
         if 'delete_location_code' in request.POST.keys():
-            return self._delete_location(request, game_code, request.POST['delete_location_code'], self.locations.get_location_by_code(location_code))
+            return self._delete_location(request, game_code, request.POST['delete_location_code'],
+                                         self.locations.get_location_by_code(location_code))
+        if 'code' in request.POST.keys():
+            return self._change_clue(request, request.POST['game_code'], request.POST['code'], *args, **kwargs)
 
     def _delete_location(self, request, game_code, location_code, *args, **kwargs):
         self.maps = MapsMiddleware()
         self.maps.delete_location(game_code, location_code)
-        return HttpResponseRedirect('/game/create/'+game_code)
+        return HttpResponseRedirect('/game/create/' + game_code)
+
+    def _change_clue(self, request, game_code, location_code, *args, **kwargs):
+        self.creator = GameCreatorMiddleware(None)
+        self.creator.user = request.user
+        form = self.form(instance=self.creator.get_location_of_game(game_code=game_code, location_code=location_code), data=request.POST)
+
+        if form.is_valid():
+            print(request.POST['clues'])
+            location = form.save(commit=False)
+            location.clues = request.POST['clues']
+            location.save()
+            return HttpResponseRedirect('/game/create/'+game_code+"/"+location_code)
+
+        print(form.errors)
+        print(request.POST)
+        return HttpResponseRedirect('/error')
 
 
 class LocationAdd(LoginRequiredMixin, generic.TemplateView):

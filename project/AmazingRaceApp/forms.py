@@ -56,4 +56,7 @@ class ChangeClueForm(forms.ModelForm):
     class Meta:
         model = Location
 
-        fields = '__all__'
+        fields = [
+            'code',
+            'clues'
+        ]
