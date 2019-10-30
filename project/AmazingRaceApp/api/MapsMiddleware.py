@@ -1,5 +1,5 @@
 # https://www.youtube.com/watch?v=0IjdfgmWzMk&t=4s
-
+from geopy.exc import GeocoderTimedOut
 from geopy.geocoders import Nominatim
 import geopy.geocoders
 from geopy import distance

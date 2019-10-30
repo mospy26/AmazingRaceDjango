@@ -43,6 +43,13 @@ h3 {
 	font-size: 70px;
 }
 
+h3_font2 {
+	color: #FFFFFF;
+	font-family: 'Karla';
+	background-color: #000000;
+	font-size: 70px;
+}
+
 /*Meet the Team*/
 h4 {
 	color: white;
@@ -57,6 +64,15 @@ p {
 	font-size: 20px;
 	width: 85%;
 	display: inline-block;
+}
+
+p_font2 {
+    position = absolute;
+    color: #FFFFFF;
+    font-family: 'Roboto';
+    font-size: 20px;
+    width: 85%;
+    display: inline-block;
 }
 
 
@@ -92,6 +108,23 @@ h5 {
 	margin: 0;
 }
 
+/* Allows text on image */
+.container {
+  position: relative;
+  color: white;
+}
+
+.centered {
+  position: absolute;
+  top: 20%;
+  left: 20%;
+  transform: translate(-10%, -10%);
+}
+
+.pushUp {
+    margin-top: -10px;
+}
+
 /*Allows divs to be aligned vertically*/
 .center {
 	/* http://howtocenterincss.com/ */
@@ -99,17 +132,29 @@ h5 {
 	justify-content:center;
 	align-items:center;
 }
+
+.changeMargin {
+    margin-left: 10%;
+}
+
 #about {
 	border-style: solid;
 	border-color: #F6F6F6;
 	border-width: 25px;
 	background-color: #F6F6F6;
+	align: center;
+}
+
+#about_game {
+    border-style: solid;
+    border-color: #000000;
+    background-color: #000000;
 }
 
 #aboutInfo {
 	display: inline-block;
+	align: center;
 }
-
 
 /*Youtube Button styling*/
 #specialLinks {
