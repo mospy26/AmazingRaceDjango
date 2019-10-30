@@ -95,7 +95,7 @@ class LeaderboardView(LoginRequiredMixin, generic.TemplateView):
 
         if not self.game_creator.is_authorized_to_access_game(
                 code) and not self.game_player.is_authorized_to_access_game(code):
-            return handler(request, '403')
+            return handler(request, 404)
 
         self.game = _GameMiddleware(code)
 
@@ -230,12 +230,12 @@ class GamePlayingListView(LoginRequiredMixin, generic.TemplateView):
         self.game = _GameMiddleware(code)
 
         if not self.game:
-            return handler(request, '404')
+            return handler(request, 404)
 
         self.player = GamePlayerMiddleware(request.user.username)
 
         if not self.player.is_authorized_to_access_game(code):
-            return handler(request, '404')
+            return handler(request, 404)
 
         self.maps = MapsMiddleware()
 
@@ -260,12 +260,12 @@ class GamePlayingListView(LoginRequiredMixin, generic.TemplateView):
         self.game = _GameMiddleware(request.POST['game_code'])
 
         if not self.game:
-            return handler(request, '404')
+            return handler(request, 404)
 
         self.player = GamePlayerMiddleware(request.user.username)
 
         if not self.player.is_authorized_to_access_game(request.POST['game_code']):
-            return handler(request, '404')
+            return handler(request, 404)
 
         error = ""
 
@@ -308,10 +308,10 @@ class GameCreationListView(LoginRequiredMixin, generic.TemplateView):
         game = self.game_creator.get_game(code)
 
         if not game:
-            return handler(request, 403)
+            return handler(request, 404)
 
         if not self.game_creator.is_authorized_to_access_game(code):
-            return handler(request, 403)
+            return handler(request, 404)
 
         if game.game.live:
             self.template_name = 'game-create-live.html'
@@ -332,7 +332,7 @@ class GameCreationListView(LoginRequiredMixin, generic.TemplateView):
         self.game_creator = GameCreatorMiddleware(request.user.username)
 
         if not self.game_creator.is_authorized_to_access_game(kwargs['code']):
-            return handler(request, 403)
+            return handler(request, 404)
 
         if 'title' in request.POST.keys() and 'code' in kwargs.keys():
             return self._update_title_post_request(request, **kwargs)
@@ -403,7 +403,7 @@ class LocationListView(LoginRequiredMixin, generic.TemplateView):
             location_name = str(x)
 
         if not self.locations.is_authorized_to_access_game(game_code):
-            return handler(request, '404')
+            return handler(request, 404)
 
         latitude, longitude = self.maps.get_coordinate(location_name)
         latitude = float(latitude)
@@ -426,7 +426,7 @@ class LocationListView(LoginRequiredMixin, generic.TemplateView):
         self.maps = MapsMiddleware()
 
         if not self.creator.is_authorized_to_access_game(request.POST['game_code']):
-            return handler(request, '404')
+            return handler(request, 404)
 
         if 'delete_location_code' in request.POST.keys():
             return self._delete_location(request, game_code, request.POST['delete_location_code'],
@@ -467,7 +467,7 @@ class LocationAdd(LoginRequiredMixin, generic.TemplateView):
         self.creator = GameCreatorMiddleware(request.user)
 
         if not self.creator.is_authorized_to_access_game(code):
-            return handler(request, '404')
+            return handler(request, 404)
 
         return render(request, self.template_name, context={
             'game_details': self.game.get_code_and_name(),
@@ -481,7 +481,7 @@ class LocationAdd(LoginRequiredMixin, generic.TemplateView):
         self.maps = MapsMiddleware()
 
         if not self.creator.is_authorized_to_access_game(code):
-            return handler(request, '404')
+            return handler(request, 404)
 
         if 'location_order' in request.POST.keys():
             location = request.POST['location_order'].title().strip()
