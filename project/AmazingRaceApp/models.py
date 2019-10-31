@@ -8,13 +8,6 @@ from django.db import models
 from django.contrib.auth.models import User
 
 
-# REMEMBER TO MAKE MIGRATIONS and MIGRATE
-
-class ProfilePictures(models.Model):
-    picture = models.ImageField(upload_to="profile_picture", default="/profile_picture/default-picture.png")
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-
-
 class Game(models.Model):
     title = models.CharField(max_length=50)
     archived = models.BooleanField(default=False)
@@ -64,12 +57,14 @@ class Game(models.Model):
             self.live = False
             self.archived = False
 
-        if self.start_time and self.start_time.strftime('%Y-%m-%d %H:%M:%S') > timezone.now().strftime('%Y-%m-%d %H:%M:%S'):
+        if self.start_time and self.start_time.strftime('%Y-%m-%d %H:%M:%S') > timezone.now().strftime(
+                '%Y-%m-%d %H:%M:%S'):
             self.live = False
             self.archived = False
             self.end_time = None
 
-        elif self.end_time is not None and self.end_time.strftime('%Y-%m-%d %H:%M:%S') <= timezone.now().strftime('%Y-%m-%d %H:%M:%S'):
+        elif self.end_time is not None and self.end_time.strftime('%Y-%m-%d %H:%M:%S') <= timezone.now().strftime(
+                '%Y-%m-%d %H:%M:%S'):
             self.live = False
             self.archived = True
 

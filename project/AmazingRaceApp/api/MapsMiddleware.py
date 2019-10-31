@@ -10,7 +10,7 @@ import re
 import random
 import string
 
-from ..models import ProfilePictures, GamePlayer, Game, Location, LocationUser
+from ..models import GamePlayer, Game, Location, LocationUser
 
 from bingmaps.apiservices import LocationByQuery
 key = 'Apf1KjfAD0elgv58G8eYY-bOpGeTwOCq_m22dqvBdl8LrLth0DEx6qbo3K4nteDU'

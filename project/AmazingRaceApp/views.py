@@ -31,12 +31,14 @@ def handler(request, status_code):
     response.status_code = int(status_code)
     return response
 
+
 # Home Page for when the user is logged out
 class HomepageLoggedOutView(generic.TemplateView):
     template_name = 'homepage2.html'
 
     def get(self, request, *args, **kwargs):
         return render(request, self.template_name, context={})
+
 
 # Home Page for when the user is logged in
 class HomepageView(LoginRequiredMixin, generic.TemplateView):
@@ -53,14 +55,14 @@ class HomepageView(LoginRequiredMixin, generic.TemplateView):
         return render(request, self.template_name, context={
             'recent_game_ranks': self.player.rank_in_most_recent_games(10)
         })
-    
+
     # Handling of when a game player inputs a game code on the home page or creation of a new game
     # Post Request Values:
     #    code: game code inputed
     def post(self, request, *args, **kwargs):
         player = GamePlayerMiddleware(request.user.username)
         form = self.form(request.POST)
-        
+
         # Inputting new game code to start playing a game
         if 'code' in request.POST.keys() and request.POST['code'] != '':
             game = _GameMiddleware(request.POST['code'])
@@ -78,7 +80,7 @@ class HomepageView(LoginRequiredMixin, generic.TemplateView):
                         'recent_game_ranks': player.rank_in_most_recent_games(10),
                         'game_error': "Oops, incorrect code!"
                     })
-        
+
         # Inputing a game name to start creating a new game 
         if form.is_valid():
             game = form.save()
@@ -92,11 +94,12 @@ class HomepageView(LoginRequiredMixin, generic.TemplateView):
             'form': form
         })
 
+
 # Displays a leaderboard for games
 class LeaderboardView(LoginRequiredMixin, generic.TemplateView):
     template_name = 'Leaderboard.html'
     login_url = '/start'
-    
+
     # Post Request Values:
     #    code: game code for leaderboard to be displayed
     def get(self, request, code, *args, **kwargs):
@@ -114,6 +117,7 @@ class LeaderboardView(LoginRequiredMixin, generic.TemplateView):
             'game_details': self.game.get_code_and_name(),
             'leaderboards': self.game_creator.get_leaderboard(code)
         })
+
 
 # Profile page which displays users information
 class ProfilepageView(LoginRequiredMixin, generic.TemplateView):
@@ -134,7 +138,6 @@ class ProfilepageView(LoginRequiredMixin, generic.TemplateView):
             'games_created': self.creator.get_number_created_games(),
             'name': self.player.get_name(),
             'username': self.player.get_username(),
-            'profile_picture': None if not self.player.profilePic else self.player.get_profile_picture(),
             'password_form': self.password_form
         })
 
@@ -142,47 +145,23 @@ class ProfilepageView(LoginRequiredMixin, generic.TemplateView):
         self.player = GamePlayerMiddleware(request.user.username)
         self.creator = GameCreatorMiddleware(request.user.username)
 
-        uploaded_file = None
+        if {'old_password', 'new_password1', 'new_password2'}.issubset(request.POST.keys()):
+            form = PasswordChangeForm(request.user, request.POST)
 
-        # ----------------------- CHECK -----------------------------------------------------
-        try:
-            uploaded_file = request.FILES['document']
-
-            fs = FileSystemStorage()
-            s = Storage()
-            path = "profile_picture/" + request.user.username + "-profile-pic.png"
-            fs.delete(path)
-            fs.save(path, uploaded_file)
-
-            self.player.update_profile_pictures(path)
+            if form.is_valid():
+                form.save()
+                update_session_auth_hash(request, form.user)
+                return HttpResponseRedirect('/')
 
             return render(request, self.template_name, context={
                 'games_played': self.player.get_games_played(),
                 'games_created': self.creator.get_number_created_games(),
                 'name': self.player.get_name(),
                 'username': self.player.get_username(),
-                'profile_picture': self.player.get_profile_picture(),
-                'password_form': self.password_form
+                'password_form': form
             })
-        except:
-            if {'old_password', 'new_password1', 'new_password2'}.issubset(request.POST.keys()):
-                form = PasswordChangeForm(request.user, request.POST)
+        return render(request, '404.html')
 
-                if form.is_valid():
-                    form.save()
-                    update_session_auth_hash(request, form.user)
-                    return HttpResponseRedirect('/')
-
-                return render(request, self.template_name, context={
-                    'games_played': self.player.get_games_played(),
-                    'games_created': self.creator.get_number_created_games(),
-                    'name': self.player.get_name(),
-                    'username': self.player.get_username(),
-                    # 'profile_picture': self.player.get_profile_picture(),
-                    'password_form': form
-                })
-            return render(request, '404.html')
-        # --------------------------------------------------------------------
 
 # Register page to register new users to the website
 class RegisterView(generic.TemplateView):
@@ -196,7 +175,7 @@ class RegisterView(generic.TemplateView):
         return render(request, self.template_name, {
             'form': self.form
         })
-    
+
     # Handling of when a user signs up to the website
     def post(self, request, *args, **kwargs):
 
@@ -209,6 +188,7 @@ class RegisterView(generic.TemplateView):
         return render(request, self.template_name, {
             'form': form
         })
+
 
 # Page that displayes the list of games created by a user
 class GameCreatedListView(LoginRequiredMixin, generic.TemplateView):
@@ -229,6 +209,7 @@ class GameCreatedListView(LoginRequiredMixin, generic.TemplateView):
             'game_and_status': zip(self.player.created_games(), game_status)
         })
 
+
 # Page that displays the list of games played by a user
 class GamePlayedListView(LoginRequiredMixin, generic.TemplateView):
     template_name = 'game-list.html'
@@ -248,6 +229,7 @@ class GamePlayedListView(LoginRequiredMixin, generic.TemplateView):
             'page_name': 'Played',
             'game_and_status': zip(games, game_status)
         })
+
 
 # Game play page for a game player
 class GamePlayingListView(LoginRequiredMixin, generic.TemplateView):
@@ -284,7 +266,7 @@ class GamePlayingListView(LoginRequiredMixin, generic.TemplateView):
             'visited': self.player.locations_visited(code),
             'lat_long': lat_long
         })
-    
+
     # Handling of when a game player inputs a location code within a game
     # Post Request Values:
     #    game_code: game code retrieved from a hidden input in the form
@@ -329,12 +311,13 @@ class GamePlayingListView(LoginRequiredMixin, generic.TemplateView):
             'error': error
         })
 
+
 # Game creation dashboard for game creators
 class GameCreationListView(LoginRequiredMixin, generic.TemplateView):
     template_name = 'game-create.html'
     login_url = '/start'
     form = GameRenameForm
-    
+
     # Depending on the game status various versions of this page will be displayed
     #    If the game is NOT PUBLISHED then game settings can be still modifed and locations can be added
     #    If the game is LIVE then the game can only be stopped
@@ -363,7 +346,7 @@ class GameCreationListView(LoginRequiredMixin, generic.TemplateView):
             'code': code,
             'lat_long': self.maps.get_list_of_long_lat(code)
         })
-    
+
     # Handling of the various POST requests that can be made on the game create page
     def post(self, request, *args, **kwargs):
 
@@ -382,7 +365,7 @@ class GameCreationListView(LoginRequiredMixin, generic.TemplateView):
             return self._start_game(request, *args, **kwargs)
         elif 'game_stop' in request.POST.keys() and request.POST['game_stop'] != '':
             return self._stop_game(request, *args, **kwargs)
-    
+
     # Modify the title/name of the game
     # Paramaters:
     #    code: the game code of game to be modified
@@ -398,7 +381,7 @@ class GameCreationListView(LoginRequiredMixin, generic.TemplateView):
             'code': kwargs['code'],
             'lat_long': self.maps.get_list_of_long_lat(kwargs['code'])
         })
-    
+
     # Update the order of locations in a game
     # Paramaters:
     #    location_order: list of location codes in the new order
@@ -414,27 +397,28 @@ class GameCreationListView(LoginRequiredMixin, generic.TemplateView):
             'code': kwargs['code'],
             'lat_long': self.maps.get_list_of_long_lat(kwargs['code'])
         })
-    
+
     # Delete a game that has been created
     # Paramaters:
     #    game_delete: the game code of game to be deleted
     def _delete_game(self, request, *args, **kwargs):
         self.game_creator.delete_game(request.POST['game_delete'])
         return HttpResponseRedirect('/')
-    
+
     # Start the game so that game players can play it
     # Paramaters:
     #    game_start: the game code of game to be started
     def _start_game(self, request, *args, **kwargs):
         self.game_creator.start_game(request.POST['game_start'])
         return HttpResponseRedirect('/game/create/' + request.POST['game_start'])
-    
+
     # Stop a game that is currently being played and as such archiving it
     # Paramaters:
     #    game_stop: the game code of game to be stopped
     def _stop_game(self, request, *args, **kwargs):
         self.game_creator.stop_game(request.POST['game_stop'])
         return HttpResponseRedirect('/game/create/' + request.POST['game_stop'])
+
 
 # Page which shows a specific location and its specific details
 class LocationListView(LoginRequiredMixin, generic.TemplateView):
@@ -473,7 +457,7 @@ class LocationListView(LoginRequiredMixin, generic.TemplateView):
             'game_code': self.game.game.code,
             'location_code': this_location_copy.first()
         })
-    
+
     # Handling of the various post request that can be made on the locations page
     def post(self, request, game_code, location_code, *args, **kwargs):
         self.locations = GameCreatorMiddleware(request.user.username)
@@ -489,7 +473,7 @@ class LocationListView(LoginRequiredMixin, generic.TemplateView):
                                          self.locations.get_location_by_code(location_code))
         if 'code' in request.POST.keys():
             return self._change_clue(request, request.POST['game_code'], request.POST['code'], *args, **kwargs)
-    
+
     # Delete a location from a game
     # Paramaters:
     #    game_code: the game code of game to be modified
@@ -498,7 +482,7 @@ class LocationListView(LoginRequiredMixin, generic.TemplateView):
         self.maps = MapsMiddleware()
         self.maps.delete_location(game_code, location_code)
         return HttpResponseRedirect('/game/create/' + game_code)
-    
+
     # Modify the clue of a location
     # Paramaters:
     #    game_code: the game code of game to be modified
@@ -517,6 +501,7 @@ class LocationListView(LoginRequiredMixin, generic.TemplateView):
             return HttpResponseRedirect('/game/create/' + game_code)
 
         return handler(request, 404)
+
 
 # Page to add a location to the game
 class LocationAdd(LoginRequiredMixin, generic.TemplateView):
@@ -537,7 +522,7 @@ class LocationAdd(LoginRequiredMixin, generic.TemplateView):
             'lat_long': [-33.865143, 151.209900],
             'location_name': ""
         })
-    
+
     # Handling of the various post requests to the add location page
     # Paramaters:
     #    code: the game code of game to be modified
@@ -554,7 +539,7 @@ class LocationAdd(LoginRequiredMixin, generic.TemplateView):
         if 'location_order' in request.POST.keys():
             location = request.POST['location_order'].title().strip()
             return self._add_location(request, code, location)
-        
+
         # Search for the location and return latitude and longitude to display to the user for confirmation
         elif 'locationSearch' in request.POST.keys():
             location = request.POST['locationSearch'].title()
@@ -574,7 +559,7 @@ class LocationAdd(LoginRequiredMixin, generic.TemplateView):
                 'location_name': location,
                 'code': code
             })
-   
+
     # Add location to a game
     # Paramaters:
     #    code: the game code of game to be modified

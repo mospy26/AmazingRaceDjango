@@ -9,7 +9,7 @@ import os
 import datetime
 
 from AmazingRaceApp.api.GameMiddleware import _GameMiddleware
-from ..models import ProfilePictures, GamePlayer, Game, Location, LocationUser, GameCreator
+from ..models import GamePlayer, Game, Location, LocationUser, GameCreator
 
 
 # API for getting all locations in a game
@@ -19,37 +19,6 @@ class GamePlayerMiddleware:
     def __init__(self, username):
         self.user = User.objects.get(username=username)
         self.games = Game.objects.filter(players=self.user)
-        self.profilePic = None if not ProfilePictures.objects.filter(user=self.user).exists() else \
-            ProfilePictures.objects.get(user=self.user)
-
-    '''
-    Source: 
-    - https://www.revsys.com/tidbits/loading-django-files-from-code/
-    - https://www.youtube.com/watch?v=1jxVzOnIqyI
-    - https://stackoverflow.com/questions/9498012/how-to-display-images-from-model-in-django
-
-    Updates the profile picture by first deleting the profile picture and then 
-    uploading the picture 
-
-    @param: The Absolute path for the image
-    @return: Nothing
-    '''
-
-    def update_profile_pictures(self, url):
-        self.profilePic.picture = url
-        self.profilePic.save()        
-
-    def delete_profile_picture(self):
-        self.profilePic.picture = "/profile_picture/default-picture.png"
-        self.profilePic.save()
-
-    def get_profile_picture(self):
-        profile_pic = self.profilePic.picture.url
-
-        if not profile_pic:
-            return "/media/profile_picture/default-picture.png"
-
-        return profile_pic
 
     def get_username(self):
         return self.user.username
@@ -67,18 +36,18 @@ class GamePlayerMiddleware:
         game = Game.objects.get(code=game_code)
         game_locations = []
         locations_visited = []
-        
+
         for x in LocationUser.objects.values_list('location_id').filter(user=self.user):
             locations_visited.append(Location.objects.get(id=x[0]).code)
-        
+
         for x in Location.objects.values_list('code').filter(game=game).order_by('order'):
-            game_locations.append( x[0])
-        
+            game_locations.append(x[0])
+
         first = True
         for x in game_locations:
             if x not in locations_visited:
                 if not first:
-                    return False 
+                    return False
                 first = False
                 if location_code == x:
                     current_location = LocationUser.objects.create(
@@ -246,8 +215,3 @@ class GamePlayerMiddleware:
             game=to_join_game,
             player=self.user
         )
-
-        # class GamePlayer(models.Model):
-        #     rank = models.BigIntegerField()
-        #     game = models.ForeignKey(Game, on_delete=models.CASCADE)
-        #     player = models.ForeignKey(User, on_delete=models.CASCADE)

@@ -6,7 +6,7 @@ from django import forms
 from django.contrib.auth.models import User
 
 from AmazingRaceApp.api.GameCreatorMiddleware import GameCreatorMiddleware
-from AmazingRaceApp.models import Game, ProfilePictures, Location
+from AmazingRaceApp.models import Game, Location
 
 
 class RegisterForm(UserCreationForm):
@@ -23,8 +23,6 @@ class RegisterForm(UserCreationForm):
         user.last_name = self.cleaned_data["last_name"]
         if commit:
             user.save()
-        pp = ProfilePictures(user=user)
-        pp.save()
         return user
 
 

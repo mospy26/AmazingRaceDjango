@@ -23,15 +23,12 @@
                             <h5>Games Created: {{ games_created }}</h5>
                             <br>
                         </div>
-                        <div class = "col">
-                            <image class = "rounded-circle" src = "{{ profile_picture }}" alt = "profile" width = 200 height = 200></image>
-                        </div>
                     </div>
                 </div>
             </div>
     
             <div class = "row">
-                <div class = "col-lg-6">
+                <div class = "col-lg-12">
                     <!-- Basic Card Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
@@ -110,38 +107,38 @@
                     </div>
                 </div>
     
-                <div class = "col-lg-6">
-                    <!-- Basic Card Example -->
-                    <div class="card shadow mb-4">
-                        <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Profile Picture</h6>
-                        </div>
-                        <div class="card-body">
-                            <div class = "row">
-                                <div class = "col">
-                                    Upload Profile Picture:
-                                </div>
-                                <div class = "col">
-                                
-                                <form method="POST" id="profile_picture" enctype="multipart/form-data" action="{% url 'user' %}" id="update_profile_picture">
-                                    {% csrf_token %}
-                                    <input type="file" name="document">
-                                    <br>
-                                    <br>
-                                    <!-- <fieldset class="form-group">
-                                        {{ picture_update.picture }}
-                                        {{ picture_update.errors }}
-                                    </fieldset> -->
-                                    <div class="form-group"x>
-                                        <button onclick="updateProfilePicture()" class="btn btn-sm btn-primary shadow-sm" type="submit">Update Profile Picture</button>
-                                    </div>
-                                </form>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+{#                <div class = "col-lg-6">#}
+{#                    <!-- Basic Card Example -->#}
+{#                    <div class="card shadow mb-4">#}
+{#                        <div class="card-header py-3">#}
+{#                            <h6 class="m-0 font-weight-bold text-primary">Profile Picture</h6>#}
+{#                        </div>#}
+{#                        <div class="card-body">#}
+{#                            <div class = "row">#}
+{#                                <div class = "col">#}
+{#                                    Upload Profile Picture:#}
+{#                                </div>#}
+{#                                <div class = "col">#}
+{##}
+{#                                <form method="POST" id="profile_picture" enctype="multipart/form-data" action="{% url 'user' %}" id="update_profile_picture">#}
+{#                                    {% csrf_token %}#}
+{#                                    <input type="file" name="document">#}
+{#                                    <br>#}
+{#                                    <br>#}
+{#                                    <!-- <fieldset class="form-group">#}
+{#                                        {{ picture_update.picture }}#}
+{#                                        {{ picture_update.errors }}#}
+{#                                    </fieldset> -->#}
+{#                                    <div class="form-group"x>#}
+{#                                        <button onclick="updateProfilePicture()" class="btn btn-sm btn-primary shadow-sm" type="submit">Update Profile Picture</button>#}
+{#                                    </div>#}
+{#                                </form>#}
+{##}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
             </div>
         </div>
     
