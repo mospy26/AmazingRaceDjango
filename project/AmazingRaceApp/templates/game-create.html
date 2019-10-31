@@ -211,8 +211,6 @@
       </div>
 
       <!-- End of Main Content -->
-      
-      <!--   https://stackoverflow.com/questions/2072848/reorder-html-table-rows-using-drag-and-drop -->
       <script type="text/javascript">
         $(window).on('load', function(){
           var fixHelperModified = function(e, tr) {
@@ -243,8 +241,6 @@
           for (let x = 1; x < size; x++) {
             codes.push(document.getElementById("gameLocations").rows.item(x).cells[2].innerHTML);
           }
-          
-//          https://stackoverflow.com/questions/133925/javascript-post-request-like-a-form-submit
           
           document.body.innerHTML += '<form id="dynForm" method="post" action="/game/create/{{ code }}"> {% csrf_token %} <input type="hidden" value="' + codes.join(",") + '" name="location_order"></form>';
           document.getElementById("dynForm").submit();
