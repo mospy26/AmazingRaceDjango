@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
 
-from AmazingRaceApp.models import Game, Location, GamePlayer, GameCreator
+from AmazingRaceApp.models import Game, Location, GamePlayer, GameCreator, LocationUser
 
 
 class GameSerializer(serializers.HyperlinkedModelSerializer):
@@ -40,7 +40,16 @@ class GamesPlayedSerializer(serializers.HyperlinkedModelSerializer):
         )
 
 
-class GamesCreatorSerializer(serializers.HyperlinkedModelSerializer):
+class VisitedLocationsSerializer(serializers.HyperlinkedModelSerializer):
+    url = serializers.HyperlinkedRelatedField(view_name='visited_locations',
+                                              read_only=True)
+
     class Meta:
-        model = GameCreator
+        model = LocationUser
+        fields = '__all__'
+
+
+class LocationUserSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = LocationUser
         fields = '__all__'

@@ -4,8 +4,8 @@ from rest_framework.authentication import SessionAuthentication, BasicAuthentica
 from rest_framework.response import Response
 
 from .serializers import GameSerializer, UserSerializer, LocationSerializer, GamesPlayedSerializer, \
-    GamesCreatorSerializer
-from AmazingRaceApp.models import Game, Location, GamePlayer, GameCreator
+    VisitedLocationsSerializer, LocationUserSerializer
+from AmazingRaceApp.models import Game, Location, GamePlayer, GameCreator, LocationUser
 
 
 class GameView(viewsets.ModelViewSet):
@@ -26,6 +26,12 @@ class LocationView(viewsets.ReadOnlyModelViewSet):
     queryset = Location.objects.all()
 
 
+class LocationUserView(viewsets.ReadOnlyModelViewSet):
+    authentication_classes = [SessionAuthentication, BasicAuthentication]
+    serializer_class = LocationUserSerializer
+    queryset = LocationUser.objects.all()
+
+
 class GamesPlayedView(viewsets.ModelViewSet):
     authentication_classes = [SessionAuthentication, BasicAuthentication]
     queryset = GamePlayer.objects.none()
@@ -37,11 +43,12 @@ class GamesPlayedView(viewsets.ModelViewSet):
         return Response(serializer.data)
 
 
-class GamesCreatedView(viewsets.ModelViewSet):
-    queryset = GameCreator.objects.none()
-    serializer_class = GamesCreatorSerializer
+class VisitedLocationsView(viewsets.ModelViewSet):
+    authentication_classes = [SessionAuthentication, BasicAuthentication]
+    queryset = LocationUser.objects.none()
+    serializer_class = VisitedLocationsSerializer
 
     def list(self, request, **kwargs):
-        games_played = GamePlayer.objects.filter(player=request.user)
-        serializer = GamesPlayedSerializer(games_played, many=True, context={'request': request})
+        self.queryset = LocationUser.objects.filter(user=request.user)
+        serializer = VisitedLocationsSerializer(self.queryset, many=True, context={'request': request})
         return Response(serializer.data)
