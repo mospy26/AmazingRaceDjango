@@ -16,5 +16,4 @@ urlpatterns = [
     path('game/create/<slug:code>/new/location', views.LocationAdd.as_view(), name="add_locations"),
     path('game/leaderboard/<slug:code>', views.LeaderboardView.as_view(), name='leaderboard'),
     path('game/play/<slug:code>', views.GamePlayingListView.as_view(), name='play_game'),
-    path('error/', views.ErrorView.as_view(), name='error')
 ]

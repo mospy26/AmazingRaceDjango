@@ -5,6 +5,7 @@ how to write such code
 
 # To run, the command is "python manage.py shell < test.py"
 #
+from AmazingRaceApp.api.GameMiddleware import _GameMiddleware
 from AmazingRaceApp.api.MapsMiddleware import MapsMiddleware
 # from AmazingRaceApp.api.GamePlayerMiddleware import GamePlayerMiddleware
 #
@@ -26,5 +27,5 @@ from AmazingRaceApp.api.MapsMiddleware import MapsMiddleware
 
 
 # game_code, area_name, custom_name='', city='', country=''):
-maps = MapsMiddleware()
-print(maps.convert_degrees_to_string("""33°53'09.1"S"""))
+# maps = MapsMiddleware()
+# print(maps.convert_degrees_to_string("""33°53'09.1"S"""))

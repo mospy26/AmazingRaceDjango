@@ -108,7 +108,9 @@ class MapsMiddleware:
         location = Location.objects.filter(game=game, code=location_code)
         if not location.exists():
             return False
+        order = location.first().order
         location.first().delete()
+        self._refactor_location_data(order, game)
         return True
 
     def convert_degrees_to_string(self, string):
@@ -117,3 +119,9 @@ class MapsMiddleware:
         if direction == 'E' or direction == 'N':
             dd *= -1
         return float(dd)
+
+    def _refactor_location_data(self, order, game):
+        locations = Location.objects.filter(game=game).all()
+        for location in locations[order-1:]:
+            location.order = location.order - 1
+            location.save()

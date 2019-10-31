@@ -289,9 +289,9 @@ class GamePlayingListView(LoginRequiredMixin, generic.TemplateView):
         if len(request.POST['location_code']) == 9:
             result = self.player.visit_location(request.POST['location_code'], request.POST['game_code'])
             if not result:
-                error = "Invalid Game Code"
+                error = "Invalid Location Code"
         else:
-            error = "Invalid Game Code"
+            error = "Invalid Location Code"
 
         self.maps = MapsMiddleware()
 
@@ -463,13 +463,12 @@ class LocationListView(LoginRequiredMixin, generic.TemplateView):
                          data=request.POST)
 
         if form.is_valid():
-            print(request.POST['clues'])
             location = form.save(commit=False)
             location.clues = request.POST['clues']
             location.save()
-            return HttpResponseRedirect('/game/create/' + game_code + "/" + location_code)
+            return HttpResponseRedirect('/game/create/' + game_code)
 
-        return HttpResponseRedirect('/error')
+        return handler(request, 404)
 
 
 class LocationAdd(LoginRequiredMixin, generic.TemplateView):
@@ -483,7 +482,7 @@ class LocationAdd(LoginRequiredMixin, generic.TemplateView):
         self.creator = GameCreatorMiddleware(request.user)
 
         if not self.creator.is_authorized_to_access_game(code):
-            return HttpResponseRedirect('/error')
+            return handler(request, 404)
 
         return render(request, self.template_name, context={
             'game_details': self.game.get_code_and_name(),
@@ -527,8 +526,3 @@ class LocationAdd(LoginRequiredMixin, generic.TemplateView):
         return HttpResponseRedirect('/game/create/' + code + "/" + created.code)
 
     # LQGY-M42U echa creatoed
-
-
-class ErrorView(generic.TemplateView):
-
-    template_name = '404.html'

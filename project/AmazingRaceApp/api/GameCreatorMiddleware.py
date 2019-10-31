@@ -42,6 +42,7 @@ class GameCreatorMiddleware:
             - end_time
             - players
     """
+
     def delete_game(self, code):
         self.game_middleware = _GameMiddleware(code)
         self.game_middleware.delete_game()
@@ -118,7 +119,6 @@ class GameCreatorMiddleware:
     def stop_game(self, code):
         self.game_middleware = _GameMiddleware(code)
         self.game_middleware.end_game()
-
 
     def get_location_of_game(self, game_code, location_code):
         if not self.is_authorized_to_access_game(game_code):
