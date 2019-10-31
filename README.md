@@ -46,12 +46,3 @@
 1. Then type `pip3 install -r requirements.txt` to install your new dependencies
 1. `cd project` -- change directory to project/
 1. `python3 manage.py runserver`
-
--- TODO - Shrawani   
-## Resource Accessibility/Security
-* Organisations - admin has all, user only gets for their own
-* Orders - admin has all, user gets/puts for their own
-* Services - admin has all, user only gets
-* Users - admin has all, user can get/put at the 'me' endpoint
-* Addresses - admin has all, user has gets
-* Roles - admin has all, user has none
