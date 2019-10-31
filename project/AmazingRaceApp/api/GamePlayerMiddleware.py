@@ -170,7 +170,7 @@ class GamePlayerMiddleware:
         if not to_join_game.exists():
             return False
 
-        if to_join_game.archived:
+        if to_join_game.first().archived or not to_join_game.first().live:
             return False
 
         game_player = GamePlayer.objects.filter(game=to_join_game.first(), player=self.user)
@@ -191,7 +191,7 @@ class GamePlayerMiddleware:
         to_join_game = Game.objects.get(code=code)
 
         players = GamePlayer.objects.filter(game=to_join_game)
-        rank = 0 if not players.exists() else players.order_by('-rank').first().rank + 1
+        rank = 1 if not players.exists() else players.order_by('-rank').first().rank + 1
 
         game_player = GamePlayer.objects.create(
             rank=rank,
