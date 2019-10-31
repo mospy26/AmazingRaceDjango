@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 
 from ..models import Game, GameCreator, Location
+
 from .GameMiddleware import _GameMiddleware
 
 """ 
@@ -18,7 +19,6 @@ class GameCreatorMiddleware:
         self.games = GameCreator.objects.filter(creator=self.user).select_related('game')
         self.game_middleware = None
 
-
     def delete_game(self, code):
         self.game_middleware = _GameMiddleware(code)
         self.game_middleware.delete_game()
@@ -35,6 +35,7 @@ class GameCreatorMiddleware:
     """
         Will return a generator of a list of games the current user has created.
     """
+
     def created_games(self):
         for game in self.games:
             yield game.game
@@ -45,6 +46,7 @@ class GameCreatorMiddleware:
     """
         Will return a generator of ordered locations of game with specified code
     """
+
     def get_ordered_locations_of_game(self, code):
         self.game_middleware = _GameMiddleware(code)
         return self.game_middleware.ordered_locations()
@@ -52,6 +54,7 @@ class GameCreatorMiddleware:
     """
         Will return the location that has the specified code
     """
+
     def get_location_by_code(self, code):
         location = Location.objects.filter(code=code)
         return None if not location.exists() else location
@@ -63,6 +66,7 @@ class GameCreatorMiddleware:
     """
         Will return leaderboard of a game
     """
+
     def get_leaderboard(self, code):
         self.game_middleware = _GameMiddleware(code)
         return self.game_middleware.game_leaderboard()
@@ -70,6 +74,7 @@ class GameCreatorMiddleware:
     """
         Will return the status of a game
     """
+
     def get_status_of_game(self, code):
         self.game_middleware = _GameMiddleware(code)
         return self.game_middleware.get_status()
@@ -81,6 +86,7 @@ class GameCreatorMiddleware:
     """
         Will update the location order of a game whose code is specified
     """
+
     def update_location_order(self, location_codes_list, game_code):
         counter = 1
         game = Game.objects.get(code=game_code)
@@ -94,6 +100,7 @@ class GameCreatorMiddleware:
     """
         Security Authorisation check: Will check if a game is accessbile to this user
     """
+
     def is_authorized_to_access_game(self, code):
         game = _GameMiddleware(code)
         if not game.game:
@@ -111,6 +118,7 @@ class GameCreatorMiddleware:
     """
         Will start the game whose code is specified
     """
+
     def start_game(self, code):
         self.game_middleware = _GameMiddleware(code)
         self.game_middleware.make_live()
@@ -118,6 +126,7 @@ class GameCreatorMiddleware:
     """
         Will stop the game whose code is specified
     """
+
     def stop_game(self, code):
         self.game_middleware = _GameMiddleware(code)
         self.game_middleware.end_game()
@@ -125,6 +134,7 @@ class GameCreatorMiddleware:
     """
         Will return location of a game both of whose codes are specified
     """
+
     def get_location_of_game(self, game_code, location_code):
         if not self.is_authorized_to_access_game(game_code):
             return None

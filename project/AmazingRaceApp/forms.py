@@ -16,6 +16,7 @@ class RegisterForm(UserCreationForm):
     """
         Adds first name and last name too to the Register form
     """
+
     def save(self, commit=True):
         user = super(RegisterForm, self).save(commit=False)
         user.first_name = self.cleaned_data["first_name"]

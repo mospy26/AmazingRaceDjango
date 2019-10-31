@@ -1,10 +1,11 @@
 from django.contrib.auth.models import User
 from django.db.models import Subquery
 from django.utils.datetime_safe import datetime
+
 from ..models import Location, Game, GamePlayer
 
 
-# API for the Game Database
+# API for the Game Model
 class _GameMiddleware:
 
     def __init__(self, code):
@@ -32,6 +33,7 @@ class _GameMiddleware:
     @param None 
     @returns None to delete the API 
     '''
+
     def delete_game(self):
         self.game.delete()
         return None
@@ -47,6 +49,7 @@ class _GameMiddleware:
     """
         Gives the ordered locations of a game in sequence
     """
+
     def ordered_locations(self):
         game_locations = Location.objects.filter(game=self.game).order_by('order')
         for location in game_locations:
@@ -60,6 +63,7 @@ class _GameMiddleware:
     """
         Changes a game name
     """
+
     def change_name(self, name):
         self.game.title = name
         self.game.save()
@@ -67,6 +71,7 @@ class _GameMiddleware:
     """
         Makes a game live
     """
+
     def make_live(self):
         # defines what happens when a game is made live
         self.game.live = True
@@ -80,6 +85,7 @@ class _GameMiddleware:
             Closed means game was stopped and hence archived
             Not Published means game has not been started ever
     """
+
     def get_status(self):
         if self.game.live:
             return "Live"
@@ -91,6 +97,7 @@ class _GameMiddleware:
     """
         Ends a game i.e. archives it
     """
+
     def end_game(self):
         self.game.live = False
         self.game.archived = True

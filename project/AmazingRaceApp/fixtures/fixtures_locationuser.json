@@ -16,5 +16,14 @@
         "user": 5,
         "location": 5
     }
+},
+{
+    "model": "AmazingRaceApp.locationuser",
+    "pk": 3,
+    "fields": {
+        "time_visited": "2019-10-31T10:43:57.818Z",
+        "user": 5,
+        "location": 6
+    }
 }
 ]

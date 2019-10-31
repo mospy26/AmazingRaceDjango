@@ -151,5 +151,14 @@
         "game": 5,
         "player": 5
     }
+},
+{
+    "model": "AmazingRaceApp.gameplayer",
+    "pk": 19,
+    "fields": {
+        "rank": 4,
+        "game": 2,
+        "player": 7
+    }
 }
 ]

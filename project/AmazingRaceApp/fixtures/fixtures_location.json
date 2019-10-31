@@ -128,5 +128,70 @@
         "game": 5,
         "order": 2
     }
+},
+{
+    "model": "AmazingRaceApp.location",
+    "pk": 14,
+    "fields": {
+        "name": "Opera House",
+        "clues": "Hello world",
+        "longitude": "7.272590160369873",
+        "latitude": "43.69575119018555",
+        "code": "9VBG-D59Y",
+        "game": 11,
+        "order": 1
+    }
+},
+{
+    "model": "AmazingRaceApp.location",
+    "pk": 40,
+    "fields": {
+        "name": "Hello",
+        "clues": "sdvev",
+        "longitude": "4.83296012878418",
+        "latitude": "61.624168395996094",
+        "code": "XHRE-YH8M",
+        "game": 16,
+        "order": 1
+    }
+},
+{
+    "model": "AmazingRaceApp.location",
+    "pk": 42,
+    "fields": {
+        "name": "Melbourne",
+        "clues": "wveqt",
+        "longitude": "-104.71224975585938",
+        "latitude": "68.50052642822266",
+        "code": "M782-X80C",
+        "game": 16,
+        "order": 3
+    }
+},
+{
+    "model": "AmazingRaceApp.location",
+    "pk": 43,
+    "fields": {
+        "name": "Auburn",
+        "clues": "darv",
+        "longitude": "-117.93987274169922",
+        "latitude": "44.69670104980469",
+        "code": "ST3O-OMPJ",
+        "game": 17,
+        "order": 2
+    }
+},
+{
+    "model": "AmazingRaceApp.location",
+    "pk": 45,
+    "fields": {
+        "name": "Melbourne",
+        "clues": "wvrebv",
+        "longitude": "-104.71224975585938",
+        "latitude": "68.50052642822266",
+        "code": "7JZC-NLZG",
+        "game": 17,
+        "order": 1
+    }
 }
 ]
