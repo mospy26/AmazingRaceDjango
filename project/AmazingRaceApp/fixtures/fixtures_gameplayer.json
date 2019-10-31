@@ -1,0 +1,155 @@
+[
+{
+    "model": "AmazingRaceApp.gameplayer",
+    "pk": 1,
+    "fields": {
+        "rank": 1,
+        "game": 1,
+        "player": 7
+    }
+},
+{
+    "model": "AmazingRaceApp.gameplayer",
+    "pk": 2,
+    "fields": {
+        "rank": 2,
+        "game": 1,
+        "player": 3
+    }
+},
+{
+    "model": "AmazingRaceApp.gameplayer",
+    "pk": 3,
+    "fields": {
+        "rank": 3,
+        "game": 1,
+        "player": 2
+    }
+},
+{
+    "model": "AmazingRaceApp.gameplayer",
+    "pk": 4,
+    "fields": {
+        "rank": 4,
+        "game": 1,
+        "player": 5
+    }
+},
+{
+    "model": "AmazingRaceApp.gameplayer",
+    "pk": 5,
+    "fields": {
+        "rank": 5,
+        "game": 1,
+        "player": 4
+    }
+},
+{
+    "model": "AmazingRaceApp.gameplayer",
+    "pk": 6,
+    "fields": {
+        "rank": 1,
+        "game": 3,
+        "player": 5
+    }
+},
+{
+    "model": "AmazingRaceApp.gameplayer",
+    "pk": 7,
+    "fields": {
+        "rank": 2,
+        "game": 3,
+        "player": 2
+    }
+},
+{
+    "model": "AmazingRaceApp.gameplayer",
+    "pk": 8,
+    "fields": {
+        "rank": 3,
+        "game": 3,
+        "player": 7
+    }
+},
+{
+    "model": "AmazingRaceApp.gameplayer",
+    "pk": 9,
+    "fields": {
+        "rank": 1,
+        "game": 2,
+        "player": 6
+    }
+},
+{
+    "model": "AmazingRaceApp.gameplayer",
+    "pk": 10,
+    "fields": {
+        "rank": 2,
+        "game": 2,
+        "player": 3
+    }
+},
+{
+    "model": "AmazingRaceApp.gameplayer",
+    "pk": 11,
+    "fields": {
+        "rank": 3,
+        "game": 2,
+        "player": 2
+    }
+},
+{
+    "model": "AmazingRaceApp.gameplayer",
+    "pk": 12,
+    "fields": {
+        "rank": 1,
+        "game": 4,
+        "player": 5
+    }
+},
+{
+    "model": "AmazingRaceApp.gameplayer",
+    "pk": 13,
+    "fields": {
+        "rank": 2,
+        "game": 4,
+        "player": 2
+    }
+},
+{
+    "model": "AmazingRaceApp.gameplayer",
+    "pk": 14,
+    "fields": {
+        "rank": 3,
+        "game": 4,
+        "player": 7
+    }
+},
+{
+    "model": "AmazingRaceApp.gameplayer",
+    "pk": 15,
+    "fields": {
+        "rank": 1,
+        "game": 5,
+        "player": 6
+    }
+},
+{
+    "model": "AmazingRaceApp.gameplayer",
+    "pk": 16,
+    "fields": {
+        "rank": 2,
+        "game": 5,
+        "player": 3
+    }
+},
+{
+    "model": "AmazingRaceApp.gameplayer",
+    "pk": 17,
+    "fields": {
+        "rank": 3,
+        "game": 5,
+        "player": 5
+    }
+}
+]

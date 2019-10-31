@@ -1,0 +1,164 @@
+{% extends "topbar.html" %}
+  {% load static %}
+  {% block content %}
+
+        <!-- Begin Page Content -->
+        <div class="container-fluid">
+        {% for game in game_details %}
+
+          <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">Game Player Dashboard</h1>
+            
+            <h5>{{game.0}} | {{game.1}}</h5>
+            
+          </div>
+
+
+          <!-- Add Location box -->
+          <div class = "row">
+            <!-- Basic Card Example -->
+
+            <div class="col-xl-3 col-md-2">
+
+              <!-- Add Location box -->
+              <div class="mb-4">
+                <div class="card border-left-primary shadow h-100 py-2">
+                  <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                      <div class="col mr-2">
+                        <div class="h5 mb-0 font-weight-bold text-primary">Enter<br>Location</div>
+                        <br>
+                        <form class="navbar-search" method="post" action="/game/play/{{game.1}}">
+                          {% csrf_token %}
+                          <div class="input-group">
+                            <input type="text" class="form-control bg-light border-0 small" placeholder="Enter Location Code..." aria-label="GameLocation" aria-describedby="basic-addon2" name="location_code">
+                            <input type="hidden" name="game_code" value="{{game.1}}">
+                            <div class="input-group-append">
+                              <button class="btn btn-primary" type="submit">
+                                <i class="fas fa-search fa-sm"></i>
+                              </button>
+                            </div>
+                          </div>
+                        </form>
+                      </div>
+                      <div class="col-auto">
+                        <i class="fas fa-location-arrow fa-2x text-gray-300"></i>
+                      </div>
+                    </div>
+                    <h6 style="color: red"> {{ error }} </h6>
+                  </div>
+                </div>
+              </div>
+
+
+              <!-- Leaderboard box -->
+              <div class="mb-4">
+                <div class="card border-left-warning shadow h-100 py-2">
+                  <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                      <div class="col mr-2">
+                        <a href="/game/leaderboard/{{game.1}}"><div class="h5 mb-0 font-weight-bold text-warning">View<br>Leaderboard</div></a>
+                      </div>
+                      <div class="col-auto">
+                        <i class="fas fa-trophy fa-2x text-gray-300"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="col-xl-9 col-md-10">
+              <!-- Basic Card Example -->
+              <div class="card shadow mb-4">
+                <div class="card-body">
+                  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
+                        integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+                        crossorigin=""/>
+                  <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"
+                          integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="
+                          crossorigin="">
+                  </script>
+                  <style>
+                          #mapid{
+                            height: 70vh;
+                          }
+                        </style>
+                  <div id = "mapid">
+                  </div>
+                  <script>
+                    var mymap = L.map('mapid').setView([-33.865143, 151.209900, -0.09], 13);
+
+                    L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+                      attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                    }).addTo(mymap);
+                    
+                    var arrayOfLatLngs = [];
+                    
+                    {% for x in lat_long %}
+                    
+                      var temp = [];
+                      temp.push({{ x.0 }});
+                      temp.push({{ x.1 }});
+                      arrayOfLatLngs.push(temp);
+                      var marker = L.marker([{{ x.0 }}, {{ x.1 }}]).addTo(mymap);
+                      marker.bindPopup("{{ x.2 }}").openPopup();
+                      
+                      var bounds = new L.LatLngBounds(arrayOfLatLngs);
+                      mymap.fitBounds(bounds);
+                      
+                    {% endfor %}
+                    
+                  </script>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Table for locations (hard coded template) -->
+
+          <div class = "row">
+            <div class = "col">
+              <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                  <h6 class="m-0 font-weight-bold text-primary">Visited Game Locations</h6>
+                </div>
+                <div class="card-body">
+                  <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                      <thead>
+                      <tr>
+                        <th>Location Number</th>
+                        <th>Location Name</th>
+                        <th>Location Code</th>
+                        <th>Location Clue</th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      {% for locations in visited %}
+
+                        <tr>
+                        <td>{{locations.0}}</td>
+                        <td>{{locations.1}}</td>
+                        <td>{{locations.3}}</td>
+                        <td>{{locations.2}}</td>
+                      </tr>
+
+                      {% endfor %}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- /.container-fluid -->
+      {% endfor %}
+      </div>
+      <!-- End of Main Content -->
+
+  {% endblock %}

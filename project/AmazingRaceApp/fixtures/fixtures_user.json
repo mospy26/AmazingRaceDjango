@@ -1,0 +1,164 @@
+[
+{
+    "model": "auth.user",
+    "pk": 1,
+    "fields": {
+        "password": "pbkdf2_sha256$150000$WYlqC2wj4Va0$y6FkUW2eB4rsun70TDAmQrlvmONXDsq3UD7bPvs5OAA=",
+        "last_login": "2019-10-20T07:31:15.363Z",
+        "is_superuser": true,
+        "username": "admin",
+        "first_name": "",
+        "last_name": "",
+        "email": "",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2019-10-02T05:34:08.055Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "pk": 2,
+    "fields": {
+        "password": "pbkdf2_sha256$150000$FfqUqdTudU2T$DmzFvNJj+A8vCfCWVwiAxTj4ohpPr53iEZeSY+WRFwU=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "sukaiwen",
+        "first_name": "Keven",
+        "last_name": "Su",
+        "email": "",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2019-10-02T07:10:52Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "pk": 3,
+    "fields": {
+        "password": "pbkdf2_sha256$150000$ZhDnYV1b8gXV$dwaoBLUEZv97+HH3v07eOpW4ok9Boo/Fl2yIHwZDg7I=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "coke",
+        "first_name": "CocaCola",
+        "last_name": "ColdDrink",
+        "email": "",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2019-10-02T07:10:52Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "pk": 4,
+    "fields": {
+        "password": "pbkdf2_sha256$150000$S4Sssoow9TvG$c/bPkju2tD2jti8c1JfisHwJmmTcxJoFlD30hesEnNk=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "usyd",
+        "first_name": "USYD",
+        "last_name": "University",
+        "email": "",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2019-10-02T07:10:52Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "pk": 5,
+    "fields": {
+        "password": "pbkdf2_sha256$150000$lWRvIHVqQzQl$grMgQeB611THto2sny8IgE1QcrZvdNXivJK9eSV01r0=",
+        "last_login": "2019-10-20T07:13:35.372Z",
+        "is_superuser": false,
+        "username": "echa",
+        "first_name": "Edwin",
+        "last_name": "Chau",
+        "email": "",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2019-10-02T07:10:52Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "pk": 6,
+    "fields": {
+        "password": "pbkdf2_sha256$150000$uUceT1tmpHa1$+b/xE0VYXxjfMRXTuCX0gbd59gCd/cgEgbAAQ3rxvOo=",
+        "last_login": "2019-10-20T06:05:44.682Z",
+        "is_superuser": false,
+        "username": "blam",
+        "first_name": "Brenden",
+        "last_name": "Lam",
+        "email": "",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2019-10-02T07:10:52Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "pk": 7,
+    "fields": {
+        "password": "pbkdf2_sha256$150000$Mh5LSVn136Ov$zjDymn+KyPEWhPGIG/9Ja9RCy4QuWfMKTC9CXhoKyHs=",
+        "last_login": "2019-10-20T06:06:46.174Z",
+        "is_superuser": false,
+        "username": "mful",
+        "first_name": "Mustafa",
+        "last_name": "Ful",
+        "email": "",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2019-10-02T07:10:52Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "pk": 10,
+    "fields": {
+        "password": "pbkdf2_sha256$150000$5EFR3Ymkd7KH$gkA2iB2gUsR7B4cdonl+DA+VVmBICiz0yqEYgwaLrY0=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "spol",
+        "first_name": "Sophia",
+        "last_name": "Pol",
+        "email": "",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2019-10-20T08:34:05.515Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "pk": 11,
+    "fields": {
+        "password": "pbkdf2_sha256$150000$0Z4ObE8G5iBm$BjxCHQZRUYJemHdKDGt48iZTpbNWflHDdKATWpBQmfg=",
+        "last_login": "2019-10-23T05:00:45.449Z",
+        "is_superuser": false,
+        "username": "spol123",
+        "first_name": "Sophia",
+        "last_name": "Polito",
+        "email": "",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2019-10-23T05:00:31.031Z",
+        "groups": [],
+        "user_permissions": []
+    }
+}
+]

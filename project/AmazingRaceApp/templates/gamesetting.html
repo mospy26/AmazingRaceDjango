@@ -1,0 +1,68 @@
+
+
+
+
+
+
+<!--  /$$   /$$             /$$           /$$   /$$                           /$$ -->
+<!-- | $$$ | $$            | $$          | $$  | $$                          | $$ -->
+<!-- | $$$$| $$  /$$$$$$  /$$$$$$        | $$  | $$  /$$$$$$$  /$$$$$$   /$$$$$$$ -->
+<!-- | $$ $$ $$ /$$__  $$|_  $$_/        | $$  | $$ /$$_____/ /$$__  $$ /$$__  $$ -->
+<!-- | $$  $$$$| $$  \ $$  | $$          | $$  | $$|  $$$$$$ | $$$$$$$$| $$  | $$ -->
+<!-- | $$\  $$$| $$  | $$  | $$ /$$      | $$  | $$ \____  $$| $$_____/| $$  | $$ -->
+<!-- | $$ \  $$|  $$$$$$/  |  $$$$/      |  $$$$$$/ /$$$$$$$/|  $$$$$$$|  $$$$$$$ -->
+<!-- |__/  \__/ \______/    \___/         \______/ |_______/  \_______/ \_______/ -->
+                                                                            
+                                                                            
+                                                                            
+
+
+
+
+{% extends "topbar.html" %}
+  {% load static %}
+  {% block content %}
+
+            <!-- Begin Page Content -->
+            <div class = "container-fluid">
+                <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                    <h1 class="h3 mb-0 text-gray-800">Game Settings Dashboard</h1>
+                    <h5>Edwin's Game | Game ID: 3r93qw9</h5>
+                </div>
+
+                <!-- Basic Card Example -->
+                <div class="card shadow mb-4">
+                    <div class="card-body">
+                        <div class = "row">
+                            <div class = "moveRight">
+                                <h3>Rename Game: </h3>
+                            </div>
+                            <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                                <div class="input-group">
+                                    <input type="text" class="form-control bg-light border-0 small" value="Edwin's Game " aria-label="Search" aria-describedby="basic-addon2">
+                                </div>
+                            </form>
+                            <div class = "col">
+                                <div>
+                                    <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Rename <i class="fas fa-edit fa-sm text-white-50"></i></a>
+                                </div>
+                            </div>
+
+                        </div>
+                        
+                        <div class="row">
+                            <div>
+                              <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm">Delete Game <i class="fas fa-trash fa-sm text-white-50"></i></a>
+                            </div>
+                            <div>
+                              <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm">Start Game <i class="fas fa-check fa-sm text-white-50"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- /.container-fluid -->
+        </div>
+        <!-- End of Main Content -->
+  {% endblock %}

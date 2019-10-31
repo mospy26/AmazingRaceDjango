@@ -1,0 +1,89 @@
+[
+{
+    "model": "AmazingRaceApp.game",
+    "pk": 1,
+    "fields": {
+        "title": "The amazing game",
+        "archived": false,
+        "code": "NZSL-JWBK",
+        "live": true,
+        "start_time": "2019-10-02T07:15:07Z",
+        "end_time": "2019-10-21T00:00:00Z",
+        "players": [
+            2,
+            3,
+            4,
+            5,
+            7
+        ]
+    }
+},
+{
+    "model": "AmazingRaceApp.game",
+    "pk": 2,
+    "fields": {
+        "title": "Inevitable",
+        "archived": true,
+        "code": "LQGY-M42U",
+        "live": false,
+        "start_time": "2019-10-01T07:15:34Z",
+        "end_time": "2019-10-02T06:00:00Z",
+        "players": [
+            2,
+            3,
+            6
+        ]
+    }
+},
+{
+    "model": "AmazingRaceApp.game",
+    "pk": 3,
+    "fields": {
+        "title": "Deloitted",
+        "archived": false,
+        "code": "MKOO-IL76",
+        "live": true,
+        "start_time": "2019-10-02T07:15:51Z",
+        "end_time": "2019-10-05T06:00:00Z",
+        "players": [
+            2,
+            5,
+            7
+        ]
+    }
+},
+{
+    "model": "AmazingRaceApp.game",
+    "pk": 4,
+    "fields": {
+        "title": "Canva",
+        "archived": false,
+        "code": "DZ7V-AC8Z",
+        "live": false,
+        "start_time": "2019-10-13T06:00:00Z",
+        "end_time": "2019-10-16T00:00:00Z",
+        "players": [
+            2,
+            5,
+            7
+        ]
+    }
+},
+{
+    "model": "AmazingRaceApp.game",
+    "pk": 5,
+    "fields": {
+        "title": "USYD race",
+        "archived": false,
+        "code": "HNW3-46TI",
+        "live": false,
+        "start_time": "2019-10-22T06:00:00Z",
+        "end_time": "2019-10-26T00:00:00Z",
+        "players": [
+            3,
+            5,
+            6
+        ]
+    }
+}
+]

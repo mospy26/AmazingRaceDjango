@@ -1,0 +1,180 @@
+{% extends "topbar.html" %}
+  {% load static %}
+  {% block content %}
+        <!-- Begin Page Content -->
+
+        <div class="container-fluid">
+        {% for game in game_details %}
+
+
+          <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">Game Creation Dashboard</h1>
+            <h5>{{ game.0 }} | {{ game.1 }}</h5>
+
+          </div>
+           
+
+          <!-- Add Location box -->
+          <div class = "row">
+            <!-- Basic Card Example -->
+            
+            <div class="col-xl-3 col-md-4">
+              
+              <!-- Game Settings box -->
+              <div class="mb-4">
+                <div class="card border-left-success shadow h-100 py-2">
+                  <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                      <div class="col mr-2">
+                        <a href="#" data-toggle="modal" data-target="#GameSettingsModal"><div class="h5 mb-0 font-weight-bold text-success">Game<br>Settings</div></a>
+                      </div>
+                      <div class="col-auto">
+                        <i class="fas fa-cog fa-2x text-gray-300"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Game Settings Modal-->
+              <div class="modal fade" id="GameSettingsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Game Settings</h5>
+                      <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                      </button>
+                    </div>
+                    <form class="navbar-search" id="gameTitleInput" method="post" action="/game/create/{{ code }}">
+                      {% csrf_token %}
+                        <div class="modal-body">
+                        <input type="hidden" name="game_stop" value="{{ code }}">
+                        <input class="btn btn-danger btn-user btn-block" type="submit" value="Stop Game">
+                      </div>
+                  
+                    </form>
+                    <div class="modal-footer">
+                      <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Leaderboard box -->
+              <div class="mb-4">
+                <div class="card border-left-warning shadow h-100 py-2">
+                  <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                      <div class="col mr-2">
+                        <a href="/game/leaderboard/{{ game.1 }}"><div class="h5 mb-0 font-weight-bold text-warning">View<br>Leaderboard</div></a>
+                      </div>
+                      <div class="col-auto">
+                        <i class="fas fa-trophy fa-2x text-gray-300"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+            </div>
+            
+            <div class="col-xl-9 col-md-8">
+              <!-- Basic Card Example -->
+              <div class="card shadow mb-4">
+                <div class="card-body">
+                  <div>
+                    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
+                          integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+                          crossorigin=""/>
+                    <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"
+                            integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="
+                            crossorigin="">
+                    </script>
+                    <style>
+                      #mapid{
+                        height: 70vh;
+                      }
+                    </style>
+                    <div id = "mapid">
+                    </div>
+                    <script>                    
+                      var mymap = L.map('mapid').setView([-33.865143, 151.209900, -0.09], 13);
+                      
+                      L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+                        attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                      }).addTo(mymap);
+                      
+                      var arrayOfLatLngs = [];
+                      
+                      {% for x in lat_long %}
+                      
+                        var temp = [];
+                        temp.push({{ x.0 }});
+                        temp.push({{ x.1 }});
+                        arrayOfLatLngs.push(temp);
+                        var marker = L.marker([{{ x.0 }}, {{ x.1 }}]).addTo(mymap);
+                        marker.bindPopup("{{ x.2 }}").openPopup();
+                        
+                        var bounds = new L.LatLngBounds(arrayOfLatLngs);
+                        mymap.fitBounds(bounds);
+                        
+                      {% endfor %}
+                      
+                    </script>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Table for locations -->
+          
+          <div class = "row">
+            <div class = "col">
+              <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                
+                  <h6 class="m-0 font-weight-bold text-primary">Game Locations</h6>
+                  
+                </div>
+                <div class="card-body">
+                  <div class="table-responsive">
+                    
+                          
+                    
+                    
+                    <table class="mt-3 table table-bordered grid" id="gameLocations" width="100%" cellspacing="0">
+                      <thead>
+                      <tr>
+                        <th class="index">Position Number</th>
+                        <th>Location Name</th>
+                        <th>Location Code</th>
+                      </tr>
+                      </thead>
+                      <tbody>
+
+                      {% for location in locations_code %}
+                      <tr>
+                        <td class="index">{{ location.0 }}</td>
+                        <td><a href="/game/create/{{ code }}/{{ location.1.code }}">{{ location.1.name}}</a></td>
+                        <td>{{ location.1.code}}</td>
+                      </tr>
+                      {% endfor %}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+        
+        <!-- /.container-fluid -->
+      {% endfor %}
+      </div>
+
+      <!-- End of Main Content -->
+  {% endblock %}
+      

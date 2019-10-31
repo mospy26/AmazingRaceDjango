@@ -1,0 +1,105 @@
+{% extends "topbar.html" %}
+{% load static %}
+{% block content %}
+
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">Games {{page_name}}</h1>
+        </div>
+
+
+        <!-- Page Heading -->
+        <!--  <h1 class="h3 mb-2 text-gray-800">Games Played</h1> -->
+
+
+        <!-- DataTales Example -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Game List</h6>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                        <tr>
+                            <th>Game Name</th>
+                            <th>Game Code</th>
+                            {% if page_name == "Played" %}
+                                <th>Date {{page_name}}</th>
+                                <th>Rank</th>
+                                <th>Creator (Username)</th>
+                            {% else %}
+                                <th>Date Game Started</th>
+                            {% endif %}
+                            <td>Status</td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for game, status in game_and_status %}
+                            {% if status == "Not Published" and page_name == "Played" %}
+                            {% else %}
+                            <tr>
+                                {% if status == "Live" %}
+                                    {% if page_name == "Played" %}
+                                        <td><a href = "/game/play/{{ game.0.code }}">{{ game.0.title }}</a></td>
+                                    {% else %}
+                                        <td><a href = "/game/create/{{ game.code }}">{{ game.title }}</a></td>
+                                    {% endif %}
+                                {% elif status == "Closed" %}
+                                    {% if page_name == "Played" %}
+                                        <td><a href = "/game/leaderboard/{{ game.0.code }}">{{ game.0.title }}</a></td>
+                                    {% else %}
+                                        <td><a href = "/game/create/{{ game.code }}">{{ game.title }}</a></td>
+                                    {% endif %}
+                                {% elif status == "Not Published" %}
+                                    {% if page_name == "Played" %}
+                                        <td><a href = "/game/leaderboard/{{ game.0.code }}">{{ game.0.title }}</a></td>
+                                    {% else %}
+                                        <td><a href = "/game/create/{{ game.code }}">{{ game.title }}</a></td>
+                                    {% endif %}
+                                {% endif %}
+
+                                {% if page_name == "Played" %}
+                                    <td>{{ game.0.code }}</td>
+                                    <td>{{ game.0.start_time }}</td>
+                                    <td>{{ game.2 }} </td>
+                                    <td>{{ game.1 }}</td>
+                                {% endif %}
+
+                                {% if page_name == "Created" %}
+                                    <td>{{ game.code }}</td>
+                                    {% if game.start_time == None %}
+                                        <td>Game Not Started</td>
+                                    {% else %}
+                                        <td>{{ game.start_time }}</td>
+                                    {% endif %}
+                                {% endif %}
+
+                                {% if status == "Closed" %}
+                                    <td><font color = "#d9534f">Closed</font></td>
+                                {% endif %}
+
+                                {% if status == "Live" %}
+                                    <td><font color = "#5cb85c">Live</font></td>
+                                {% endif %}
+
+                                {% if status == "Not Published" %}
+                                    <td><font color = "#5bc0de">Not Published</font></td>
+                                {% endif %}
+
+                            </tr>
+                            {% endif %}
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- /.container-fluid -->
+
+    </div>
+    <!-- End of Main Content -->
+{% endblock %}

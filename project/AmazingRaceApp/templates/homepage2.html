@@ -1,0 +1,154 @@
+
+<!-- Amazing Race -->
+
+<!DOCTYPE html>
+{% load static %}
+<html>
+	<head>
+		<title>The Amazing Race</title>
+
+		<!-- Bootstrap CDN -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+		<!-- CSS/Favicons -->
+		<link rel="stylesheet" type="text/css" href="{% static 'css/reset.css' %}">
+		<link rel="stylesheet" type="text/css" href="{% static 'css/main1.css' %}">
+		<link rel="icon" type="image/png" href="favicon-32x32.png" sizes="32x32"/>
+		<link rel="icon" type="image/png" href="favicon-16x16.png" sizes="16x16"/>
+
+		<!-- Jquery CDN -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+		<!-- Smooth scrolling script import -->
+		<script src="jquery.js"></script><script>$(function(){$("#smoothScroll").load("smoothScroll.js");});</script>
+		<div id="smoothScroll"></div>
+	</head>
+
+	<body>
+
+		<section class="fullscreen center">
+			<div>
+				<h1>The Amazing Race</h1>
+				<br>
+				<h2>An online platform which hosts Amazing Race games.</h2>
+				<h2> Join a game to play or create your own game to explore the world with new eyes.</h2>
+				<br>
+				<br>
+
+				<div>
+					<a href="/login" class="menuLinks">Get Started</a>
+				</div>
+			</div>
+		</section>
+		<section id = "about_game"><br></section>
+		<img src="{% static 'img/running.jpg' %}" style="width:100%;">
+		<div class = "pushUp">
+			<section id = "about_game"><br></section>
+			<section id = "about">
+				<div class = "container">
+					<br>
+					<h3>About Amazing Race</h3>
+					<br>
+					<br>
+					<p> A fast and interactive game where players race around the world to compete against each other
+						to decrypt every clue and reach the target locations. The game tests each player's physical strength
+						as they strive to be the first to arrive at each location as well as their mental strength to overcome the
+						challenges that lie ahead.</p>
+					<br>
+					<br>
+					<br>
+					<br>
+				</div>
+				<br>
+			</section>
+			<section id = "about_game"><br></section>
+		</div>
+		<img src="{% static 'img/opera.jpg' %}" style="width:100%;">
+		<div class = "pushUp">
+			<section id="about">
+				<div id = "aboutInfo">
+					<div>
+						<h3>Who are we?</h3>
+						<p> We are a team of Software Engineers passionate about gaming and wanting to help bring games to life!
+							We love the Amazing Race show and wanted to give everyone the opportunity to play.
+							Check out the Amazing Race Youtube channel below for free Amazing Race content.</p>
+						<br>
+						<a href="https://www.youtube.com/user/AmazingRace"><button class = "btn youtube">YouTube</button></a>
+					</div>
+
+					<br>
+					<br>
+
+					<div>
+						<h3>Meet the Team</h3>
+						<!-- <br> -->
+						<p> A team of ELEC3609 Software Engineers who made this website possible! </p>
+						<br>
+						<br>
+					</div>
+					<div class = "changeMargin">
+						<div class="responsive">
+							<div class="gallery">
+								<a target="_blank">
+									<img src="{% static 'img/Edwin.jpg' %}" alt="Team Member: Edwin" width="600" height="400">
+								</a>
+								<div class="desc">Edwin Chau</div>
+								<div class="desc subtext"> Canva intern</div>
+								<a href="https://www.linkedin.com/in/edwin-chau/">
+									<button style="margin-top: -6px;" type = "button" class = "btn linkedin"> LinkedIn </button></a>
+							</div>
+						</div>
+
+						<div class="responsive">
+							<div class="gallery">
+								<a target="_blank">
+									<img src="{% static 'img/Mustafa.jpg' %}" alt="Team Member: Mustafa" width="600" height="400">
+								</a>
+								<div class="desc">Mustafa Fulwala</div>
+								<div class="desc subtext"> Freelancer intern</div>
+								<a href="https://www.linkedin.com/in/mustafafulwala/">
+									<button style="margin-top: -6px;" type = "button" class = "btn linkedin"> LinkedIn </button></a>
+							</div>
+						</div>
+
+						<div class="responsive">
+							<div class="gallery">
+								<a target="_blank" href="Brendon.jpg">
+									<img src="{% static 'img/Brendon.jpg' %}" alt="Team Member: Brendon" width="600" height="400">
+								</a>
+								<div class="desc">Brendon Lam</div>
+								<div class="desc subtext"> Deloitte intern</div>
+								<a href="https://www.linkedin.com/in/blam135/">
+									<button style="margin-top: -6px;" type = "button" class = "btn linkedin"> LinkedIn </button></a>
+							</div>
+						</div>
+
+						<div class="responsive">
+							<div class="gallery">
+								<a target="_blank" href="Sophia.jpg">
+									<img src="{% static 'img/Sophia.jpg' %}" alt="Team Member: Sophia" width="600" height="400">
+								</a>
+								<div class="desc">Sophia Polito</div>
+								<div class="desc subtext"> Yarno intern</div>
+								<a href="https://www.linkedin.com/in/sophia-polito-4a948a123/">
+									<button style="margin-top: -6px;" type = "button" class = "btn linkedin"> LinkedIn </button></a>
+							</div>
+						</div>
+
+						<div class="responsive">
+							<div class="gallery">
+								<a target="_blank" href="Kevin.jpg">
+									<img src="{% static 'img/Kevin.jpg' %}" alt="Team Member: Kevin" width="600" height="400">
+								</a>
+								<div class="desc">Kevin Su</div>
+								<div class="desc subtext"> GPOS intern</div>
+								<a href="https://www.linkedin.com/in/kevin-su-618163191/">
+									<button style="margin-top: -6px;" type = "button" class = "btn linkedin"> LinkedIn </button></a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+		</div>
+	</body>
+</html>

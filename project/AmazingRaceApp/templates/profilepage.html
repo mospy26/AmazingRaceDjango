@@ -1,0 +1,161 @@
+{% extends "topbar.html" %}
+  {% load static %}
+  {% block content %}
+        <!-- Begin Page Content -->
+        <div class = "container-fluid">
+            <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                <h1 class="h3 mb-0 text-gray-800">User Profile</h1>
+            </div>
+            <!-- Basic Card Example -->
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">User Information</h6>
+                </div>
+                <div class="card-body">
+                    <div class = "row">
+                        <div class = "col">
+                            <h5>Name: {{ name }}</h5>
+                            <br>
+                            <h5>Username: {{ username }}</h5>
+                            <br>
+                            <h5>Games Played: {{ games_played }}</h5>
+                            <br>
+                            <h5>Games Created: {{ games_created }}</h5>
+                            <br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    
+            <div class = "row">
+                <div class = "col-lg-12">
+                    <!-- Basic Card Example -->
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Change Password</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class = "row">
+                                <div class = "col">
+                                </div>
+
+                                <div class = "col">
+                                </div>
+                            </div>
+                            <div class = "row">
+                                <div class = "col">
+                                </div>
+                                <div class = "col">
+                                </div>
+                            </div>
+
+{#                            <hr>#}
+                            <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search" method="post" action="{% url 'user' %}" id="change_password">
+                             {% csrf_token %}
+
+                            <div class = "row">
+                                <div class = "col">
+                                    Old Password:
+                                </div>
+                                <div class = "col">
+                                        <div class="input-group">
+                                            <input type="password" name="old_password" class="form-control bg-light border-0 small" placeholder="Current Password..." aria-label="Search" aria-describedby="basic-addon2">
+                                            <h6 style="color: red"> {{ password_form.old_password.errors }} </h6>
+                                        </div>
+                                </div>
+                            </div>
+
+                            <br>
+
+                            <div class = "row">
+                                <div class = "col">
+                                    New Password:
+                                </div>
+                                <div class = "col">
+
+
+                                        <div class="input-group">
+                                            <input type="password" name="new_password1" class="form-control bg-light border-0 small" placeholder="New Password..." aria-label="Search" aria-describedby="basic-addon2">
+
+                                            <h6 style="color: red"> {{ password_form.new_password1.errors }} </h6>
+                                        </div>
+
+                                </div>
+                            </div>
+
+                            <br>
+                            <div class = "row">
+                                <div class = "col">
+                                    Re-Enter Password:
+                                </div>
+                                <div class = "col">
+
+
+                                        <div class="input-group">
+                                            <input type="password" name="new_password2" class="form-control bg-light border-0 small" placeholder="Confirm..." aria-label="Search" aria-describedby="basic-addon2">
+                                            <h6 style="color: red"> {{ password_form.new_password2.errors }} </h6>
+                                        </div>
+
+                                </div>
+                            </div>
+                            </form>
+                            <br>
+                            <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                              <button onclick="changePassword()" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Update Password <i class="fas fa-edit fa-sm text-white-50"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    
+{#                <div class = "col-lg-6">#}
+{#                    <!-- Basic Card Example -->#}
+{#                    <div class="card shadow mb-4">#}
+{#                        <div class="card-header py-3">#}
+{#                            <h6 class="m-0 font-weight-bold text-primary">Profile Picture</h6>#}
+{#                        </div>#}
+{#                        <div class="card-body">#}
+{#                            <div class = "row">#}
+{#                                <div class = "col">#}
+{#                                    Upload Profile Picture:#}
+{#                                </div>#}
+{#                                <div class = "col">#}
+{##}
+{#                                <form method="POST" id="profile_picture" enctype="multipart/form-data" action="{% url 'user' %}" id="update_profile_picture">#}
+{#                                    {% csrf_token %}#}
+{#                                    <input type="file" name="document">#}
+{#                                    <br>#}
+{#                                    <br>#}
+{#                                    <!-- <fieldset class="form-group">#}
+{#                                        {{ picture_update.picture }}#}
+{#                                        {{ picture_update.errors }}#}
+{#                                    </fieldset> -->#}
+{#                                    <div class="form-group"x>#}
+{#                                        <button onclick="updateProfilePicture()" class="btn btn-sm btn-primary shadow-sm" type="submit">Update Profile Picture</button>#}
+{#                                    </div>#}
+{#                                </form>#}
+{##}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
+            </div>
+        </div>
+    
+    
+        <script>
+
+        function changePassword() {
+            document.getElementById('change_password').submit();
+        }
+
+        function updateProfilePicture() {
+            document.getElementById('update_profile_picture').submit();
+        }
+
+        </script>
+    
+        <!-- /.container-fluid -->
+    </div>
+    <!-- End of Main Content -->
+  {% endblock %}

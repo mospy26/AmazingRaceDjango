@@ -1,0 +1,171 @@
+{% extends "topbar.html" %}
+  {% load static %}
+  {% block content %}
+
+        <!-- Begin Page Content -->
+        <div class="container-fluid">
+
+          <!-- Page Heading -->
+          <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+          </div>
+
+          <!-- Content Row -->
+          <div class="row">
+
+            <!-- New Game Card -->
+            <div class="col-xl-3 col-md-6 mb-4">
+              <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <a href="#" data-toggle="modal" data-target="#NewGameModal"><div class="h5 mb-0 font-weight-bold text-primary">Create<br>New Game</div></a>
+                    </div>
+                    <div class="col-auto">
+                      <i class="fas fa-play-circle fa-2x text-gray-300"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Created Games Card -->
+            <div class="col-xl-3 col-md-6 mb-4">
+              <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <a href="user/created/"><div class="h5 mb-0 font-weight-bold text-success">Created<br>Games</div></a>
+                    </div>
+                    <div class="col-auto">
+                      <i class="fas fa-folder fa-2x text-gray-300"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Played Games Card -->
+            <div class="col-xl-3 col-md-6 mb-4">
+              <div class="card border-left-info shadow h-100 py-2">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <a href="user/played/"><div class="h5 mb-0 font-weight-bold text-info">Played<br>Games</div></a>
+                    </div>
+                    <div class="col-auto">
+                      <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Content Row -->
+          <div class="row">
+
+            <div class="col-lg-6 mb-4">
+
+              <!-- Input Game Code -->
+              <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                  <h6 class="m-0 font-weight-bold text-primary">Play New Game</h6>
+                </div>
+                <div class="card-body">
+                  <div class="text-center">
+                    <h5>Have a Game Code? Enter it below!</h5>
+                    
+                    <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;" src="{% static 'img/undraw_to_the_moon_v1mv.svg' %}" alt="">
+                    
+                    <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search" method="post" action="/">
+                        {% csrf_token %}
+                      <div class="input-group">
+                        <input type="text" class="form-control bg-light border-0 small" placeholder="Input Game Code" aria-label="Search" aria-describedby="basic-addon2" name="code">
+                        <div class="input-group-append">
+                          <button class="btn btn-primary" type="submit">
+                            <i class="fas fa-greater-than fa-sm"></i>
+                          </button>
+                        </div>
+                      </div>
+                    </form>
+                      <h6 style="color: red"> {{ game_error }} </h6>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          
+            
+            
+
+            <div class="col-lg-6 mb-4">
+
+              <!-- Recent Game Rankings -->
+              <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                  <h6 class="m-0 font-weight-bold text-primary">Recent Game Rankings</h6>
+                </div>
+                <div class="card-body">
+                  <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                      <thead>
+                        <tr>
+                          <th>Game Name</th>
+                          <th>Rank</th>
+                          <th>Date Played</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                      {% for game in recent_game_ranks %}
+                        <tr>
+                          <td>{{ game.0 }}</td>
+                          <td>{{ game.1 }}</td>
+                          <td>{{ game.2 }}</td>
+                        </tr>
+                      {% endfor %}
+                      </tbody>
+                    </table>
+                  </div>
+                
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+
+        </div>
+        <!-- /.container-fluid -->
+        
+        <!-- New Game Modal-->
+        <div class="modal fade" id="NewGameModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Create New Game</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">×</span>
+                </button>
+              </div>
+              <form class="navbar-search" id="gameTitleInput" method="post" action="{% url 'homepage' %}">
+                {% csrf_token %}
+                  <div class="modal-body">
+                  <div class="input-group">
+                    <input type="text" class="form-control bg-light border-0 small" name="title" placeholder="Enter New Game Name" aria-label="GameLocation" aria-describedby="basic-addon2">
+                      <input name="code" type="hidden" value="">
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                  <input class="btn btn-primary btn-user btn-block" type="submit" value="Create">
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <!-- End of Main Content -->
+  {% endblock %}
