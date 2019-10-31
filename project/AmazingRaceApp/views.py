@@ -154,21 +154,23 @@ class ProfilepageView(LoginRequiredMixin, generic.TemplateView):
                 'password_form': self.password_form
             })
         except:
-            form = PasswordChangeForm(request.user, request.POST)
+            if {'old_password', 'new_password1', 'new_password2'}.issubset(request.POST.keys()):
+                form = PasswordChangeForm(request.user, request.POST)
 
-            if form.is_valid():
-                form.save()
-                update_session_auth_hash(request, form.user)
-                return HttpResponseRedirect('/')
+                if form.is_valid():
+                    form.save()
+                    update_session_auth_hash(request, form.user)
+                    return HttpResponseRedirect('/')
 
-            return render(request, self.template_name, context={
-                'games_played': self.player.get_games_played(),
-                'games_created': self.creator.get_number_created_games(),
-                'name': self.player.get_name(),
-                'username': self.player.get_username(),
-                # 'profile_picture': self.player.get_profile_picture(),
-                'password_form': form
-            })
+                return render(request, self.template_name, context={
+                    'games_played': self.player.get_games_played(),
+                    'games_created': self.creator.get_number_created_games(),
+                    'name': self.player.get_name(),
+                    'username': self.player.get_username(),
+                    # 'profile_picture': self.player.get_profile_picture(),
+                    'password_form': form
+                })
+            return render(request, '404.html')
         # --------------------------------------------------------------------
 
 
@@ -467,8 +469,6 @@ class LocationListView(LoginRequiredMixin, generic.TemplateView):
             location.save()
             return HttpResponseRedirect('/game/create/' + game_code + "/" + location_code)
 
-        print(form.errors)
-        print(request.POST)
         return HttpResponseRedirect('/error')
 
 
@@ -483,7 +483,7 @@ class LocationAdd(LoginRequiredMixin, generic.TemplateView):
         self.creator = GameCreatorMiddleware(request.user)
 
         if not self.creator.is_authorized_to_access_game(code):
-            return handler(request, 404)
+            return HttpResponseRedirect('/error')
 
         return render(request, self.template_name, context={
             'game_details': self.game.get_code_and_name(),
@@ -527,3 +527,8 @@ class LocationAdd(LoginRequiredMixin, generic.TemplateView):
         return HttpResponseRedirect('/game/create/' + code + "/" + created.code)
 
     # LQGY-M42U echa creatoed
+
+
+class ErrorView(generic.TemplateView):
+
+    template_name = '404.html'

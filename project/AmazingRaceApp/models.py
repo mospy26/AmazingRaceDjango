@@ -1,6 +1,7 @@
 import random
 import string
 
+from django.core.validators import MinLengthValidator
 from django.utils import timezone
 from django.utils.datetime_safe import datetime
 from django.db import models
@@ -87,8 +88,8 @@ class GameCreator(models.Model):
 
 
 class Location(models.Model):
-    name = models.TextField()
-    clues = models.TextField()
+    name = models.TextField(max_length=20, validators=[MinLengthValidator(2)])
+    clues = models.TextField(max_length=500, validators=[MinLengthValidator(2)])
     longitude = models.TextField()
     latitude = models.TextField()
     code = models.TextField(max_length=100)

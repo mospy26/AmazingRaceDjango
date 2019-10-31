@@ -124,7 +124,6 @@
 
                 function changeClue() {
                     var clue = document.getElementById("change_clue_field").value;
-                    alert(clue);
                     document.body.innerHTML += '<form id="change_clue" action="/game/create/{{ game_code }}/{{ location_code.code }}" method="post"> {% csrf_token %} <input type="hidden" name="code" value="{{ location_code.code }}"> </input> <input type="hidden" name="game_code" value="{{ game_code }}"> </input>  <input type="hidden" name="clues" value="' + clue + '"/> <input type="submit" name="Change_Clue" /> </form>';
                     document.getElementById("change_clue").submit();
                 }

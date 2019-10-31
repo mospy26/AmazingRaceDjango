@@ -53,7 +53,7 @@
                             </div>
 
 {#                            <hr>#}
-                            <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search" method="post" action="{% url 'user' %}" id="old_password">
+                            <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search" method="post" action="{% url 'user' %}" id="change_password">
                              {% csrf_token %}
 
                             <div class = "row">
@@ -61,8 +61,6 @@
                                     Old Password:
                                 </div>
                                 <div class = "col">
-                                    <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search" method="post" action="{% url 'user' %}" id="old_password">
-                                        {% csrf_token %}
                                         <div class="input-group">
                                             <input type="password" name="old_password" class="form-control bg-light border-0 small" placeholder="Current Password..." aria-label="Search" aria-describedby="basic-addon2">
                                             <h6 style="color: red"> {{ password_form.old_password.errors }} </h6>
@@ -125,18 +123,17 @@
                                 </div>
                                 <div class = "col">
                                 
-                                <form method="POST" enctype="multipart/form-data" action="{% url 'user' %}">
+                                <form method="POST" id="profile_picture" enctype="multipart/form-data" action="{% url 'user' %}" id="update_profile_picture">
                                     {% csrf_token %}
                                     <input type="file" name="document">
                                     <br>
                                     <br>
                                     <!-- <fieldset class="form-group">
                                         {{ picture_update.picture }}
+                                        {{ picture_update.errors }}
                                     </fieldset> -->
-                                    
-
                                     <div class="form-group"x>
-                                        <button class="btn btn-sm btn-primary shadow-sm" type="submit">Update Profile Picture</button>
+                                        <button onclick="updateProfilePicture()" class="btn btn-sm btn-primary shadow-sm" type="submit">Update Profile Picture</button>
                                     </div>
                                 </form>
 
@@ -152,9 +149,11 @@
         <script>
 
         function changePassword() {
-            document.getElementById('old_password').submit();
-            {#document.getElementById('new_password').submit();#}
-            {#document.getElementById('confirm_password').submit();#}
+            document.getElementById('change_password').submit();
+        }
+
+        function updateProfilePicture() {
+            document.getElementById('update_profile_picture').submit();
         }
 
         </script>
