@@ -1,6 +1,6 @@
 '''
-This file serves to debug the API classes/methods. Below is an example of 
-how to write such code 
+This file serves to debug the API classes/methods. Below is an example of
+how to write such code
 '''
 
 # To run, the command is "python manage.py shell < test.py"

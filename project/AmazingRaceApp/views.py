@@ -1,24 +1,17 @@
-from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm
+from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.models import User
 from django.contrib.auth import update_session_auth_hash
-import json
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
-from django import template
 
-# Create your views here.
 from django.views import generic
 from AmazingRaceApp.api.GamePlayerMiddleware import GamePlayerMiddleware
 from AmazingRaceApp.api.GameCreatorMiddleware import GameCreatorMiddleware
 from AmazingRaceApp.api.GameMiddleware import _GameMiddleware
-from AmazingRaceApp.forms import RegisterForm, GameRenameForm, ChangeClueForm
-from AmazingRaceApp.forms import RegisterForm, GameTitleForm
+from AmazingRaceApp.forms import GameRenameForm, ChangeClueForm, RegisterForm, GameTitleForm
 from AmazingRaceApp.api.MapsMiddleware import MapsMiddleware
 
 from django.shortcuts import render_to_response
-from django.template import RequestContext
-from django.core.files.storage import FileSystemStorage, Storage
 
 from AmazingRaceApp.models import GameCreator
 
@@ -95,13 +88,13 @@ class HomepageView(LoginRequiredMixin, generic.TemplateView):
         })
 
 
-# Displays a leaderboard for games
+# Displays a Leaderboard for games
 class LeaderboardView(LoginRequiredMixin, generic.TemplateView):
     template_name = 'Leaderboard.html'
     login_url = '/start'
 
     # Post Request Values:
-    #    code: game code for leaderboard to be displayed
+    #    code: game code for Leaderboard to be displayed
     def get(self, request, code, *args, **kwargs):
         # temp game
         self.game_creator = GameCreatorMiddleware(request.user.username)

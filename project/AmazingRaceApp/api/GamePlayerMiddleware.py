@@ -1,18 +1,10 @@
-from os.path import exists
-
 from django.contrib.auth.models import User
-from django.core.exceptions import ObjectDoesNotExist, EmptyResultSet
-from django.core.files import File
 
-import traceback
-import os
 import datetime
 
 from AmazingRaceApp.api.GameMiddleware import _GameMiddleware
 from ..models import GamePlayer, Game, Location, LocationUser, GameCreator
 
-
-# API for getting all locations in a game
 
 class GamePlayerMiddleware:
 
@@ -32,6 +24,9 @@ class GamePlayerMiddleware:
     def get_games_played(self):
         return len(self.games)
 
+    """
+        Registers a player's visit to a location
+    """
     def visit_location(self, location_code, game_code):
         game = Game.objects.get(code=game_code)
         game_locations = []
@@ -58,13 +53,9 @@ class GamePlayerMiddleware:
                     return True
         return False
 
-    '''
+    """
     Returns all the clue for all the games that are currently live for the player 
-
-    @param: None
-    @return: Returns a 3 item tuple corresponding in order: Game Code, Location name, Location Clue
-    '''
-
+    """
     def retrieve_clue(self):
         for game in self.games:
             if game.live is False:
@@ -73,16 +64,12 @@ class GamePlayerMiddleware:
             for location in locations:
                 yield game.code, location.name, location.clues
 
-    '''
+    """
     Gets the cursor to the table which contains 
     all the locations have been visited by the user 
     along with the order, name, clue and code (if visited)
     else it returns ???
-    @param: None 
-    @return: list of visited locations along with the name, 
-    clue and code from the user or ???
-    '''
-
+    """
     def locations_visited(self, game_code):
         game = Game.objects.get(code=game_code)
         all_locations = Location.objects.filter(game=game)
@@ -99,30 +86,23 @@ class GamePlayerMiddleware:
                 else:
                     yield this_location.order, "???", "???", "???"
 
-    '''
+    """
     Gets the cursor to a list of games played 
     (live or past) by the user 
-    @param: None 
-    @return: list of games (by code) played by the user (live/past)
-    '''
-
+    """
     def list_played_games(self):
         for game in self.games:
             game_creator = GameCreator.objects.get(game=game)
             rank = GamePlayer.objects.get(game=game, player=self.user)
             yield game, game_creator.creator.username, rank.rank
 
-    '''
+    """
     Gets the cursor to the rank of the x recent games. The 
     x recent games prioritizes live games first AND then non live games.
 
     - Latest live games are prioritized off latest start time (since end time may be unknown)
     - Latest non live games are prioritized off latest end time
-
-    @param: x being the offset of recent games 
-    @return: A Generator which yields a tuple (<Game Code>, <rank>) 
-    '''
-
+    """
     def rank_in_most_recent_games(self, x):
         # Prioritize live_games first 
         live_games = Game.objects.filter(players=self.user, live=True).order_by('-start_time')[:x]
@@ -141,25 +121,16 @@ class GamePlayerMiddleware:
             for i in GamePlayer.objects.filter(game=games, player=self.user).values('rank'):
                 yield games.title, i['rank'], games.start_time
 
-    '''
+    """
     Returns the number of games played for this user / number of locations in game
-
-    @param: None
-    @return: number of games played for this user to total number of locations in game  
-    '''
-
+    """
     def num_games_played(self):
         return len(Game.objects.filter(players=self.user))
 
-    '''
+    """
     For a game, returns a pair where it is the number of locations visited to 
     number of locations in total for a game
-
-    @param: The game code 
-    @return: A pair of values where the first element is number of visited locations
-            and second value is the number of locations in total for a game  
-    '''
-
+    """
     def num_of_visited_locations_in_game(self, game_code):
         # Get the game object
         game = Game.objects.get(code=game_code)
@@ -181,16 +152,25 @@ class GamePlayerMiddleware:
         game = _GameMiddleware(game_code)
         return game.get_status()
 
+    """
+        Authorisation checks: checks if this user is authorised to view this game
+    """
     def is_authorized_to_access_game(self, code):
         game = _GameMiddleware(code)
         if not game.game:
             return False
         return GamePlayer.objects.filter(game=_GameMiddleware(code).game, player=self.user).exists()
 
+    """
+        Checks if a this player can join this game (i.e. has not joined it, or it hasn't been archived yet)
+    """
     def can_join_game(self, code):
         to_join_game = Game.objects.filter(code=code)
 
         if not to_join_game.exists():
+            return False
+
+        if to_join_game.archived:
             return False
 
         game_player = GamePlayer.objects.filter(game=to_join_game.first(), player=self.user)
@@ -204,6 +184,9 @@ class GamePlayerMiddleware:
 
         return True
 
+    """
+        Allows this user to join a game whose code is specified
+    """
     def join_game(self, code):
         to_join_game = Game.objects.get(code=code)
 

@@ -1,9 +1,6 @@
-import string
-
 from django.contrib.auth.models import User
 from django.db.models import Subquery
 from django.utils.datetime_safe import datetime
-import random
 from ..models import Location, Game, GamePlayer
 
 
@@ -48,16 +45,8 @@ class _GameMiddleware:
             yield player.rank, player.player.username
 
     """
-        Gives the entire location object, you will need to use attributes such as:
-            - name
-            - clues
-            - longitude
-            - latitude
-            - code
-            - game
-            - order
+        Gives the ordered locations of a game in sequence
     """
-
     def ordered_locations(self):
         game_locations = Location.objects.filter(game=self.game).order_by('order')
         for location in game_locations:
@@ -68,10 +57,16 @@ class _GameMiddleware:
         for location in game_locations:
             yield location
 
+    """
+        Changes a game name
+    """
     def change_name(self, name):
         self.game.title = name
         self.game.save()
 
+    """
+        Makes a game live
+    """
     def make_live(self):
         # defines what happens when a game is made live
         self.game.live = True
@@ -79,6 +74,12 @@ class _GameMiddleware:
         self.game.end_time = None
         return self.game.save()
 
+    """
+        Return a string status
+            Live means game has started and not ended yet
+            Closed means game was stopped and hence archived
+            Not Published means game has not been started ever
+    """
     def get_status(self):
         if self.game.live:
             return "Live"
@@ -87,6 +88,9 @@ class _GameMiddleware:
         else:
             return "Not Published"
 
+    """
+        Ends a game i.e. archives it
+    """
     def end_game(self):
         self.game.live = False
         self.game.archived = True

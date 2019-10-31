@@ -26,6 +26,9 @@ class Game(models.Model):
             self._generate_code()
         return super(Game, self).save()
 
+    """
+        Code generator for the game
+    """
     def _generate_code(self):
         game_codes = Game.objects.values_list('code')
         while True:
@@ -42,6 +45,9 @@ class Game(models.Model):
                 self.code = code
                 return
 
+    """
+        Integrity checks for the times inside this class
+    """
     def _refactor_input(self):
 
         if not self.start_time and not self.end_time:
@@ -97,6 +103,9 @@ class Location(models.Model):
             self._generate_code()
         return super(Location, self).save()
 
+    """
+        Code generator for a new game
+    """
     def _generate_code(self):
         location_codes = Location.objects.filter(game=self.game).values_list('code')
         while True:
@@ -110,9 +119,6 @@ class Location(models.Model):
                     break
                 self.code = location_code
                 return
-
-    def _generate_latitude_and_longitute(self):
-        pass
 
     def __str__(self):
         return self.name

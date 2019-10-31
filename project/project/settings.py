@@ -116,7 +116,6 @@ USE_TZ = True
 MAIN_PROJECT = os.path.join(BASE_DIR, 'AmazingRaceApp')
 
 STATIC_URL = '/static/'
-# #STATIC_ROOT = os.path.join(BASE_DIR, '/')
 STATICFILES_DIRS = [
     os.path.join(MAIN_PROJECT, 'templates'),
 ]

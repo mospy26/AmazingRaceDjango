@@ -1,11 +1,4 @@
-import string
-
 from django.contrib.auth.models import User
-from django.core.exceptions import ObjectDoesNotExist, EmptyResultSet
-from django.utils.datetime_safe import datetime
-import random
-
-import traceback
 
 from ..models import Game, GameCreator, Location
 from .GameMiddleware import _GameMiddleware
@@ -25,23 +18,6 @@ class GameCreatorMiddleware:
         self.games = GameCreator.objects.filter(creator=self.user).select_related('game')
         self.game_middleware = None
 
-    """
-        Will return a generator of a list of games the current user has created.
-        
-        e.g. Getting the code of all games created by this user:
-            ```
-            g = GameCreatorMiddleWare(username=user)
-            for game in created_games():
-                print(g.code)
-            ```
-        Game contains:
-            - code
-            - archived (T/F)
-            - live (T/F)
-            - start_time
-            - end_time
-            - players
-    """
 
     def delete_game(self, code):
         self.game_middleware = _GameMiddleware(code)
@@ -56,7 +32,9 @@ class GameCreatorMiddleware:
     def get_name(self):
         return self.user.first_name + " " + self.user.last_name
 
-    # writing correct db query dont run query per user
+    """
+        Will return a generator of a list of games the current user has created.
+    """
     def created_games(self):
         for game in self.games:
             yield game.game
@@ -64,10 +42,16 @@ class GameCreatorMiddleware:
     def get_number_created_games(self):
         return len(self.games)
 
+    """
+        Will return a generator of ordered locations of game with specified code
+    """
     def get_ordered_locations_of_game(self, code):
         self.game_middleware = _GameMiddleware(code)
         return self.game_middleware.ordered_locations()
 
+    """
+        Will return the location that has the specified code
+    """
     def get_location_by_code(self, code):
         location = Location.objects.filter(code=code)
         return None if not location.exists() else location
@@ -76,10 +60,16 @@ class GameCreatorMiddleware:
         self.game_middleware = _GameMiddleware(code)
         return self.game_middleware.get_x_location(x)
 
+    """
+        Will return leaderboard of a game
+    """
     def get_leaderboard(self, code):
         self.game_middleware = _GameMiddleware(code)
         return self.game_middleware.game_leaderboard()
 
+    """
+        Will return the status of a game
+    """
     def get_status_of_game(self, code):
         self.game_middleware = _GameMiddleware(code)
         return self.game_middleware.get_status()
@@ -88,6 +78,9 @@ class GameCreatorMiddleware:
         self.game_middleware = _GameMiddleware(code)
         return self.game_middleware.get_code_and_name()
 
+    """
+        Will update the location order of a game whose code is specified
+    """
     def update_location_order(self, location_codes_list, game_code):
         counter = 1
         game = Game.objects.get(code=game_code)
@@ -98,6 +91,9 @@ class GameCreatorMiddleware:
                 location.save()
             counter += 1
 
+    """
+        Security Authorisation check: Will check if a game is accessbile to this user
+    """
     def is_authorized_to_access_game(self, code):
         game = _GameMiddleware(code)
         if not game.game:
@@ -112,14 +108,23 @@ class GameCreatorMiddleware:
     def is_live_game(self, code):
         return _GameMiddleware(code).game.live
 
+    """
+        Will start the game whose code is specified
+    """
     def start_game(self, code):
         self.game_middleware = _GameMiddleware(code)
         self.game_middleware.make_live()
 
+    """
+        Will stop the game whose code is specified
+    """
     def stop_game(self, code):
         self.game_middleware = _GameMiddleware(code)
         self.game_middleware.end_game()
 
+    """
+        Will return location of a game both of whose codes are specified
+    """
     def get_location_of_game(self, game_code, location_code):
         if not self.is_authorized_to_access_game(game_code):
             return None

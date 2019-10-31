@@ -1,11 +1,7 @@
-import string
-import random
-
-from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.contrib.auth.forms import UserCreationForm
 from django import forms
 from django.contrib.auth.models import User
 
-from AmazingRaceApp.api.GameCreatorMiddleware import GameCreatorMiddleware
 from AmazingRaceApp.models import Game, Location
 
 
@@ -17,6 +13,9 @@ class RegisterForm(UserCreationForm):
         model = User
         fields = UserCreationForm.Meta.fields + ("first_name", "last_name",)
 
+    """
+        Adds first name and last name too to the Register form
+    """
     def save(self, commit=True):
         user = super(RegisterForm, self).save(commit=False)
         user.first_name = self.cleaned_data["first_name"]
