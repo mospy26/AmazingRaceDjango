@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # MustafaBois
 
 To run the program for the first time, do the following:
@@ -71,4 +70,3 @@ python3 project/manage.py runserver
 1. Then type `pip3 install -r requirements.txt` to install your new dependencies
 1. `cd project` -- change directory to project/
 1. `python3 manage.py runserver`
->>>>>>> integration
