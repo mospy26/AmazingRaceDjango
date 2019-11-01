@@ -198,3 +198,6 @@ class GamePlayerMiddleware:
             game=to_join_game,
             player=self.user
         )
+
+        to_join_game.players.add(self.user)
+        to_join_game.save()
