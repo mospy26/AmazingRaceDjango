@@ -4,7 +4,6 @@ from .factory_boy import UserFactory
 
 
 class DatabaseRequiredTests(TestCase):
-    databases = {'test'}
 
     def setUp(self):
         self.user1 = UserFactory(username="blam", password="blam")
