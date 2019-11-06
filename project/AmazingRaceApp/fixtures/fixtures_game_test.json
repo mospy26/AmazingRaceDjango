@@ -1,0 +1,147 @@
+[
+{
+    "model": "AmazingRaceApp.game",
+    "pk": 1,
+    "fields": {
+        "title": "Fiery Game",
+        "archived": false,
+        "code": "QHQV-IU74",
+        "live": false,
+        "start_time": null,
+        "end_time": null,
+        "players": []
+    }
+},
+{
+    "model": "AmazingRaceApp.game",
+    "pk": 2,
+    "fields": {
+        "title": "Jewel of India",
+        "archived": false,
+        "code": "RIPM-VKBR",
+        "live": true,
+        "start_time": "2019-11-06T05:46:53.219Z",
+        "end_time": null,
+        "players": [
+            5,
+            7
+        ]
+    }
+},
+{
+    "model": "AmazingRaceApp.game",
+    "pk": 3,
+    "fields": {
+        "title": "Sydney Smashers",
+        "archived": false,
+        "code": "4Y1H-M4NX",
+        "live": false,
+        "start_time": null,
+        "end_time": null,
+        "players": []
+    }
+},
+{
+    "model": "AmazingRaceApp.game",
+    "pk": 4,
+    "fields": {
+        "title": "Sydney Suburbs",
+        "archived": false,
+        "code": "WS30-8FA3",
+        "live": true,
+        "start_time": "2019-11-06T05:49:54.069Z",
+        "end_time": null,
+        "players": [
+            1,
+            3
+        ]
+    }
+},
+{
+    "model": "AmazingRaceApp.game",
+    "pk": 5,
+    "fields": {
+        "title": "Apple",
+        "archived": false,
+        "code": "06RK-83RT",
+        "live": true,
+        "start_time": "2019-11-06T05:59:05.474Z",
+        "end_time": null,
+        "players": [
+            5,
+            8
+        ]
+    }
+},
+{
+    "model": "AmazingRaceApp.game",
+    "pk": 6,
+    "fields": {
+        "title": "iPhoneX",
+        "archived": false,
+        "code": "NVBI-MEGK",
+        "live": false,
+        "start_time": null,
+        "end_time": null,
+        "players": []
+    }
+},
+{
+    "model": "AmazingRaceApp.game",
+    "pk": 7,
+    "fields": {
+        "title": "Canva",
+        "archived": false,
+        "code": "13T2-JFRN",
+        "live": false,
+        "start_time": null,
+        "end_time": null,
+        "players": []
+    }
+},
+{
+    "model": "AmazingRaceApp.game",
+    "pk": 8,
+    "fields": {
+        "title": "Airtasker",
+        "archived": false,
+        "code": "9XMQ-FXYJ",
+        "live": true,
+        "start_time": "2019-11-06T06:07:56.098Z",
+        "end_time": null,
+        "players": [
+            1,
+            7
+        ]
+    }
+},
+{
+    "model": "AmazingRaceApp.game",
+    "pk": 9,
+    "fields": {
+        "title": "New Zealanders",
+        "archived": false,
+        "code": "4HNT-YR9O",
+        "live": true,
+        "start_time": "2019-11-06T06:10:20.904Z",
+        "end_time": null,
+        "players": [
+            3,
+            8
+        ]
+    }
+},
+{
+    "model": "AmazingRaceApp.game",
+    "pk": 10,
+    "fields": {
+        "title": "Australia",
+        "archived": false,
+        "code": "664P-RLCG",
+        "live": false,
+        "start_time": null,
+        "end_time": null,
+        "players": []
+    }
+}
+]

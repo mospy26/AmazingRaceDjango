@@ -1,0 +1,444 @@
+[
+{
+    "model": "AmazingRaceApp.location",
+    "pk": 1,
+    "fields": {
+        "name": "Sydney Opera House",
+        "clues": "The most famous place in Sydney...",
+        "longitude": "151.21527099609375",
+        "latitude": "-33.8569450378418",
+        "code": "IX2A-IDEL",
+        "game": 1,
+        "order": 1
+    }
+},
+{
+    "model": "AmazingRaceApp.location",
+    "pk": 2,
+    "fields": {
+        "name": "Sydney Cricket Ground",
+        "clues": "Crickets have great body colour...",
+        "longitude": "151.22471618652344",
+        "latitude": "-33.891666412353516",
+        "code": "NIAO-485X",
+        "game": 1,
+        "order": 2
+    }
+},
+{
+    "model": "AmazingRaceApp.location",
+    "pk": 3,
+    "fields": {
+        "name": "The Rocks Sydney",
+        "clues": "Whiskey on the rocks would be great",
+        "longitude": "151.20603942871094",
+        "latitude": "-33.85859680175781",
+        "code": "WRRC-W7DM",
+        "game": 1,
+        "order": 3
+    }
+},
+{
+    "model": "AmazingRaceApp.location",
+    "pk": 4,
+    "fields": {
+        "name": "Manly Beach Sydney",
+        "clues": "This game is very Manly..",
+        "longitude": "151.2884979248047",
+        "latitude": "-33.80760955810547",
+        "code": "U15F-1P3Q",
+        "game": 1,
+        "order": 4
+    }
+},
+{
+    "model": "AmazingRaceApp.location",
+    "pk": 5,
+    "fields": {
+        "name": "Marine Drive Mumbai",
+        "clues": "Mumbai's famous place.",
+        "longitude": "72.8245620727539",
+        "latitude": "18.946659088134766",
+        "code": "9V7D-2JZI",
+        "game": 2,
+        "order": 1
+    }
+},
+{
+    "model": "AmazingRaceApp.location",
+    "pk": 6,
+    "fields": {
+        "name": "Juhu Beach",
+        "clues": "Most famous Beach here in Mumbai",
+        "longitude": "72.82678985595703",
+        "latitude": "19.087310791015625",
+        "code": "6VK7-IG74",
+        "game": 2,
+        "order": 2
+    }
+},
+{
+    "model": "AmazingRaceApp.location",
+    "pk": 7,
+    "fields": {
+        "name": "Panvel",
+        "clues": "Is Mumbai New yet? Where are the mountains..?",
+        "longitude": "73.04640197753906",
+        "latitude": "19.00849723815918",
+        "code": "K2HI-E9AF",
+        "game": 2,
+        "order": 3
+    }
+},
+{
+    "model": "AmazingRaceApp.location",
+    "pk": 8,
+    "fields": {
+        "name": "Lonavala",
+        "clues": "Closest vacation spot near Mumbai",
+        "longitude": "73.40686798095703",
+        "latitude": "18.749309539794922",
+        "code": "I3XA-USAC",
+        "game": 2,
+        "order": 4
+    }
+},
+{
+    "model": "AmazingRaceApp.location",
+    "pk": 9,
+    "fields": {
+        "name": "Royal Prince Alfred Hospital Sydney Australia",
+        "clues": "This is my swamp abode...",
+        "longitude": "151.18214416503906",
+        "latitude": "-33.889610290527344",
+        "code": "684V-7K25",
+        "game": 3,
+        "order": 1
+    }
+},
+{
+    "model": "AmazingRaceApp.location",
+    "pk": 10,
+    "fields": {
+        "name": "University Of Sydney Camperdown Australia",
+        "clues": "Harry potter is at my Uni!",
+        "longitude": "151.1911",
+        "latitude": "-33.88567",
+        "code": "XEAA-XB91",
+        "game": 3,
+        "order": 2
+    }
+},
+{
+    "model": "AmazingRaceApp.location",
+    "pk": 11,
+    "fields": {
+        "name": "Broadway Shopping Center University Of Sydney Sydney Australia",
+        "clues": "Here is where I eat my food everyday and buy groceries...",
+        "longitude": "151.19312",
+        "latitude": "-33.88458",
+        "code": "89C5-KY0B",
+        "game": 3,
+        "order": 3
+    }
+},
+{
+    "model": "AmazingRaceApp.location",
+    "pk": 12,
+    "fields": {
+        "name": "Auburn Sydney",
+        "clues": "Botanical Gardens are not just in the city you know...",
+        "longitude": "151.0330047607422",
+        "latitude": "-33.849998474121094",
+        "code": "V4H7-GFEN",
+        "game": 4,
+        "order": 1
+    }
+},
+{
+    "model": "AmazingRaceApp.location",
+    "pk": 13,
+    "fields": {
+        "name": "Blacktown Sydney",
+        "clues": "This town is a black town but is not really black...",
+        "longitude": "150.91700744628906",
+        "latitude": "-33.766998291015625",
+        "code": "UFQ7-XMJO",
+        "game": 4,
+        "order": 2
+    }
+},
+{
+    "model": "AmazingRaceApp.location",
+    "pk": 14,
+    "fields": {
+        "name": "Merrylands Sydney",
+        "clues": "My best friend Edwin lives here....",
+        "longitude": "150.98724365234375",
+        "latitude": "-33.83599090576172",
+        "code": "C1TH-V2J5",
+        "game": 4,
+        "order": 3
+    }
+},
+{
+    "model": "AmazingRaceApp.location",
+    "pk": 15,
+    "fields": {
+        "name": "Redmond, Washington",
+        "clues": "microsoft",
+        "longitude": "-122.13157653808594",
+        "latitude": "47.67858123779297",
+        "code": "3TBU-2HZ5",
+        "game": 5,
+        "order": 1
+    }
+},
+{
+    "model": "AmazingRaceApp.location",
+    "pk": 16,
+    "fields": {
+        "name": "Cupertino, Califronia, Usa",
+        "clues": "Apple HQ",
+        "longitude": "-122.02928161621094",
+        "latitude": "37.3189582824707",
+        "code": "GBMW-SY01",
+        "game": 5,
+        "order": 2
+    }
+},
+{
+    "model": "AmazingRaceApp.location",
+    "pk": 17,
+    "fields": {
+        "name": "Menlo Park, California, Usa",
+        "clues": "Facebook HQ",
+        "longitude": "-122.17858123779297",
+        "latitude": "37.45532989501953",
+        "code": "ILNL-KZRZ",
+        "game": 5,
+        "order": 3
+    }
+},
+{
+    "model": "AmazingRaceApp.location",
+    "pk": 18,
+    "fields": {
+        "name": "Seattle, Washington, Usa",
+        "clues": "Amazon HQ",
+        "longitude": "-122.32945251464844",
+        "latitude": "47.60356903076172",
+        "code": "A33I-E7N4",
+        "game": 5,
+        "order": 4
+    }
+},
+{
+    "model": "AmazingRaceApp.location",
+    "pk": 19,
+    "fields": {
+        "name": "Stanford University",
+        "clues": "Prestigious Uni",
+        "longitude": "-122.1647720336914",
+        "latitude": "37.429630279541016",
+        "code": "GWKT-24VN",
+        "game": 6,
+        "order": 1
+    }
+},
+{
+    "model": "AmazingRaceApp.location",
+    "pk": 20,
+    "fields": {
+        "name": "Cambridge University",
+        "clues": "England Uni",
+        "longitude": "0.11760000139474869",
+        "latitude": "52.20417022705078",
+        "code": "0T8G-8UVJ",
+        "game": 6,
+        "order": 2
+    }
+},
+{
+    "model": "AmazingRaceApp.location",
+    "pk": 21,
+    "fields": {
+        "name": "Havard University",
+        "clues": "No 1 Uni",
+        "longitude": "-71.11811828613281",
+        "latitude": "42.37316131591797",
+        "code": "DE1V-9A57",
+        "game": 6,
+        "order": 3
+    }
+},
+{
+    "model": "AmazingRaceApp.location",
+    "pk": 22,
+    "fields": {
+        "name": "Oxford University England",
+        "clues": "Uni in England ",
+        "longitude": "-1.254889965057373",
+        "latitude": "51.754669189453125",
+        "code": "PR7F-SO1W",
+        "game": 6,
+        "order": 4
+    }
+},
+{
+    "model": "AmazingRaceApp.location",
+    "pk": 23,
+    "fields": {
+        "name": "Canva Surry Hills Sydney Australia",
+        "clues": "My Sydney Office",
+        "longitude": "151.21298217773438",
+        "latitude": "-33.879058837890625",
+        "code": "24Q9-72EG",
+        "game": 7,
+        "order": 1
+    }
+},
+{
+    "model": "AmazingRaceApp.location",
+    "pk": 24,
+    "fields": {
+        "name": "Deloitte 225 George St, Sydney Nsw 2000",
+        "clues": "Deloitted to be here",
+        "longitude": "151.207",
+        "latitude": "-33.86278",
+        "code": "4GL4-BHJ3",
+        "game": 7,
+        "order": 2
+    }
+},
+{
+    "model": "AmazingRaceApp.location",
+    "pk": 25,
+    "fields": {
+        "name": "Atlassian 341 George St, Sydney Nsw 2000",
+        "clues": "Birthplace of JIRA Agile",
+        "longitude": "151.20661",
+        "latitude": "-33.86727",
+        "code": "3U2Z-NVDE",
+        "game": 7,
+        "order": 3
+    }
+},
+{
+    "model": "AmazingRaceApp.location",
+    "pk": 26,
+    "fields": {
+        "name": "World Square, 680 George St, Sydney Nsw 2000",
+        "clues": "Free lancing happens here...",
+        "longitude": "151.2063",
+        "latitude": "-33.87743",
+        "code": "Z665-ELO9",
+        "game": 8,
+        "order": 1
+    }
+},
+{
+    "model": "AmazingRaceApp.location",
+    "pk": 27,
+    "fields": {
+        "name": "Google 48 Pirrama Rd, Sydney Nsw 2009",
+        "clues": "Google Boogle is here",
+        "longitude": "151.19579",
+        "latitude": "-33.86675",
+        "code": "INOC-7WH8",
+        "game": 8,
+        "order": 2
+    }
+},
+{
+    "model": "AmazingRaceApp.location",
+    "pk": 28,
+    "fields": {
+        "name": "Commonwealth Bank Darling Harbour",
+        "clues": "Common bank is in a Museum",
+        "longitude": "151.21105",
+        "latitude": "-33.87758",
+        "code": "F9NO-F899",
+        "game": 8,
+        "order": 3
+    }
+},
+{
+    "model": "AmazingRaceApp.location",
+    "pk": 29,
+    "fields": {
+        "name": "Skytower New Zealand",
+        "clues": "Tower to Skies",
+        "longitude": "174.7617950439453",
+        "latitude": "-36.84804153442383",
+        "code": "J4CD-Y6OK",
+        "game": 9,
+        "order": 1
+    }
+},
+{
+    "model": "AmazingRaceApp.location",
+    "pk": 30,
+    "fields": {
+        "name": "Aukland University",
+        "clues": "University in New Zealand",
+        "longitude": "174.77000427246094",
+        "latitude": "-36.849998474121094",
+        "code": "7KU1-S3XT",
+        "game": 9,
+        "order": 2
+    }
+},
+{
+    "model": "AmazingRaceApp.location",
+    "pk": 31,
+    "fields": {
+        "name": "Waikato New Zealand",
+        "clues": "Farm land is here",
+        "longitude": "175.0698699951172",
+        "latitude": "-37.54118347167969",
+        "code": "U2CB-S885",
+        "game": 9,
+        "order": 3
+    }
+},
+{
+    "model": "AmazingRaceApp.location",
+    "pk": 32,
+    "fields": {
+        "name": "Nelson New Zealand",
+        "clues": "City Not in Australia",
+        "longitude": "173.1446533203125",
+        "latitude": "-41.36006546020508",
+        "code": "6HOY-7ZWB",
+        "game": 10,
+        "order": 1
+    }
+},
+{
+    "model": "AmazingRaceApp.location",
+    "pk": 33,
+    "fields": {
+        "name": "Dunedin New Zealand",
+        "clues": "party place not in AUS",
+        "longitude": "170.49183654785156",
+        "latitude": "-45.880531311035156",
+        "code": "YUWX-Q9TH",
+        "game": 10,
+        "order": 2
+    }
+},
+{
+    "model": "AmazingRaceApp.location",
+    "pk": 34,
+    "fields": {
+        "name": "Christchurch New Zealand",
+        "clues": "Earthquake not in AUS",
+        "longitude": "172.63522338867188",
+        "latitude": "-43.52677917480469",
+        "code": "EPQ4-A46F",
+        "game": 10,
+        "order": 3
+    }
+}
+]

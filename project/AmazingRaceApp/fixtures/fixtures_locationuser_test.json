@@ -1,0 +1,128 @@
+[
+{
+    "model": "AmazingRaceApp.locationuser",
+    "pk": 1,
+    "fields": {
+        "time_visited": "2019-11-06T06:20:13.942Z",
+        "user": 1,
+        "location": 12
+    }
+},
+{
+    "model": "AmazingRaceApp.locationuser",
+    "pk": 2,
+    "fields": {
+        "time_visited": "2019-11-06T06:26:04.072Z",
+        "user": 7,
+        "location": 5
+    }
+},
+{
+    "model": "AmazingRaceApp.locationuser",
+    "pk": 3,
+    "fields": {
+        "time_visited": "2019-11-06T06:26:33.926Z",
+        "user": 7,
+        "location": 6
+    }
+},
+{
+    "model": "AmazingRaceApp.locationuser",
+    "pk": 4,
+    "fields": {
+        "time_visited": "2019-11-06T06:27:39.474Z",
+        "user": 5,
+        "location": 5
+    }
+},
+{
+    "model": "AmazingRaceApp.locationuser",
+    "pk": 5,
+    "fields": {
+        "time_visited": "2019-11-06T06:31:40.429Z",
+        "user": 3,
+        "location": 29
+    }
+},
+{
+    "model": "AmazingRaceApp.locationuser",
+    "pk": 6,
+    "fields": {
+        "time_visited": "2019-11-06T06:33:37.631Z",
+        "user": 7,
+        "location": 26
+    }
+},
+{
+    "model": "AmazingRaceApp.locationuser",
+    "pk": 7,
+    "fields": {
+        "time_visited": "2019-11-06T06:33:53.552Z",
+        "user": 7,
+        "location": 27
+    }
+},
+{
+    "model": "AmazingRaceApp.locationuser",
+    "pk": 8,
+    "fields": {
+        "time_visited": "2019-11-06T06:34:01.560Z",
+        "user": 7,
+        "location": 28
+    }
+},
+{
+    "model": "AmazingRaceApp.locationuser",
+    "pk": 9,
+    "fields": {
+        "time_visited": "2019-11-06T06:34:52.526Z",
+        "user": 1,
+        "location": 26
+    }
+},
+{
+    "model": "AmazingRaceApp.locationuser",
+    "pk": 10,
+    "fields": {
+        "time_visited": "2019-11-06T06:36:27.224Z",
+        "user": 8,
+        "location": 15
+    }
+},
+{
+    "model": "AmazingRaceApp.locationuser",
+    "pk": 11,
+    "fields": {
+        "time_visited": "2019-11-06T06:36:43.202Z",
+        "user": 8,
+        "location": 16
+    }
+},
+{
+    "model": "AmazingRaceApp.locationuser",
+    "pk": 12,
+    "fields": {
+        "time_visited": "2019-11-06T06:36:52.067Z",
+        "user": 8,
+        "location": 17
+    }
+},
+{
+    "model": "AmazingRaceApp.locationuser",
+    "pk": 13,
+    "fields": {
+        "time_visited": "2019-11-06T06:36:59.156Z",
+        "user": 8,
+        "location": 18
+    }
+},
+{
+    "model": "AmazingRaceApp.locationuser",
+    "pk": 14,
+    "fields": {
+        "time_visited": "2019-11-06T06:37:32.318Z",
+        "user": 5,
+        "location": 15
+    }
+}
+]
