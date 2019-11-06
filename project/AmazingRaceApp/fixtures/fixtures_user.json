@@ -76,7 +76,7 @@
     "pk": 7,
     "fields": {
         "password": "pbkdf2_sha256$150000$WVX10RE3bjsL$cCpHfUn/18iS5BjLpfcErIEYXAVLMeCe93Di8uynN+4=",
-        "last_login": null,
+        "last_login": "2019-11-06T05:47:14.903Z",
         "is_superuser": false,
         "username": "40wam",
         "first_name": "Calvin",
@@ -94,7 +94,7 @@
     "pk": 8,
     "fields": {
         "password": "pbkdf2_sha256$150000$GVgvyAeOc2Bn$ckaS89wR/0nHOMWarTSOJT++ZTAlTn6EyuTzoN7SfvI=",
-        "last_login": null,
+        "last_login": "2019-11-06T05:46:39.791Z",
         "is_superuser": false,
         "username": "securityguardandengineer",
         "first_name": "Mustafa",

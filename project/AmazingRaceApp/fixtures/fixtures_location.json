@@ -1,2 +1,184 @@
 [
+{
+    "model": "AmazingRaceApp.location",
+    "pk": 1,
+    "fields": {
+        "name": "Sydney Opera House",
+        "clues": "The most famous place in Sydney...",
+        "longitude": "151.21527099609375",
+        "latitude": "-33.8569450378418",
+        "code": "IX2A-IDEL",
+        "game": 1,
+        "order": 1
+    }
+},
+{
+    "model": "AmazingRaceApp.location",
+    "pk": 2,
+    "fields": {
+        "name": "Sydney Cricket Ground",
+        "clues": "Crickets have great body colour...",
+        "longitude": "151.22471618652344",
+        "latitude": "-33.891666412353516",
+        "code": "NIAO-485X",
+        "game": 1,
+        "order": 2
+    }
+},
+{
+    "model": "AmazingRaceApp.location",
+    "pk": 3,
+    "fields": {
+        "name": "The Rocks Sydney",
+        "clues": "Whiskey on the rocks would be great",
+        "longitude": "151.20603942871094",
+        "latitude": "-33.85859680175781",
+        "code": "WRRC-W7DM",
+        "game": 1,
+        "order": 3
+    }
+},
+{
+    "model": "AmazingRaceApp.location",
+    "pk": 4,
+    "fields": {
+        "name": "Manly Beach Sydney",
+        "clues": "This game is very Manly..",
+        "longitude": "151.2884979248047",
+        "latitude": "-33.80760955810547",
+        "code": "U15F-1P3Q",
+        "game": 1,
+        "order": 4
+    }
+},
+{
+    "model": "AmazingRaceApp.location",
+    "pk": 5,
+    "fields": {
+        "name": "Marine Drive Mumbai",
+        "clues": "Mumbai's famous place.",
+        "longitude": "72.8245620727539",
+        "latitude": "18.946659088134766",
+        "code": "9V7D-2JZI",
+        "game": 2,
+        "order": 1
+    }
+},
+{
+    "model": "AmazingRaceApp.location",
+    "pk": 6,
+    "fields": {
+        "name": "Juhu Beach",
+        "clues": "Most famous Beach here in Mumbai",
+        "longitude": "72.82678985595703",
+        "latitude": "19.087310791015625",
+        "code": "6VK7-IG74",
+        "game": 2,
+        "order": 2
+    }
+},
+{
+    "model": "AmazingRaceApp.location",
+    "pk": 7,
+    "fields": {
+        "name": "Panvel",
+        "clues": "Is Mumbai New yet? Where are the mountains..?",
+        "longitude": "73.04640197753906",
+        "latitude": "19.00849723815918",
+        "code": "K2HI-E9AF",
+        "game": 2,
+        "order": 3
+    }
+},
+{
+    "model": "AmazingRaceApp.location",
+    "pk": 8,
+    "fields": {
+        "name": "Lonavala",
+        "clues": "Closest vacation spot near Mumbai",
+        "longitude": "73.40686798095703",
+        "latitude": "18.749309539794922",
+        "code": "I3XA-USAC",
+        "game": 2,
+        "order": 4
+    }
+},
+{
+    "model": "AmazingRaceApp.location",
+    "pk": 9,
+    "fields": {
+        "name": "Royal Prince Alfred Hospital Sydney Australia",
+        "clues": "This is my swamp abode...",
+        "longitude": "151.18214416503906",
+        "latitude": "-33.889610290527344",
+        "code": "684V-7K25",
+        "game": 3,
+        "order": 1
+    }
+},
+{
+    "model": "AmazingRaceApp.location",
+    "pk": 10,
+    "fields": {
+        "name": "University Of Sydney Camperdown Australia",
+        "clues": "Harry potter is at my Uni!",
+        "longitude": "151.1911",
+        "latitude": "-33.88567",
+        "code": "XEAA-XB91",
+        "game": 3,
+        "order": 2
+    }
+},
+{
+    "model": "AmazingRaceApp.location",
+    "pk": 11,
+    "fields": {
+        "name": "Broadway Shopping Center University Of Sydney Sydney Australia",
+        "clues": "Here is where I eat my food everyday and buy groceries...",
+        "longitude": "151.19312",
+        "latitude": "-33.88458",
+        "code": "89C5-KY0B",
+        "game": 3,
+        "order": 3
+    }
+},
+{
+    "model": "AmazingRaceApp.location",
+    "pk": 12,
+    "fields": {
+        "name": "Auburn Sydney",
+        "clues": "Botanical Gardens are not just in the city you know...",
+        "longitude": "151.0330047607422",
+        "latitude": "-33.849998474121094",
+        "code": "V4H7-GFEN",
+        "game": 4,
+        "order": 1
+    }
+},
+{
+    "model": "AmazingRaceApp.location",
+    "pk": 13,
+    "fields": {
+        "name": "Blacktown Sydney",
+        "clues": "This town is a black town but is not really black...",
+        "longitude": "150.91700744628906",
+        "latitude": "-33.766998291015625",
+        "code": "UFQ7-XMJO",
+        "game": 4,
+        "order": 2
+    }
+},
+{
+    "model": "AmazingRaceApp.location",
+    "pk": 14,
+    "fields": {
+        "name": "Merrylands Sydney",
+        "clues": "My best friend Edwin lives here....",
+        "longitude": "150.98724365234375",
+        "latitude": "-33.83599090576172",
+        "code": "C1TH-V2J5",
+        "game": 4,
+        "order": 3
+    }
+}
 ]

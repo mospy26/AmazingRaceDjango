@@ -1,2 +1,54 @@
 [
+{
+    "model": "AmazingRaceApp.game",
+    "pk": 1,
+    "fields": {
+        "title": "Fiery Game",
+        "archived": false,
+        "code": "QHQV-IU74",
+        "live": false,
+        "start_time": null,
+        "end_time": null,
+        "players": []
+    }
+},
+{
+    "model": "AmazingRaceApp.game",
+    "pk": 2,
+    "fields": {
+        "title": "Jewel of India",
+        "archived": false,
+        "code": "RIPM-VKBR",
+        "live": true,
+        "start_time": "2019-11-06T05:46:53.219Z",
+        "end_time": null,
+        "players": []
+    }
+},
+{
+    "model": "AmazingRaceApp.game",
+    "pk": 3,
+    "fields": {
+        "title": "Sydney Smashers",
+        "archived": false,
+        "code": "4Y1H-M4NX",
+        "live": false,
+        "start_time": null,
+        "end_time": null,
+        "players": []
+    }
+},
+{
+    "model": "AmazingRaceApp.game",
+    "pk": 4,
+    "fields": {
+        "title": "Sydney Suburbs",
+        "archived": false,
+        "code": "WS30-8FA3",
+        "live": true,
+        "start_time": "2019-11-06T05:49:54.069Z",
+        "end_time": null,
+        "players": []
+    }
+}
 ]
