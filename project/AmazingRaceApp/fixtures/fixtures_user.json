@@ -4,7 +4,7 @@
     "pk": 1,
     "fields": {
         "password": "pbkdf2_sha256$150000$A7v6SBhkvW7v$0LhZ1BrVMg7CBuVi/dBIbIG0GSX7D7I+PH+zpO7DlNU=",
-        "last_login": "2019-11-06T05:56:36.953Z",
+        "last_login": "2019-11-06T06:34:18.111Z",
         "is_superuser": false,
         "username": "johnnyappleseed",
         "first_name": "John",
@@ -22,7 +22,7 @@
     "pk": 3,
     "fields": {
         "password": "pbkdf2_sha256$150000$yBSaNrzgmcMT$ZJw3igu87/EK4yxP4M9ZB1CNr7+UxbYmW+/J7+JoLOk=",
-        "last_login": "2019-11-06T06:02:02.461Z",
+        "last_login": "2019-11-06T06:30:01.975Z",
         "is_superuser": false,
         "username": "pleasehiremefreelancer",
         "first_name": "David",
@@ -40,9 +40,9 @@
     "pk": 5,
     "fields": {
         "password": "pbkdf2_sha256$150000$BqYU5SNA60xd$VZGUFTEIsaZ4P+D+n9X2A3ArM/bLKItV7VrunGc19jw=",
-        "last_login": "2019-11-06T06:08:20.794Z",
+        "last_login": "2019-11-06T06:37:14.829Z",
         "is_superuser": false,
-        "username": "goodprimeminster",
+        "username": "goodprimeminister",
         "first_name": "Jacinda",
         "last_name": "Arden",
         "email": "",
@@ -76,7 +76,7 @@
     "pk": 7,
     "fields": {
         "password": "pbkdf2_sha256$150000$WVX10RE3bjsL$cCpHfUn/18iS5BjLpfcErIEYXAVLMeCe93Di8uynN+4=",
-        "last_login": "2019-11-06T05:47:14.903Z",
+        "last_login": "2019-11-06T06:33:10.934Z",
         "is_superuser": false,
         "username": "40wam",
         "first_name": "Calvin",
@@ -94,7 +94,7 @@
     "pk": 8,
     "fields": {
         "password": "pbkdf2_sha256$150000$GVgvyAeOc2Bn$ckaS89wR/0nHOMWarTSOJT++ZTAlTn6EyuTzoN7SfvI=",
-        "last_login": "2019-11-06T05:46:39.791Z",
+        "last_login": "2019-11-06T06:35:19.316Z",
         "is_superuser": false,
         "username": "securityguardandengineer",
         "first_name": "Mustafa",

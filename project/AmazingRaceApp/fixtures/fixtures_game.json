@@ -22,7 +22,10 @@
         "live": true,
         "start_time": "2019-11-06T05:46:53.219Z",
         "end_time": null,
-        "players": []
+        "players": [
+            5,
+            7
+        ]
     }
 },
 {
@@ -48,7 +51,10 @@
         "live": true,
         "start_time": "2019-11-06T05:49:54.069Z",
         "end_time": null,
-        "players": []
+        "players": [
+            1,
+            3
+        ]
     }
 },
 {
@@ -61,7 +67,10 @@
         "live": true,
         "start_time": "2019-11-06T05:59:05.474Z",
         "end_time": null,
-        "players": []
+        "players": [
+            5,
+            8
+        ]
     }
 },
 {
@@ -100,7 +109,10 @@
         "live": true,
         "start_time": "2019-11-06T06:07:56.098Z",
         "end_time": null,
-        "players": []
+        "players": [
+            1,
+            7
+        ]
     }
 },
 {
@@ -113,7 +125,10 @@
         "live": true,
         "start_time": "2019-11-06T06:10:20.904Z",
         "end_time": null,
-        "players": []
+        "players": [
+            3,
+            8
+        ]
     }
 },
 {
