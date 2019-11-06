@@ -348,6 +348,9 @@ class GameCreationListView(LoginRequiredMixin, generic.TemplateView):
         if not self.game_creator.is_authorized_to_access_game(kwargs['code']):
             return handler(request, 404)
 
+        if not self.game_creator.can_change_game(kwargs['code']):
+            return handler(request, 404)
+
         if 'title' in request.POST.keys() and 'code' in kwargs.keys():
             return self._update_title_post_request(request, **kwargs)
         elif 'location_order' in request.POST.keys():
@@ -461,7 +464,7 @@ class LocationListView(LoginRequiredMixin, generic.TemplateView):
         if not self.creator.is_authorized_to_access_game(request.POST['game_code']):
             return handler(request, 404)
 
-        if 'delete_location_code' in request.POST.keys():
+        if 'delete_location_code' in request.POST.keys() and self.creator.can_change_game(request.POST['code']):
             return self._delete_location(request, game_code, request.POST['delete_location_code'],
                                          self.locations.get_location_by_code(location_code))
         if 'code' in request.POST.keys():

@@ -9,7 +9,7 @@ class DeleteLocationTest(DatabaseRequiredTests):
         super(DeleteLocationTest, self).setUp()
         self.maps = MapsMiddleware()
 
-    def test_can_delete_location_of_not_published_game_of_yours(self):
+    def test_can_delete_location_of_unpublished_game_of_yours(self):
         maps = MapsMiddleware()
         creator_middleware = GameCreatorMiddleware(self.david.username)
         self.assertTrue(creator_middleware.is_authorized_to_access_game("13T2-JFRN"))
@@ -20,28 +20,26 @@ class DeleteLocationTest(DatabaseRequiredTests):
         self.assertTrue(maps.delete_location("13T2-JFRN", "24Q9-72EG"), "ERROR! Cannot delete location of an "
                                                                         "unpublished game of yours")
 
-    def test_can_delete_location_of_live_game_of_yours(self):
+    def test_cannot_delete_location_of_live_game_of_yours(self):
         creator_middleware = GameCreatorMiddleware(self.david.username)
         self.assertTrue(creator_middleware.is_authorized_to_access_game("9XMQ-FXYJ"))
 
-        # delete location
-        # we know that if this delete_location returned true, the location order also got refactored correctly
-        # due to the implementation of this function
-        self.assertTrue(self.maps.delete_location("9XMQ-FXYJ", "INOC-7WH8"), "ERROR! Cannot delete location of a live "
-                                                                             "game of yours")
+        # delete location we know that if can_change_game returns False, the post request wont succeed and the
+        # location cannot be deleted
+        self.assertFalse(creator_middleware.can_change_game("9XMQ-FXYJ"),
+                         "ERROR! User can change game even if it's live")
 
-    def test_can_delete_location_of_archived_game_of_yours(self):
+    def test_cannot_delete_location_of_archived_game_of_yours(self):
         creator_middleware = GameCreatorMiddleware(self.david.username)
         self.assertTrue(creator_middleware.is_authorized_to_access_game("9XMQ-FXYJ"))
 
         # archive the game
         creator_middleware.stop_game("9XMQ-FXYJ")
 
-        # delete location
-        # we know that if this delete_location returned true, the location order also got refactored correctly
-        # due to the implementation of this function
-        self.assertTrue(self.maps.delete_location("9XMQ-FXYJ", "INOC-7WH8"), "ERROR! Cannot delete location of an "
-                                                                             "archived game of yours")
+        # delete location we know that if can_change_game returns False, the post request wont succeed and the
+        # location cannot be deleted
+        self.assertFalse(creator_middleware.can_change_game("9XMQ-FXYJ"),
+                         "ERROR! User can change game even if it's archived")
 
     def test_cannot_delete_location_of_game_of_another_creator(self):
         creator_middleware = GameCreatorMiddleware(self.david.username)

@@ -33,9 +33,7 @@ class CreateNewGameTest(DatabaseRequiredTests):
 
     def test_create_game_title_not_submitted(self):
         title = "a" * 51
-        form = forms.GameTitleForm({
-            'title': title,
-        })
+        form_data = {'title': title}
+        form = forms.GameTitleForm(form_data)
 
         self.assertFalse(form.is_valid(), "ERROR! Supposedly invalid game creation form is valid?")
-

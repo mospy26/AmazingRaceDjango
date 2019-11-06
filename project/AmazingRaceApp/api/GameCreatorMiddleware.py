@@ -107,6 +107,12 @@ class GameCreatorMiddleware:
             return False
         return GameCreator.objects.filter(game=_GameMiddleware(code).game, creator=self.user).exists()
 
+    def can_change_game(self, code):
+        game = _GameMiddleware(code)
+        if not self.is_authorized_to_access_game(code):
+            return False
+        return False if game.game.archived or game.game.live else True
+
     def get_game(self, code):
         if self.is_authorized_to_access_game(code):
             game = _GameMiddleware(code)
