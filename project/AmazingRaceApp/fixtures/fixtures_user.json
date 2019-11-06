@@ -4,15 +4,15 @@
     "pk": 1,
     "fields": {
         "password": "pbkdf2_sha256$150000$A7v6SBhkvW7v$0LhZ1BrVMg7CBuVi/dBIbIG0GSX7D7I+PH+zpO7DlNU=",
-        "last_login": "2019-11-06T05:03:23.576Z",
+        "last_login": "2019-11-06T05:56:36.953Z",
         "is_superuser": false,
-        "username": "johnnyappleseed@apple.com",
+        "username": "johnnyappleseed",
         "first_name": "John",
         "last_name": "Doe",
         "email": "",
         "is_staff": false,
         "is_active": true,
-        "date_joined": "2019-11-06T05:03:13.423Z",
+        "date_joined": "2019-11-06T05:03:13Z",
         "groups": [],
         "user_permissions": []
     }
@@ -22,7 +22,7 @@
     "pk": 3,
     "fields": {
         "password": "pbkdf2_sha256$150000$yBSaNrzgmcMT$ZJw3igu87/EK4yxP4M9ZB1CNr7+UxbYmW+/J7+JoLOk=",
-        "last_login": "2019-11-06T05:08:10.287Z",
+        "last_login": "2019-11-06T06:02:02.461Z",
         "is_superuser": false,
         "username": "pleasehiremefreelancer",
         "first_name": "David",
@@ -40,7 +40,7 @@
     "pk": 5,
     "fields": {
         "password": "pbkdf2_sha256$150000$BqYU5SNA60xd$VZGUFTEIsaZ4P+D+n9X2A3ArM/bLKItV7VrunGc19jw=",
-        "last_login": null,
+        "last_login": "2019-11-06T06:08:20.794Z",
         "is_superuser": false,
         "username": "goodprimeminster",
         "first_name": "Jacinda",
@@ -58,7 +58,7 @@
     "pk": 6,
     "fields": {
         "password": "pbkdf2_sha256$150000$u0ww94Ss0sb7$Fwq9gjeVRVBMYBRCr4WBBSEgaEHxramw8jzc28QPHNk=",
-        "last_login": "2019-11-06T05:19:04.141Z",
+        "last_login": "2019-11-06T05:56:20.717Z",
         "is_superuser": true,
         "username": "admin",
         "first_name": "",

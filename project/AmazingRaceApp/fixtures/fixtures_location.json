@@ -180,5 +180,265 @@
         "game": 4,
         "order": 3
     }
+},
+{
+    "model": "AmazingRaceApp.location",
+    "pk": 15,
+    "fields": {
+        "name": "Redmond, Washington",
+        "clues": "microsoft",
+        "longitude": "-122.13157653808594",
+        "latitude": "47.67858123779297",
+        "code": "3TBU-2HZ5",
+        "game": 5,
+        "order": 1
+    }
+},
+{
+    "model": "AmazingRaceApp.location",
+    "pk": 16,
+    "fields": {
+        "name": "Cupertino, Califronia, Usa",
+        "clues": "Apple HQ",
+        "longitude": "-122.02928161621094",
+        "latitude": "37.3189582824707",
+        "code": "GBMW-SY01",
+        "game": 5,
+        "order": 2
+    }
+},
+{
+    "model": "AmazingRaceApp.location",
+    "pk": 17,
+    "fields": {
+        "name": "Menlo Park, California, Usa",
+        "clues": "Facebook HQ",
+        "longitude": "-122.17858123779297",
+        "latitude": "37.45532989501953",
+        "code": "ILNL-KZRZ",
+        "game": 5,
+        "order": 3
+    }
+},
+{
+    "model": "AmazingRaceApp.location",
+    "pk": 18,
+    "fields": {
+        "name": "Seattle, Washington, Usa",
+        "clues": "Amazon HQ",
+        "longitude": "-122.32945251464844",
+        "latitude": "47.60356903076172",
+        "code": "A33I-E7N4",
+        "game": 5,
+        "order": 4
+    }
+},
+{
+    "model": "AmazingRaceApp.location",
+    "pk": 19,
+    "fields": {
+        "name": "Stanford University",
+        "clues": "Prestigious Uni",
+        "longitude": "-122.1647720336914",
+        "latitude": "37.429630279541016",
+        "code": "GWKT-24VN",
+        "game": 6,
+        "order": 1
+    }
+},
+{
+    "model": "AmazingRaceApp.location",
+    "pk": 20,
+    "fields": {
+        "name": "Cambridge University",
+        "clues": "England Uni",
+        "longitude": "0.11760000139474869",
+        "latitude": "52.20417022705078",
+        "code": "0T8G-8UVJ",
+        "game": 6,
+        "order": 2
+    }
+},
+{
+    "model": "AmazingRaceApp.location",
+    "pk": 21,
+    "fields": {
+        "name": "Havard University",
+        "clues": "No 1 Uni",
+        "longitude": "-71.11811828613281",
+        "latitude": "42.37316131591797",
+        "code": "DE1V-9A57",
+        "game": 6,
+        "order": 3
+    }
+},
+{
+    "model": "AmazingRaceApp.location",
+    "pk": 22,
+    "fields": {
+        "name": "Oxford University England",
+        "clues": "Uni in England ",
+        "longitude": "-1.254889965057373",
+        "latitude": "51.754669189453125",
+        "code": "PR7F-SO1W",
+        "game": 6,
+        "order": 4
+    }
+},
+{
+    "model": "AmazingRaceApp.location",
+    "pk": 23,
+    "fields": {
+        "name": "Canva Surry Hills Sydney Australia",
+        "clues": "My Sydney Office",
+        "longitude": "151.21298217773438",
+        "latitude": "-33.879058837890625",
+        "code": "24Q9-72EG",
+        "game": 7,
+        "order": 1
+    }
+},
+{
+    "model": "AmazingRaceApp.location",
+    "pk": 24,
+    "fields": {
+        "name": "Deloitte 225 George St, Sydney Nsw 2000",
+        "clues": "Deloitted to be here",
+        "longitude": "151.207",
+        "latitude": "-33.86278",
+        "code": "4GL4-BHJ3",
+        "game": 7,
+        "order": 2
+    }
+},
+{
+    "model": "AmazingRaceApp.location",
+    "pk": 25,
+    "fields": {
+        "name": "Atlassian 341 George St, Sydney Nsw 2000",
+        "clues": "Birthplace of JIRA Agile",
+        "longitude": "151.20661",
+        "latitude": "-33.86727",
+        "code": "3U2Z-NVDE",
+        "game": 7,
+        "order": 3
+    }
+},
+{
+    "model": "AmazingRaceApp.location",
+    "pk": 26,
+    "fields": {
+        "name": "World Square, 680 George St, Sydney Nsw 2000",
+        "clues": "Free lancing happens here...",
+        "longitude": "151.2063",
+        "latitude": "-33.87743",
+        "code": "Z665-ELO9",
+        "game": 8,
+        "order": 1
+    }
+},
+{
+    "model": "AmazingRaceApp.location",
+    "pk": 27,
+    "fields": {
+        "name": "Google 48 Pirrama Rd, Sydney Nsw 2009",
+        "clues": "Google Boogle is here",
+        "longitude": "151.19579",
+        "latitude": "-33.86675",
+        "code": "INOC-7WH8",
+        "game": 8,
+        "order": 2
+    }
+},
+{
+    "model": "AmazingRaceApp.location",
+    "pk": 28,
+    "fields": {
+        "name": "Commonwealth Bank Darling Harbour",
+        "clues": "Common bank is in a Museum",
+        "longitude": "151.21105",
+        "latitude": "-33.87758",
+        "code": "F9NO-F899",
+        "game": 8,
+        "order": 3
+    }
+},
+{
+    "model": "AmazingRaceApp.location",
+    "pk": 29,
+    "fields": {
+        "name": "Skytower New Zealand",
+        "clues": "Tower to Skies",
+        "longitude": "174.7617950439453",
+        "latitude": "-36.84804153442383",
+        "code": "J4CD-Y6OK",
+        "game": 9,
+        "order": 1
+    }
+},
+{
+    "model": "AmazingRaceApp.location",
+    "pk": 30,
+    "fields": {
+        "name": "Aukland University",
+        "clues": "University in New Zealand",
+        "longitude": "174.77000427246094",
+        "latitude": "-36.849998474121094",
+        "code": "7KU1-S3XT",
+        "game": 9,
+        "order": 2
+    }
+},
+{
+    "model": "AmazingRaceApp.location",
+    "pk": 31,
+    "fields": {
+        "name": "Waikato New Zealand",
+        "clues": "Farm land is here",
+        "longitude": "175.0698699951172",
+        "latitude": "-37.54118347167969",
+        "code": "U2CB-S885",
+        "game": 9,
+        "order": 3
+    }
+},
+{
+    "model": "AmazingRaceApp.location",
+    "pk": 32,
+    "fields": {
+        "name": "Nelson New Zealand",
+        "clues": "City Not in Australia",
+        "longitude": "173.1446533203125",
+        "latitude": "-41.36006546020508",
+        "code": "6HOY-7ZWB",
+        "game": 10,
+        "order": 1
+    }
+},
+{
+    "model": "AmazingRaceApp.location",
+    "pk": 33,
+    "fields": {
+        "name": "Dunedin New Zealand",
+        "clues": "party place not in AUS",
+        "longitude": "170.49183654785156",
+        "latitude": "-45.880531311035156",
+        "code": "YUWX-Q9TH",
+        "game": 10,
+        "order": 2
+    }
+},
+{
+    "model": "AmazingRaceApp.location",
+    "pk": 34,
+    "fields": {
+        "name": "Christchurch New Zealand",
+        "clues": "Earthquake not in AUS",
+        "longitude": "172.63522338867188",
+        "latitude": "-43.52677917480469",
+        "code": "EPQ4-A46F",
+        "game": 10,
+        "order": 3
+    }
 }
 ]
