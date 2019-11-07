@@ -348,7 +348,7 @@ class GameCreationListView(LoginRequiredMixin, generic.TemplateView):
         if not self.game_creator.is_authorized_to_access_game(kwargs['code']):
             return handler(request, 404)
 
-        if not self.game_creator.can_change_game(kwargs['code']):
+        if not self.game_creator.can_change_game(kwargs['code']) and 'game_stop' not in request.POST.keys():
             return handler(request, 404)
 
         if 'title' in request.POST.keys() and 'code' in kwargs.keys():
@@ -458,17 +458,18 @@ class LocationListView(LoginRequiredMixin, generic.TemplateView):
     def post(self, request, game_code, location_code, *args, **kwargs):
         self.locations = GameCreatorMiddleware(request.user.username)
         self.game = _GameMiddleware(game_code)
-        self.creator = GameCreatorMiddleware(request.user)
         self.maps = MapsMiddleware()
 
-        if not self.creator.is_authorized_to_access_game(request.POST['game_code']):
+        if not self.locations.is_authorized_to_access_game(request.POST['game_code']):
             return handler(request, 404)
 
-        if 'delete_location_code' in request.POST.keys() and self.creator.can_change_game(request.POST['code']):
+        if 'delete_location_code' in request.POST.keys() and self.locations.can_change_game(request.POST['game_code']):
             return self._delete_location(request, game_code, request.POST['delete_location_code'],
                                          self.locations.get_location_by_code(location_code))
         if 'code' in request.POST.keys():
             return self._change_clue(request, request.POST['game_code'], request.POST['code'], *args, **kwargs)
+
+        return handler(request, 404)
 
     # Delete a location from a game
     # Paramaters:

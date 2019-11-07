@@ -41,7 +41,7 @@ class TestCreateNewUser(DatabaseRequiredTests):
             'password2': "mynameishelloworld123"
         })
 
-        self.assertFalse(form.is_valid())
+        self.assertFalse(form.is_valid(), "ERROR! Register Form working with duplicate usernames?")
 
     def test_register_user_form_should_not_work_with_weak_password(self):
         form = forms.RegisterForm({
@@ -52,7 +52,7 @@ class TestCreateNewUser(DatabaseRequiredTests):
             'password2': "he"
         })
 
-        self.assertFalse(form.is_valid())
+        self.assertFalse(form.is_valid(), "ERROR! Register Form working with weak passwords")
 
     def test_register_user_form_should_not_work_with_not_matching_passwords(self):
         form = forms.RegisterForm({
@@ -63,15 +63,15 @@ class TestCreateNewUser(DatabaseRequiredTests):
             'password2': "notmachingpasswords"
         })
 
-        self.assertFalse(form.is_valid())
+        self.assertFalse(form.is_valid(), "ERROR! Register Form working with non matching passwords?")
 
     def test_register_user_form_should_not_work_with_empty_username(self):
         form = forms.RegisterForm({
             'first_name': "Hello",
             'last_name': "World",
             'username': "",
-            'password1': "mynameishelloworld123",  # non matching passwords
-            'password2': "notmachingpasswords"
+            'password1': "mynameishelloworld123",
+            'password2': "mynameishelloworld123"
         })
 
-        self.assertFalse(form.is_valid())
+        self.assertFalse(form.is_valid(), "ERROR! Register Form working with empty username?")
